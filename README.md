@@ -22,7 +22,7 @@ A simple search on Google Web :
 use SearchEngineCrawler\Engine\Google\Web as GoogleWeb;
 
 $google = new GoogleWeb();
-$resultsSet = $google->crawl('zend framework', array(
+$resultsSet = $google->crawl('rooney', array(
     'links' => array('natural', 'image', 'video'),
     'localisation' => array('lang' => 'fr'),
 ));
@@ -33,3 +33,26 @@ foreach($resultsSet as $position => $result) {
     echo 'ad       :' . $result->getAd();
 }
 ```
+Features
+------------
+
+You can crawl :
+* Google Web (Natural, image & video link)
+
+
+Todo
+------------
+
+Crawl on :
+* Google Web (Product, maps, news, shooping & premium link)
+* Google Images
+* Google Video
+* Bing Web
+
+Other stuff:
+* Crawler matcher
+* Crawler with proxy
+* Crawler with pagination
+* Crawler with Zend\Client
+* Link builder
+* Improve workflow with event manager
