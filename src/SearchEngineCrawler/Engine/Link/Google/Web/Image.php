@@ -15,11 +15,23 @@ class Image extends AbstractLink
         $domQuery = $this->getDomQuery();
         $domQuery->setDocumentHtml($source);
         $nodes = $domQuery->queryXpath('//div[@id="ires"]//li[@id="imagebox_bigimages"]//ul[@class="rg_ul"]/li');
+        
         foreach($nodes as $node) {
+            // get image node
+            $nodePath = $node->getNodePath();
+            $nodePath .= '/a/img';
+            $image = $domQuery->queryXpath($nodePath);
+            $image = $image->current();
+            if(null === $image) {
+                continue; // not a image link
+            }
+            $link = $image->parentNode;
+            // create datas
             $result = new ImageResult(array(
                 'position' => $node->getLineNo(),
                 'ad' => $node->ownerDocument->saveHtml($node),
-                'link' => 'http://www.ebay.fr',
+                'link' => $link->getAttribute('href'),
+                'image' => $image->getAttribute('src'),
             ));
             $results->append($result);
         }

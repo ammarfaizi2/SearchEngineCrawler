@@ -9,6 +9,9 @@ Introduction
 SearchEngineCrawler is a SEO/SEA crawler.
 Actually, just a draft.
 
+Requirement
+------------
+libxml2 >= 2.7.8
 
 Usage
 ------------

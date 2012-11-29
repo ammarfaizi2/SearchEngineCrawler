@@ -16,9 +16,9 @@ class WebTest extends TestCase
         $google->setCrawler($crawler);
         $resultsSet = $google->crawl('zend framework', array(
             'links' => array('natural'),
-            'localisation' => array('lang' => 'fr'),
+            'location' => array('lang' => 'fr'),
         ));
-        $this->assertEquals(10, count($resultsSet));
+        $this->assertEquals(10, count($resultsSet)); // 10 natural links
         $keys = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
         $this->assertEquals($keys, array_keys($resultsSet->getArrayCopy()));
     }
@@ -29,12 +29,12 @@ class WebTest extends TestCase
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);
-        $resultsSet = $google->crawl('zend framework', array(
+        $resultsSet = $google->crawl('rooney', array(
             'links' => array('natural', 'image', 'video'),
-            'localisation' => array('lang' => 'fr'),
+            'location' => array('lang' => 'fr'),
         ));
-        $this->assertEquals(14, count($resultsSet));
-        $keys = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
+        $this->assertEquals(15, count($resultsSet)); // 7 natural links, 5 images, 3 videos
+        $keys = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
         $this->assertEquals($keys, array_keys($resultsSet->getArrayCopy()));
     }
 }
