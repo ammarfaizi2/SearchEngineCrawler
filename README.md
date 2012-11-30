@@ -11,7 +11,10 @@ Actually, just a draft.
 
 Requirement
 ------------
-libxml2 >= 2.7.8, see your version with
+* PHP 5.3.3
+* ZF2.0.0
+* libxml2 >= 2.7.8, see your version with
+
 ```php
 php -r "phpinfo();" | grep "libxml2"
 ```
