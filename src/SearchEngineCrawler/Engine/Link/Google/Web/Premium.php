@@ -3,10 +3,10 @@
 namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
-use SearchEngineCrawler\ResultSet\Link\Result\Video as VideoResult;
+use SearchEngineCrawler\ResultSet\Link\Result\Premium as PremiumResult;
 use SearchEngineCrawler\ResultSet\Link\ResultSet;
 
-class Video extends AbstractLink
+class Premium extends AbstractLink
 {
     public function detect(&$source)
     {
@@ -14,30 +14,21 @@ class Video extends AbstractLink
 
         $domQuery = $this->getDomQuery();
         $domQuery->setDocumentHtml($source);
-        $nodes = $domQuery->queryXpath('//div[@id="ires"]//li[@class="g"]');
+        $nodes = $domQuery->queryXpath('//div[@id="tads"]/ol/li');
         foreach($nodes as $node) {
-            // get image node
-            $nodePath = $node->getNodePath();
-            $nodePath .= '//img[starts-with(@id,"vidthumb")]';
-            $link = $domQuery->queryXpath($nodePath)->current();
-            if(null === $link) {
-                continue; // not a video link
-            }
             // get link node
             $nodePath = $node->getNodePath();
-            $nodePath .= '/div[@class="vsc"]//h3[@class="r"]/a[@class="l"]';
+            $nodePath .= '/div/h3/a';
             $link = $domQuery->queryXpath($nodePath)->current();
-            // get image node
-            $nodePath = $node->getNodePath();
-            $nodePath .= '//img[starts-with(@id,"vidthumb")]';
-            $image = $domQuery->queryXpath($nodePath)->current();
+            if(null === $link) {
+                continue; // not a natural link
+            }
             // create datas
-            $result = new VideoResult(array(
+            $result = new PremiumResult(array(
                 'position' => $node->getLineNo(),
                 'ad' => $node->ownerDocument->saveHtml($node),
                 'link' => $link->getAttribute('href'),
                 'anchor' => $link->textContent,
-                'image' => $image->getAttribute('src'),
             ));
             $results->append($result);
         }

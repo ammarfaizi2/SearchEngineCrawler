@@ -3,10 +3,10 @@
 namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
-use SearchEngineCrawler\ResultSet\Link\Result\Video as VideoResult;
+use SearchEngineCrawler\ResultSet\Link\Result\Map as MapResult;
 use SearchEngineCrawler\ResultSet\Link\ResultSet;
 
-class Video extends AbstractLink
+class Map extends AbstractLink
 {
     public function detect(&$source)
     {
@@ -16,28 +16,34 @@ class Video extends AbstractLink
         $domQuery->setDocumentHtml($source);
         $nodes = $domQuery->queryXpath('//div[@id="ires"]//li[@class="g"]');
         foreach($nodes as $node) {
-            // get image node
-            $nodePath = $node->getNodePath();
-            $nodePath .= '//img[starts-with(@id,"vidthumb")]';
-            $link = $domQuery->queryXpath($nodePath)->current();
-            if(null === $link) {
-                continue; // not a video link
-            }
             // get link node
             $nodePath = $node->getNodePath();
-            $nodePath .= '/div[@class="vsc"]//h3[@class="r"]/a[@class="l"]';
+            $nodePath .= '/div[contains(@data-extra, "lumarker")]/h3[@class="r"]/a[@class="l"]';
             $link = $domQuery->queryXpath($nodePath)->current();
-            // get image node
+            if(null === $link) {
+                continue; // not a map link
+            }
+            // get address
             $nodePath = $node->getNodePath();
-            $nodePath .= '//img[starts-with(@id,"vidthumb")]';
-            $image = $domQuery->queryXpath($nodePath)->current();
+            $nodePath .= '/div[contains(@data-extra, "lumarker=")]//table[contains(@class, "intrlu")]//td';
+            $address = $domQuery->queryXpath($nodePath);
+            if($address->count() < 2) {
+                continue; // not a address link
+            }
+            $map = $address->current();
+            $address = $address->next();
+            // get map link
+            $nodePath = $map->getNodePath();
+            $nodePath .= '//a';
+            $map = $domQuery->queryXpath($nodePath)->current();
             // create datas
-            $result = new VideoResult(array(
+            $result = new MapResult(array(
                 'position' => $node->getLineNo(),
                 'ad' => $node->ownerDocument->saveHtml($node),
                 'link' => $link->getAttribute('href'),
                 'anchor' => $link->textContent,
-                'image' => $image->getAttribute('src'),
+                'address' => $address->textContent,
+                'map' => $map->getAttribute('href'),
             ));
             $results->append($result);
         }

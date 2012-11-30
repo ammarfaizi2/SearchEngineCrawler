@@ -1,6 +1,6 @@
 <?php
 
-namespace SearchEngineCrawler\ResultSet;
+namespace SearchEngineCrawler\ResultSet\Link;
 
 interface ResultInterface
 {

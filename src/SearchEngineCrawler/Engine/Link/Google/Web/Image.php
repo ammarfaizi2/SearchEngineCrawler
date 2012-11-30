@@ -3,8 +3,8 @@
 namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
-use SearchEngineCrawler\ResultSet\Result\Image as ImageResult;
-use SearchEngineCrawler\ResultSet\ResultSet;
+use SearchEngineCrawler\ResultSet\Link\Result\Image as ImageResult;
+use SearchEngineCrawler\ResultSet\Link\ResultSet;
 
 class Image extends AbstractLink
 {
@@ -15,13 +15,12 @@ class Image extends AbstractLink
         $domQuery = $this->getDomQuery();
         $domQuery->setDocumentHtml($source);
         $nodes = $domQuery->queryXpath('//div[@id="ires"]//li[@id="imagebox_bigimages"]//ul[@class="rg_ul"]/li');
-        
+
         foreach($nodes as $node) {
             // get image node
             $nodePath = $node->getNodePath();
             $nodePath .= '/a/img';
-            $image = $domQuery->queryXpath($nodePath);
-            $image = $image->current();
+            $image = $domQuery->queryXpath($nodePath)->current();
             if(null === $image) {
                 continue; // not a image link
             }

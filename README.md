@@ -19,32 +19,34 @@ Usage
 A simple search on Google Web :
 
 ```php
-use SearchEngineCrawler\Engine\Google\Web as GoogleWeb;
-
-$google = new GoogleWeb();
-$resultsSet = $google->crawl('rooney', array(
+$googleWeb = $this->getServiceLocator('crawler_google_web');
+$pageSet = $googleWeb->crawl('rooney', array(
     'links' => array('natural', 'image', 'video'),
     'localisation' => array('lang' => 'fr'),
 ));
+$linkSet = $pageSet->getPage(1);
 
-foreach($resultsSet as $position => $result) {
-    echo 'position :' . ($position+1);
-    echo 'link     :' . $result->getLink();
-    echo 'ad       :' . $result->getAd();
+echo sprintf('There are %s natural links !', count($linkSet->getNaturalResults()));
+echo sprintf('There are %s image links !', count($linkSet->getImageResults()));
+echo sprintf('There are %s video links !', count($linkSet->getVideoResults()));
+
+foreach($linkSet as $position => $result) {
+    echo 'Position :' . ($position+1);
+    echo 'Link     :' . $result->getLink();
+    echo 'Ad       :' . $result->getAd();
 }
 ```
 Features
 ------------
 
 You can crawl :
-* Google Web (Natural, image & video link)
+* Google Web (Natural, image, video, product, premium, map & news link)
 
 
 Todo
 ------------
 
 Crawl on :
-* Google Web (Product, maps, news, shooping & premium link)
 * Google Images
 * Google Video
 * Bing Web
@@ -54,5 +56,7 @@ Other stuff:
 * Crawler with proxy
 * Crawler with pagination
 * Crawler with Zend\Client
+* Get link datas (sitelinks, stars)
 * Link builder
+* Engine\Metadatas (number of result, word spelling, search suggest)
 * Improve workflow with event manager

@@ -1,15 +1,15 @@
 <?php
 
-namespace SearchEngineCrawler\ResultSet\Result;
+namespace SearchEngineCrawler\ResultSet\Link\Result;
 
-use SearchEngineCrawler\ResultSet\AbstractResult;
+use SearchEngineCrawler\ResultSet\Link\AbstractResult;
 
 class Video extends AbstractResult
 {
     protected $anchor;
-    
+
     protected $image;
-    
+
     public function getAnchor()
     {
         return $this->anchor;

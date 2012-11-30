@@ -1,8 +1,8 @@
 <?php
 
-namespace SearchEngineCrawler\ResultSet\Result;
+namespace SearchEngineCrawler\ResultSet\Link\Result;
 
-use SearchEngineCrawler\ResultSet\AbstractResult;
+use SearchEngineCrawler\ResultSet\Link\AbstractResult;
 
 class Image extends AbstractResult
 {

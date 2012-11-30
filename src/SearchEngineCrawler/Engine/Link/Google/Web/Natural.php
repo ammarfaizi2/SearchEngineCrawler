@@ -3,8 +3,8 @@
 namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
-use SearchEngineCrawler\ResultSet\Result\Web as WebResult;
-use SearchEngineCrawler\ResultSet\ResultSet;
+use SearchEngineCrawler\ResultSet\Link\Result\Natural as NaturalResult;
+use SearchEngineCrawler\ResultSet\Link\ResultSet;
 
 class Natural extends AbstractLink
 {
@@ -19,13 +19,12 @@ class Natural extends AbstractLink
             // get link node
             $nodePath = $node->getNodePath();
             $nodePath .= '/div[@class="vsc"]/h3[@class="r"]/a[@class="l"]';
-            $link = $domQuery->queryXpath($nodePath);
-            $link = $link->current();
+            $link = $domQuery->queryXpath($nodePath)->current();
             if(null === $link) {
                 continue; // not a natural link
             }
             // create datas
-            $result = new WebResult(array(
+            $result = new NaturalResult(array(
                 'position' => $node->getLineNo(),
                 'ad' => $node->ownerDocument->saveHtml($node),
                 'link' => $link->getAttribute('href'),

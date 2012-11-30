@@ -3,22 +3,23 @@
 namespace SearchEngineCrawler\ResultSet;
 
 use ArrayObject;
+use SearchEngineCrawler\ResultSet\Page\Container as PageContainer;
 
 class ResultSet extends ArrayObject
 {
-    public function merge(ResultSet $set)
+    public function hasPage($num)
     {
-        foreach($set as $result) {
-            $this->offsetSet($result->getPosition(), $result);
-        }
-        return $this;
+        return $this->offsetExists($num);
     }
 
-    public function sort()
+    public function getPage($num)
     {
-        $this->ksort();
-        $datas = array_values($this->getArrayCopy());
-        $this->exchangeArray($datas);
+        return $this->offsetGet($num);
+    }
+
+    public function setPage($num, PageContainer $set)
+    {
+        $this->offsetSet($num, $set);
         return $this;
     }
 }

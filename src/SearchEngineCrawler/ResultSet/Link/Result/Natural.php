@@ -1,13 +1,13 @@
 <?php
 
-namespace SearchEngineCrawler\ResultSet\Result;
+namespace SearchEngineCrawler\ResultSet\Link\Result;
 
-use SearchEngineCrawler\ResultSet\AbstractResult;
+use SearchEngineCrawler\ResultSet\Link\AbstractResult;
 
-class Web extends AbstractResult
+class Natural extends AbstractResult
 {
     protected $anchor;
-    
+
     public function getAnchor()
     {
         return $this->anchor;

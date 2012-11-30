@@ -13,18 +13,18 @@ abstract class AbstractEngine implements EngineInterface
     protected $maxPage = 1;
 
     protected $crawler;
-    
+
     protected $linkPluginManager;
-    
+
     public function getLink($link)
     {
         $class = get_class($this);
         $prefix = substr($class, strrpos($class, 'Engine') + strlen('Engine') + 1);
         $prefix = preg_replace('#\\\#', '', $prefix);
-        
+
         return $this->getLinkPluginManager()->get(strtolower($prefix . ucfirst($link)));
     }
-    
+
     public function getLinkPluginManager()
     {
         if(null === $this->linkPluginManager) {
@@ -32,13 +32,13 @@ abstract class AbstractEngine implements EngineInterface
         }
         return $this->linkPluginManager;
     }
-    
+
     public function setLinkPluginManager(LinkPluginManager $linkPluginManager)
     {
         $this->linkPluginManager = $linkPluginManager;
         return $this;
     }
-    
+
     public function getCrawler()
     {
         if(null === $this->crawler) {
@@ -46,7 +46,7 @@ abstract class AbstractEngine implements EngineInterface
         }
         return $this->crawler;
     }
-    
+
     public function setCrawler(CrawlerInterface $crawler)
     {
         $this->crawler = $crawler;

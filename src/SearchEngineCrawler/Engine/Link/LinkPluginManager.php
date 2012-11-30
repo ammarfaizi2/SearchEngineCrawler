@@ -10,12 +10,10 @@ class LinkPluginManager extends AbstractPluginManager
         'googlewebnatural'    => 'SearchEngineCrawler\Engine\Link\Google\Web\Natural',
         'googlewebimage'      => 'SearchEngineCrawler\Engine\Link\Google\Web\Image',
         'googlewebvideo'      => 'SearchEngineCrawler\Engine\Link\Google\Web\Video',
-        // TODO
-        //'googlewebproduct'      => 'SearchEngineCrawler\Engine\Link\Google\Web\Product',
-        //'googlewebmaps'      => 'SearchEngineCrawler\Engine\Link\Google\Web\Maps',
-        //'googlewebnews'      => 'SearchEngineCrawler\Engine\Link\Google\Web\News',
-        //'googlewebshopping'      => 'SearchEngineCrawler\Engine\Link\Google\Web\Shopping',
-        //'googlewebpremium'      => 'SearchEngineCrawler\Engine\Link\Google\Web\Premium',
+        'googlewebproduct'    => 'SearchEngineCrawler\Engine\Link\Google\Web\Product',
+        'googlewebpremium'    => 'SearchEngineCrawler\Engine\Link\Google\Web\Premium',
+        'googlewebmap'        => 'SearchEngineCrawler\Engine\Link\Google\Web\Map',
+        'googlewebnews'       => 'SearchEngineCrawler\Engine\Link\Google\Web\News',
     );
 
     public function validatePlugin($plugin)

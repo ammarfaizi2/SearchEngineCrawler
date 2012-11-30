@@ -1,10 +1,10 @@
 <?php
 
-namespace SearchEngineCrawler\Engine\Link;
+namespace SearchEngineCrawler\Engine\Metadata;
 
 use Zend\Dom\Query as DomQuery;
 
-abstract class AbstractLink implements LinkInterface
+abstract class AbstractMetadata implements MetadataInterface
 {
     protected static $domQuery;
 

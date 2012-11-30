@@ -1,15 +1,15 @@
 <?php
 
-namespace SearchEngineCrawler\ResultSet;
+namespace SearchEngineCrawler\ResultSet\Link;
 
 use Zend\Stdlib\AbstractOptions;
 
 abstract class AbstractResult extends AbstractOptions implements ResultInterface
 {
     protected $position;
-    
+
     protected $link;
-    
+
     protected $ad;
 
     public function getPosition()
@@ -33,7 +33,7 @@ abstract class AbstractResult extends AbstractOptions implements ResultInterface
         $this->link = $link;
         return $this;
     }
-    
+
     public function getAd()
     {
         return $this->ad;

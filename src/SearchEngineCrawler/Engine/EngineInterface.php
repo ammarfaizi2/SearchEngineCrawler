@@ -4,5 +4,5 @@ namespace SearchEngineCrawler\Engine;
 
 interface EngineInterface
 {
-    
+
 }

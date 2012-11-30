@@ -12,11 +12,11 @@ abstract class AbstractCrawler implements CrawlerInterface
     {
         $dom = new \DOMDocument();
         $dom->preserveWhiteSpace = false;
-        $dom->strictErrorChecking = false;
+        //$dom->strictErrorChecking = false;
         @$dom->loadHTML($source);
         $dom->formatOutput = true;
         $source = $dom->saveHTML();
-        
+
         return $source;
     }
 
