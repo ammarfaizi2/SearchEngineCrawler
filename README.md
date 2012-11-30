@@ -26,11 +26,11 @@ A simple search on Google Web :
 
 ```php
 $googleWeb = $this->getServiceLocator('crawler_google_web');
-$pageSet = $googleWeb->crawl('rooney', array(
+$set = $googleWeb->crawl('rooney', array(
     'links' => array('natural', 'image', 'video'),
     'localisation' => array('lang' => 'fr'),
 ));
-$linkSet = $pageSet->getPage(1);
+$linkSet = $set->getPage(1)->getLinks();
 
 echo sprintf('There are %s natural links !', count($linkSet->getNaturalResults()));
 echo sprintf('There are %s image links !', count($linkSet->getImageResults()));
