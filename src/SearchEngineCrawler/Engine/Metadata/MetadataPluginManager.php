@@ -9,8 +9,7 @@ class MetadataPluginManager extends AbstractPluginManager
     protected $invokableClasses = array(
         'googlewebresults'         => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Results',
         'googlewebwordspelling'    => 'SearchEngineCrawler\Engine\Metadata\Google\Web\WordSpelling',
-        // TODO
-        //'googlewebsuggest'    => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Suggest',
+        'googlewebsuggest'         => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Suggest',
     );
 
     public function validatePlugin($plugin)

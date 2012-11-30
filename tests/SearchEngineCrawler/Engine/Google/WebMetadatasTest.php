@@ -37,4 +37,19 @@ class WebMetadatasTest extends TestCase
         $metadatasSet = $set->getPage(1)->getMetadatas();
         $this->assertEquals('table a manger', $metadatasSet->getWordSpelling());
     }
+    
+    public function testCanCrawlSuggestMetadata()
+    {
+        $crawler = new CachedCrawler();
+
+        $google = new GoogleWeb();
+        $google->setCrawler($crawler);
+        $set = $google->crawl('zend framework', array(
+            'links' => array('natural'),
+            'metadatas' => array('suggest'),
+            'location' => array('lang' => 'fr'),
+        ));
+        $metadatasSet = $set->getPage(1)->getMetadatas();
+        $this->assertEquals(8, count($metadatasSet->getSuggest()));
+    }
 }

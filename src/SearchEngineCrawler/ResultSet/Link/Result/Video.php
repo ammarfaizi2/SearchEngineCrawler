@@ -2,8 +2,6 @@
 
 namespace SearchEngineCrawler\ResultSet\Link\Result;
 
-use SearchEngineCrawler\ResultSet\Link\AbstractResult;
-
 class Video extends AbstractResult
 {
     protected $anchor;

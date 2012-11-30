@@ -19,8 +19,11 @@ class WebLinksTest extends TestCase
             'location' => array('lang' => 'fr'),
         ));
         $linkSet = $set->getPage(1)->getLinks();
-        $this->assertEquals(10, count($linkSet->getNaturalResults()));
+        $naturals = $linkSet->getNaturalResults();
+        $this->assertEquals(10, count($naturals));
         $this->assertEquals(10, count($linkSet));
+        $natural = $naturals->offsetGet(0);
+        $this->assertEquals(4, count($natural->getExtension()->getSitelinks()));
 
         // test index
         $keys = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);

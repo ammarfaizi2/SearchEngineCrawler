@@ -47,7 +47,12 @@ Features
 
 You can crawl :
 * Google Web (Natural, image, video, product, premium, map & news link)
-* Google Web (Results & word spelling metadata)
+
+Page informations available :
+* Google Web (Results, suggest & word spelling metadata)
+
+Link informations :
+* Sitelinks
 
 
 Todo
@@ -68,7 +73,6 @@ Other stuff:
 * Crawler with pagination
 * Crawler with Zend\Client
 * Mobile crawler
-* Get link datas (sitelinks, stars)
+* Get the rich snippets & extension (sitelinks, rating)
 * Link builder
-* Engine\Metadatas (search suggest)
 * Improve workflow with an event manager

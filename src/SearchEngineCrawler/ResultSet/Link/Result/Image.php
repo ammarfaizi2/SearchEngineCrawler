@@ -2,8 +2,6 @@
 
 namespace SearchEngineCrawler\ResultSet\Link\Result;
 
-use SearchEngineCrawler\ResultSet\Link\AbstractResult;
-
 class Image extends AbstractResult
 {
     protected $image;
