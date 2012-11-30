@@ -52,7 +52,7 @@ Page informations available :
 * Google Web (Results, suggest & word spelling metadata)
 
 Link informations :
-* Sitelinks
+* Extension : sitelinks, address, photo
 
 
 Todo
@@ -73,6 +73,6 @@ Other stuff:
 * Crawler with pagination
 * Crawler with Zend\Client
 * Mobile crawler
-* Get the rich snippets & extension (sitelinks, rating)
+* Get the rich snippets & extension (rating, price, phone, author name)
 * Link builder
 * Improve workflow with an event manager

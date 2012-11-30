@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * more information at http://www.seomoz.org/blog/a-visual-guide-to-rich-snippets
+ */
+
 namespace SearchEngineCrawler\ResultSet\Link;
 
 use Zend\Stdlib\AbstractOptions;
