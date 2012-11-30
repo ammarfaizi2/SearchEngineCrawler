@@ -6,13 +6,14 @@ use SearchEngineCrawler\ResultSet\Link\Extension;
 use SearchEngineCrawler\ResultSet\Link\RichSnippet;
 
 class Natural extends AbstractResult
+    implements RichSnippetAwareInterface, ExtensionAwareInterface
 {
     protected $anchor;
 
     protected $extension;
-    
+
     protected $richSnippet;
-    
+
     public function getAnchor()
     {
         return $this->anchor;
@@ -23,24 +24,30 @@ class Natural extends AbstractResult
         $this->anchor = $anchor;
         return $this;
     }
-    
+
     public function getExtension()
     {
+        if(null === $this->extension) {
+            $this->setExtension(new Extension());
+        }
         return $this->extension;
     }
-    
+
     public function setExtension(Extension $extension)
     {
         $this->extension = $extension;
         return $this;
     }
-    
-    public function getRichSnippet()
+
+    public function getRichsnippet()
     {
+        if(null === $this->richSnippet) {
+            $this->setRichsnippet(new RichSnippet());
+        }
         return $this->richSnippet;
     }
-    
-    public function setRichSnippet(RichSnippet $richSnippet)
+
+    public function setRichsnippet(RichSnippet $richSnippet)
     {
         $this->richSnippet = $richSnippet;
         return $this;

@@ -4,22 +4,18 @@ namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\ResultSet\Link\Result\Premium as PremiumResult;
-use SearchEngineCrawler\ResultSet\Link\ResultSet;
+use SearchEngineCrawler\ResultSet\Link\RichSnippet;
 
 class Premium extends AbstractLink
 {
     public function detect(&$source)
     {
-        $results = new ResultSet();
-
-        $domQuery = $this->getDomQuery();
-        $domQuery->setDocumentHtml($source);
-        $nodes = $domQuery->queryXpath('//div[@id="tads"]/ol/li');
+        $nodes = $this->xpath('//div[@id="tads"]/ol/li');
         foreach($nodes as $node) {
             // get link node
             $nodePath = $node->getNodePath();
             $nodePath .= '/div/h3/a';
-            $link = $domQuery->queryXpath($nodePath)->current();
+            $link = $this->xpath($nodePath)->current();
             if(null === $link) {
                 continue; // not a natural link
             }
@@ -30,8 +26,34 @@ class Premium extends AbstractLink
                 'link' => $link->getAttribute('href'),
                 'anchor' => $link->textContent,
             ));
-            $results->append($result);
+            // get sitelinks
+            $result->richsnippet = $this->getRichSnippet($node);
+            // append the result
+            $this->append($result);
         }
-        return $results;
+    }
+
+    /**
+     * Get rich snippets from a natural link
+     * @param \DOMElement $node
+     * @return Extension
+     */
+    public function getRichSnippet(\DOMElement $node)
+    {
+        // get products snippet
+        $products = array();
+        $nodePath = $node->getNodePath();
+        $nodePath .= '/div[contains(@class,"vsc")]//table[@class="ts"]//tr';
+        $links = $this->xpath($nodePath);
+        foreach($links as $link) {
+            $childs = $link->childNodes;
+            $products[] = array(
+                'link' => $childs->item(0)->firstChild->getAttribute('href'),
+                'content' => $childs->item(0)->firstChild->textContent,
+                'price' => (float)preg_replace("#[^\d\.\,]#", '', strtr($childs->item(2)->textContent, ',', '.')),
+            );
+        }
+
+        return new RichSnippet(array('products' => $products));
     }
 }

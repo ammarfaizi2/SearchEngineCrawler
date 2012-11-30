@@ -13,7 +13,7 @@ class Extension extends AbstractOptions
         return $this->sitelinks;
     }
 
-    public function setSitelinks($sitelinks)
+    public function setSitelinks(array $sitelinks)
     {
         $this->sitelinks = $sitelinks;
         return $this;

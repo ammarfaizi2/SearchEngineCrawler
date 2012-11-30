@@ -32,7 +32,8 @@ class Web extends AbstractEngine
         }
         foreach($options['links'] as $link) {
             $link = $this->getLink($link);
-            $result = $link->detect($source);
+            $link->source($source)->detect($source);
+            $result = $link->getResults();
             $linkSet->merge($result);
         }
         $linkSet->sort();

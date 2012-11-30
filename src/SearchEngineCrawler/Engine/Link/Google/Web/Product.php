@@ -4,23 +4,17 @@ namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\ResultSet\Link\Result\Product as ProductResult;
-use SearchEngineCrawler\ResultSet\Link\ResultSet;
 
 class Product extends AbstractLink
 {
     public function detect(&$source)
     {
-        $results = new ResultSet();
-
-        $domQuery = $this->getDomQuery();
-        $domQuery->setDocumentHtml($source);
-        $nodes = $domQuery->queryXpath('//div[@id="ires"]//li[@id="productbox"]//td[@class="pcr"]/div');
-
+        $nodes = $this->xpath('//div[@id="ires"]//li[@id="productbox"]//td[@class="pcr"]/div');
         foreach($nodes as $node) {
             // get image node
             $nodePath = $node->getNodePath();
             $nodePath .= '/a';
-            $link = $domQuery->queryXpath($nodePath)->current();
+            $link = $this->xpath($nodePath)->current();
             if(null === $link) {
                 continue; // not a product link
             }
@@ -31,8 +25,7 @@ class Product extends AbstractLink
                 'link' => $link->getAttribute('href'),
                 'anchor' => $link->textContent,
             ));
-            $results->append($result);
+            $this->append($result);
         }
-        return $results;
     }
 }

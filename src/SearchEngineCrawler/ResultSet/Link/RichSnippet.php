@@ -12,6 +12,8 @@ class RichSnippet extends AbstractOptions
 {
     protected $rating;
 
+    protected $products;
+
     public function getRating()
     {
         return $this->rating;
@@ -20,6 +22,17 @@ class RichSnippet extends AbstractOptions
     public function setRating($rating)
     {
         $this->rating = $rating;
+        return $this;
+    }
+
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    public function setProducts(array $products)
+    {
+        $this->products = $products;
         return $this;
     }
 }

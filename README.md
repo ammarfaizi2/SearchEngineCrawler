@@ -52,7 +52,8 @@ Page informations available :
 * Google Web (Results, suggest & word spelling metadata)
 
 Link informations :
-* Extension : sitelinks, address, photo
+* Extension : sitelinks
+* Rich snippets : products & price
 
 
 Todo
@@ -73,6 +74,7 @@ Other stuff:
 * Crawler with pagination
 * Crawler with Zend\Client
 * Mobile crawler
-* Get the rich snippets & extension (rating, price, phone, author name)
+* Get the rich snippets & extension (rating, phone, author name)
 * Link builder
-* Improve workflow with an event manager
+* Improve workflow
+* Improve unit tests with 50+ use case

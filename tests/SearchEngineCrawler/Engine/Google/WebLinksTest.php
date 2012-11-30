@@ -20,9 +20,10 @@ class WebLinksTest extends TestCase
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $naturals = $linkSet->getNaturalResults();
+        $natural = $naturals->offsetGet(0);
+
         $this->assertEquals(10, count($naturals));
         $this->assertEquals(10, count($linkSet));
-        $natural = $naturals->offsetGet(0);
         $this->assertEquals(4, count($natural->getExtension()->getSitelinks()));
 
         // test index
@@ -41,6 +42,7 @@ class WebLinksTest extends TestCase
             'location' => array('lang' => 'fr'),
         ));
         $linkSet = $set->getPage(1)->getLinks();
+
         $this->assertEquals(7, count($linkSet->getNaturalResults()));
         $this->assertEquals(5, count($linkSet->getImageResults()));
         $this->assertEquals(3, count($linkSet->getVideoResults()));
@@ -58,9 +60,13 @@ class WebLinksTest extends TestCase
             'location' => array('lang' => 'fr'),
         ));
         $linkSet = $set->getPage(1)->getLinks();
+        $premiums = $linkSet->getPremiumResults();
+        $premium = $premiums->offsetGet(0);
+
         $this->assertEquals(10, count($linkSet->getNaturalResults()));
         $this->assertEquals(3, count($linkSet->getProductResults()));
-        $this->assertEquals(3, count($linkSet->getPremiumResults()));
+        $this->assertEquals(3, count($premiums));
+        $this->assertEquals(3, count($premium->getRichSnippet()->getProducts()));
         $this->assertEquals(16, count($linkSet));
     }
 
@@ -75,6 +81,7 @@ class WebLinksTest extends TestCase
             'location' => array('lang' => 'fr'),
         ));
         $linkSet = $set->getPage(1)->getLinks();
+
         $this->assertEquals(10, count($linkSet->getNaturalResults()));
         $this->assertEquals(7, count($linkSet->getMapResults()));
         $this->assertEquals(17, count($linkSet));
@@ -91,6 +98,7 @@ class WebLinksTest extends TestCase
             'location' => array('lang' => 'fr'),
         ));
         $linkSet = $set->getPage(1)->getLinks();
+
         $this->assertEquals(10, count($linkSet->getNaturalResults()));
         $this->assertEquals(3, count($linkSet->getNewsResults()));
         $this->assertEquals(3, count($linkSet->getPremiumResults()));

@@ -37,7 +37,7 @@ class WebMetadatasTest extends TestCase
         $metadatasSet = $set->getPage(1)->getMetadatas();
         $this->assertEquals('table a manger', $metadatasSet->getWordSpelling());
     }
-    
+
     public function testCanCrawlSuggestMetadata()
     {
         $crawler = new CachedCrawler();
