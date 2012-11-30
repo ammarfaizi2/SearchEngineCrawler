@@ -6,6 +6,8 @@ use Zend\Dom\Query as DomQuery;
 
 abstract class AbstractMetadata implements MetadataInterface
 {
+    protected $metadata;
+
     protected static $domQuery;
 
     /**
@@ -24,5 +26,10 @@ abstract class AbstractMetadata implements MetadataInterface
     {
         static::$domQuery = $domQuery;
         return $this;
+    }
+
+    public function getMetadata()
+    {
+        return $this->metadata;
     }
 }

@@ -7,10 +7,10 @@ use Zend\ServiceManager\AbstractPluginManager;
 class MetadataPluginManager extends AbstractPluginManager
 {
     protected $invokableClasses = array(
+        'googlewebresults'         => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Results',
+        'googlewebwordspelling'    => 'SearchEngineCrawler\Engine\Metadata\Google\Web\WordSpelling',
         // TODO
-        //'googlewebresults'    => 'SearchEngineCrawler\Engine\Link\Google\Web\Results',
-        //'googlewebwordspelling'    => 'SearchEngineCrawler\Engine\Link\Google\Web\WordSpelling',
-        //'googlewebsuggest'    => 'SearchEngineCrawler\Engine\Link\Google\Web\Suggest',
+        //'googlewebsuggest'    => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Suggest',
     );
 
     public function validatePlugin($plugin)

@@ -11,7 +11,10 @@ Actually, just a draft.
 
 Requirement
 ------------
-libxml2 >= 2.7.8
+libxml2 >= 2.7.8, see your version with
+```php
+php -r "phpinfo();" | grep "libxml2"
+```
 
 Usage
 ------------
@@ -41,6 +44,7 @@ Features
 
 You can crawl :
 * Google Web (Natural, image, video, product, premium, map & news link)
+* Google Web (Results & word spelling metadata)
 
 
 Todo
@@ -56,7 +60,8 @@ Other stuff:
 * Crawler with proxy
 * Crawler with pagination
 * Crawler with Zend\Client
+* Mobile crawler
 * Get link datas (sitelinks, stars)
 * Link builder
-* Engine\Metadatas (number of result, word spelling, search suggest)
-* Improve workflow with event manager
+* Engine\Metadatas (search suggest)
+* Improve workflow with an event manager

@@ -4,5 +4,7 @@ namespace SearchEngineCrawler\Engine\Metadata;
 
 interface MetadataInterface
 {
-    public function detect(&$source);
+    public function find(&$source);
+
+    public function getMetadata();
 }

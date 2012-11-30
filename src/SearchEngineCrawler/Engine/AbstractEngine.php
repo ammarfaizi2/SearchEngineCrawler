@@ -5,6 +5,7 @@ namespace SearchEngineCrawler\Engine;
 use SearchEngineCrawler\Crawler\CrawlerInterface;
 use SearchEngineCrawler\Crawler\Simple as SimpleCrawler;
 use SearchEngineCrawler\Engine\Link\LinkPluginManager;
+use SearchEngineCrawler\Engine\Metadata\MetadataPluginManager;
 
 abstract class AbstractEngine implements EngineInterface
 {
@@ -15,6 +16,8 @@ abstract class AbstractEngine implements EngineInterface
     protected $crawler;
 
     protected $linkPluginManager;
+
+    protected $metadataPluginManager;
 
     public function getLink($link)
     {
@@ -36,6 +39,29 @@ abstract class AbstractEngine implements EngineInterface
     public function setLinkPluginManager(LinkPluginManager $linkPluginManager)
     {
         $this->linkPluginManager = $linkPluginManager;
+        return $this;
+    }
+
+    public function getMetadata($metadata)
+    {
+        $class = get_class($this);
+        $prefix = substr($class, strrpos($class, 'Engine') + strlen('Engine') + 1);
+        $prefix = preg_replace('#\\\#', '', $prefix);
+
+        return $this->getMetadataPluginManager()->get(strtolower($prefix . ucfirst($metadata)));
+    }
+
+    public function getMetadataPluginManager()
+    {
+        if(null === $this->metadataPluginManager) {
+            $this->setMetadataPluginManager(new MetadataPluginManager());
+        }
+        return $this->metadataPluginManager;
+    }
+
+    public function setMetadataPluginManager(MetadataPluginManager $metadataPluginManager)
+    {
+        $this->metadataPluginManager = $metadataPluginManager;
         return $this;
     }
 
