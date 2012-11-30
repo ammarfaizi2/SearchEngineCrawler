@@ -53,6 +53,10 @@ You can crawl :
 Todo
 ------------
 
+ZF2 module :
+* view helper to render set of result
+* action helper to crawl/search
+
 Crawl on :
 * Google Images
 * Google Video
