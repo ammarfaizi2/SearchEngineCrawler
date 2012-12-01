@@ -2,12 +2,12 @@
 
 namespace SearchEngineCrawler\Engine\Link\Features;
 
-interface NodeExtensionProviderInterface
+interface NodeRichSnippetProviderInterface
 {
     /**
-     * Get extension from a link
+     * Get rich snippet from a link
      * @param \DOMElement $node
      * @return Extension
      */
-    public function getExtension(\DOMElement $node);
+    public function getRichSnippet(\DOMElement $node);
 }

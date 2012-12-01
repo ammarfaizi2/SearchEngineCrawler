@@ -82,6 +82,9 @@ abstract class AbstractLink implements LinkInterface, Features\NodeAdProviderInt
             if($this instanceof Features\NodeExtensionProviderInterface) {
                 $result->extension = $this->getExtension($node);
             }
+            if($this instanceof Features\NodeRichSnippetProviderInterface) {
+                $result->richsnippet = $this->getRichSnippet($node);
+            }
 
             $results->append($result);
         }

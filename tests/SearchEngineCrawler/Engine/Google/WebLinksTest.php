@@ -66,7 +66,7 @@ class WebLinksTest extends TestCase
         $this->assertEquals(10, count($linkSet->getNaturalResults()));
         $this->assertEquals(3, count($linkSet->getProductResults()));
         $this->assertEquals(3, count($premiums));
-        //$this->assertEquals(3, count($premium->getRichSnippet()->getProducts()));
+        $this->assertEquals(3, count($premium->getRichSnippet()->getProducts()));
         $this->assertEquals(16, count($linkSet));
     }
 
