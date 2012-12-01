@@ -71,8 +71,7 @@ Crawl on :
 Other stuff:
 * Crawler matcher
 * Crawler with proxy
-* Crawler with pagination
-* Crawler with Zend\Client
+* Manage the pagination
 * Mobile crawler
 * Get the rich snippets & extension (rating, phone, author name)
 * Link builder
