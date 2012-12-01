@@ -9,6 +9,11 @@ class ResultSet extends ArrayObject
     public function merge(ResultSet $set)
     {
         foreach($set as $result) {
+            if($this->offsetExists($result->getPosition())) {
+                throw new \Exception(
+                    sprintf('Invalid position "%s", node exists', $result->getPosition())
+                );
+            }
             $this->offsetSet($result->getPosition(), $result);
         }
         return $this;

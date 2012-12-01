@@ -11,6 +11,6 @@ class CachedCrawler extends AbstractCrawler
         $lang = $options['location']['lang'];
         $cache = $lang . '.' . strtr($keyword, ' ', '.') . '.html';
         $contents = file_get_contents(__DIR__ . '/_files/' . $cache);
-        return $this->formatOutput($contents);
+        return $contents;
     }
 }

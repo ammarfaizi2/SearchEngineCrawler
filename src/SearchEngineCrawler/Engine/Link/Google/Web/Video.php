@@ -3,38 +3,76 @@
 namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
-use SearchEngineCrawler\ResultSet\Link\Result\Video as VideoResult;
+use SearchEngineCrawler\Engine\Link\Features;
 
-class Video extends AbstractLink
+class Video extends AbstractLink implements Features\NodeLinkProviderInterface,
+    Features\NodeLinkAnchorProviderInterface, Features\NodeImageSourceProviderInterface
 {
-    public function detect(&$source)
+    /**
+     * Result class container
+     * @var string
+     */
+    protected $resultClass = 'SearchEngineCrawler\ResultSet\Link\Result\Video';
+
+    /**
+     * Get the node list, each node contains
+     * the ad & line number
+     * @return Zend\Dom\NodeList
+     */
+    public function getNodeList()
     {
-        $nodes = $this->xpath('//div[@id="ires"]//li[@class="g"]');
-        foreach($nodes as $node) {
-            // get image node
-            $nodePath = $node->getNodePath();
-            $nodePath .= '//img[starts-with(@id,"vidthumb")]';
-            $link = $this->xpath($nodePath)->current();
-            if(null === $link) {
-                continue; // not a video link
-            }
-            // get link node
-            $nodePath = $node->getNodePath();
-            $nodePath .= '/div[@class="vsc"]//h3[@class="r"]/a[@class="l"]';
-            $link = $this->xpath($nodePath)->current();
-            // get image node
-            $nodePath = $node->getNodePath();
-            $nodePath .= '//img[starts-with(@id,"vidthumb")]';
-            $image = $this->xpath($nodePath)->current();
-            // create datas
-            $result = new VideoResult(array(
-                'position' => $node->getLineNo(),
-                'ad' => $node->ownerDocument->saveHtml($node),
-                'link' => $link->getAttribute('href'),
-                'anchor' => $link->textContent,
-                'image' => $image->getAttribute('src'),
-            ));
-            $this->append($result);
-        }
+        return $this->xpath('//div[@id="ires"]//li[@class="g"]');
+    }
+
+    /**
+     * Check if a node is valid, if the node match with the type required
+     * If node is valid, return the node
+     * @param \DOMElement $node node to validate
+     * @return null|\DOMElement
+     */
+    public function validateNode(\DOMElement $node)
+    {
+        $nodePath = $node->getNodePath();
+        $nodePath .= '//img[starts-with(@id,"vidthumb")]';
+        return $this->xpath($nodePath)->current();
+    }
+
+    /**
+     * Get the link
+     * @param \DOMElement $node
+     * @return integer the line number
+     */
+    public function getNodeLink(\DOMElement $node)
+    {
+        $nodePath = $node->getNodePath();
+        $nodePath .= '/div[@class="vsc"]//h3[@class="r"]/a[@class="l"]';
+        $link = $this->xpath($nodePath)->current();
+        return $node->getAttribute('href');
+    }
+
+    /**
+     * Get the link anchor
+     * @param \DOMElement $node
+     * @return integer the line number
+     */
+    public function getNodeLinkAnchor(\DOMElement $node)
+    {
+        $nodePath = $node->getNodePath();
+        $nodePath .= '/div[@class="vsc"]//h3[@class="r"]/a[@class="l"]';
+        $link = $this->xpath($nodePath)->current();
+        return $node->textContent;
+    }
+
+    /**
+     * Get the link anchor
+     * @param \DOMElement $node
+     * @return integer the line number
+     */
+    public function getNodeImageSource(\DOMElement $node)
+    {
+        $nodePath = $node->getNodePath();
+        $nodePath .= '//img[starts-with(@id,"vidthumb")]';
+        $link = $this->xpath($nodePath)->current();
+        return $node->getAttribute('src');
     }
 }

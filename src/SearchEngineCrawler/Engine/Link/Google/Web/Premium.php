@@ -3,34 +3,61 @@
 namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
-use SearchEngineCrawler\ResultSet\Link\Result\Premium as PremiumResult;
 use SearchEngineCrawler\ResultSet\Link\RichSnippet;
+use SearchEngineCrawler\Engine\Link\Features;
 
-class Premium extends AbstractLink
+class Premium extends AbstractLink implements Features\NodeLinkProviderInterface,
+    Features\NodeLinkAnchorProviderInterface
 {
-    public function detect(&$source)
+    /**
+     * Result class container
+     * @var string
+     */
+    protected $resultClass = 'SearchEngineCrawler\ResultSet\Link\Result\Premium';
+
+    /**
+     * Get the node list, each node contains
+     * the ad & line number
+     * @return Zend\Dom\NodeList
+     */
+    public function getNodeList()
     {
-        $nodes = $this->xpath('//div[@id="tads"]/ol/li');
-        foreach($nodes as $node) {
-            // get link node
-            $nodePath = $node->getNodePath();
-            $nodePath .= '/div/h3/a';
-            $link = $this->xpath($nodePath)->current();
-            if(null === $link) {
-                continue; // not a natural link
-            }
-            // create datas
-            $result = new PremiumResult(array(
-                'position' => $node->getLineNo(),
-                'ad' => $node->ownerDocument->saveHtml($node),
-                'link' => $link->getAttribute('href'),
-                'anchor' => $link->textContent,
-            ));
-            // get sitelinks
-            $result->richsnippet = $this->getRichSnippet($node);
-            // append the result
-            $this->append($result);
-        }
+        return $this->xpath('//div[@id="tads"]/ol/li');
+    }
+
+    /**
+     * Check if a node is valid, if the node match with the type required
+     * If node is valid, return the node
+     * @param \DOMElement $node node to validate
+     * @return null|\DOMElement
+     */
+    public function validateNode(\DOMElement $node)
+    {
+        $nodePath = $node->getNodePath();
+        $nodePath .= '/div/h3/a';
+        return $this->xpath($nodePath)->current();
+    }
+
+    /**
+     * Get the link
+     * @param \DOMElement $node
+     * @return integer the line number
+     */
+    public function getNodeLink(\DOMElement $node)
+    {
+        $node = $this->validateNode($node);
+        return $node->getAttribute('href');
+    }
+
+    /**
+     * Get the link anchor
+     * @param \DOMElement $node
+     * @return integer the line number
+     */
+    public function getNodeLinkAnchor(\DOMElement $node)
+    {
+        $node = $this->validateNode($node);
+        return $node->textContent;
     }
 
     /**

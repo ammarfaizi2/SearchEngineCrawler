@@ -9,6 +9,6 @@ class Simple extends AbstractCrawler
         $linkBuilder = $this->getLinkBuilderManager()->get($engine);
         $link = $linkBuilder->build($keyword, 1, $options);
         $contents = file_get_contents($link);
-        return $this->formatOutput($contents);
+        return $contents;
     }
 }

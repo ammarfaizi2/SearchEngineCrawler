@@ -3,31 +3,59 @@
 namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
-use SearchEngineCrawler\ResultSet\Link\Result\Image as ImageResult;
+use SearchEngineCrawler\Engine\Link\Features;
 
-class Image extends AbstractLink
+class Image extends AbstractLink implements Features\NodeLinkProviderInterface,
+    Features\NodeImageSourceProviderInterface
 {
-    public function detect(&$source)
-    {
-        $nodes = $this->xpath('//div[@id="ires"]//li[@id="imagebox_bigimages"]//ul[@class="rg_ul"]/li');
+    /**
+     * Result class container
+     * @var string
+     */
+    protected $resultClass = 'SearchEngineCrawler\ResultSet\Link\Result\Image';
 
-        foreach($nodes as $node) {
-            // get image node
-            $nodePath = $node->getNodePath();
-            $nodePath .= '/a/img';
-            $image = $this->xpath($nodePath)->current();
-            if(null === $image) {
-                continue; // not a image link
-            }
-            $link = $image->parentNode;
-            // create datas
-            $result = new ImageResult(array(
-                'position' => $node->getLineNo(),
-                'ad' => $node->ownerDocument->saveHtml($node),
-                'link' => $link->getAttribute('href'),
-                'image' => $image->getAttribute('src'),
-            ));
-            $this->append($result);
-        }
+    /**
+     * Get the node list, each node contains
+     * the ad & line number
+     * @return Zend\Dom\NodeList
+     */
+    public function getNodeList()
+    {
+        return $this->xpath('//div[@id="ires"]//li[@id="imagebox_bigimages"]//ul[@class="rg_ul"]/li');
+    }
+
+    /**
+     * Check if a node is valid, if the node match with the type required
+     * If node is valid, return the node
+     * @param \DOMElement $node node to validate
+     * @return null|\DOMElement
+     */
+    public function validateNode(\DOMElement $node)
+    {
+        $nodePath = $node->getNodePath();
+        $nodePath .= '/a/img';
+        return $this->xpath($nodePath)->current();
+    }
+
+    /**
+     * Get the link
+     * @param \DOMElement $node
+     * @return integer the line number
+     */
+    public function getNodeLink(\DOMElement $node)
+    {
+        $node = $this->validateNode($node);
+        return $node->parentNode->getAttribute('href');
+    }
+
+    /**
+     * Get the link
+     * @param \DOMElement $node
+     * @return integer the line number
+     */
+    public function getNodeImageSource(\DOMElement $node)
+    {
+        $node = $this->validateNode($node);
+        return $node->getAttribute('src');
     }
 }

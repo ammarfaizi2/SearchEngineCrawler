@@ -3,35 +3,72 @@
 namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
-use SearchEngineCrawler\ResultSet\Link\Result\Natural as NaturalResult;
 use SearchEngineCrawler\ResultSet\Link\Extension;
+use SearchEngineCrawler\Engine\Link\Features;
 
-class Natural extends AbstractLink
+class Natural extends AbstractLink implements Features\NodeLinkProviderInterface,
+    Features\NodeLinkAnchorProviderInterface, Features\NodeExtensionProviderInterface
 {
-    public function detect(&$source)
-    {
-        $nodes = $this->xpath('//div[@id="ires"]//li[@class="g"]');
-        foreach($nodes as $node) {
-            // get link node
-            $nodePath = $node->getNodePath();
-            $nodePath .= '/div[@class="vsc"]/h3[@class="r"]/a[@class="l"]';
-            $link = $this->xpath($nodePath)->current();
-            if(null === $link) {
-                continue; // not a natural link
-            }
+    /**
+     * Result class container
+     * @var string
+     */
+    protected $resultClass = 'SearchEngineCrawler\ResultSet\Link\Result\Natural';
 
-            // create datas
-            $result = new NaturalResult(array(
-                'position' => $node->getLineNo(),
-                'ad' => $node->ownerDocument->saveHtml($node),
-                'link' => $link->getAttribute('href'),
-                'anchor' => $link->textContent,
-            ));
-            // get sitelinks
-            $result->extension = $this->getExtension($node);
-            // append the result
-            $this->append($result);
+    /**
+     * Get the node list, each node contains
+     * the ad & line number
+     * @return Zend\Dom\NodeList
+     */
+    public function getNodeList()
+    {
+        return $this->xpath('//div[@id="ires"]//li[@class="g"]');
+    }
+
+    /**
+     * Check if a node is valid, if the node match with the type required
+     * If node is valid, return the node
+     * @param \DOMElement $node node to validate
+     * @return null|\DOMElement
+     */
+    public function validateNode(\DOMElement $node)
+    {
+        // natural have never style
+        if($node->hasAttribute('style')) {
+            return null;
         }
+        // natural have only 2 div
+        $nodePath = $node->getNodePath();
+        $nodePath .= '/div[@class="vsc"]/div';
+        if($this->xpath($nodePath)->count() != 2) {
+            return null;
+        }
+        // natural must be have link
+        $nodePath = $node->getNodePath();
+        $nodePath .= '/div[@class="vsc"]/h3[@class="r"]/a[@class="l"]';
+        return $this->xpath($nodePath)->current();
+    }
+
+    /**
+     * Get the link
+     * @param \DOMElement $node
+     * @return integer the line number
+     */
+    public function getNodeLink(\DOMElement $node)
+    {
+        $node = $this->validateNode($node);
+        return $node->getAttribute('href');
+    }
+
+    /**
+     * Get the link anchor
+     * @param \DOMElement $node
+     * @return integer the line number
+     */
+    public function getNodeLinkAnchor(\DOMElement $node)
+    {
+        $node = $this->validateNode($node);
+        return $node->textContent;
     }
 
     /**
@@ -39,7 +76,7 @@ class Natural extends AbstractLink
      * @param \DOMElement $node
      * @return Extension
      */
-    protected function getExtension(\DOMElement $node)
+    public function getExtension(\DOMElement $node)
     {
         // get sitelinks extension
         $sitelinks = array();

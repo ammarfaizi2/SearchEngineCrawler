@@ -15,6 +15,6 @@ class SimpleProxy extends AbstractCrawler
         curl_setopt($curl,CURLOPT_PROXYPORT, 8080);
         curl_setopt($curl,CURLOPT_PROXYUSERPWD,'vblanchon:xxxx');
         $contents = curl_exec($curl);
-        return $this->formatOutput($contents);
+        return $contents;
     }
 }
