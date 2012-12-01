@@ -5,7 +5,7 @@ namespace SearchEngineCrawler\Crawler;
 use Zend\Http\Client as HttpClient;
 use Zend\Http\Client\Adapter\Curl;
 
-class Simple extends AbstractCrawler
+class HttpClient extends AbstractCrawler
 {
     /**
      * Defgaut user agent is Firefox 14
@@ -23,12 +23,9 @@ class Simple extends AbstractCrawler
         $linkBuilder = $this->getLinkBuilderManager()->get($engine);
         $link = $linkBuilder->build($keyword, 1, $options);
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $link);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $content = curl_exec($ch);
+        $client = $this->getHttpClient();
+        $client->setUri($link);
+        $content = $client->send();
 
         $this->setSource($content);
         return $this;
@@ -42,9 +39,9 @@ class Simple extends AbstractCrawler
     {
         if(null === $this->httpClient) {
             $client = new HttpClient();
-            /*$client->setOptions(array(
+            $client->setOptions(array(
                 'user_agent' => $this->userAgent
-            ));*/
+            ));
             $client->setAdapter(new Curl());
             $client->getAdapter()->setOptions(array('curloptions' => array(
                 CURLOPT_USERAGENT => $this->userAgent,

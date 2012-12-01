@@ -1,5 +1,6 @@
 <?php
 
+ini_set('date.timezone',"Europe/Paris");
 include __DIR__ . '/_autoload.php';
 
 /**

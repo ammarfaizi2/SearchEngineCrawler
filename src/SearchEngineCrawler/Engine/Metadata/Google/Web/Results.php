@@ -11,7 +11,7 @@ class Results extends AbstractMetadata
         $domQuery = $this->getDomQuery();
         $domQuery->setDocumentHtml($source);
         $node = $domQuery->queryXpath('//div[@id="resultStats"]')->current();
-        if(null === $node && $node->childNodes == 2) {
+        if(null === $node || count($node->childNodes) == 2) {
             return;
         }
         $value = $node->childNodes->item(0)->nodeValue;

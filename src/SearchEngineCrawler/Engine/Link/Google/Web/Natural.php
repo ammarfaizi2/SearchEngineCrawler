@@ -37,10 +37,11 @@ class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInt
         if($node->hasAttribute('style')) {
             return null;
         }
-        // natural have only 2 div
+        // natural have not empty description
         $nodePath = $node->getNodePath();
-        $nodePath .= '/div[@class="vsc"]/div';
-        if($this->xpath($nodePath)->count() != 2) {
+        $nodePath .= '/div[@class="vsc"]/div[@class="s"]/span[@class="st"]';
+        $description = $this->xpath($nodePath)->current();
+        if(null === $description || empty($description->textContent)) {
             return null;
         }
         // natural must be have link

@@ -20,11 +20,10 @@ class WebLinksTest extends TestCase
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $naturals = $linkSet->getNaturalResults();
-        $natural = $naturals->offsetGet(0);
 
         $this->assertEquals(10, count($naturals));
         $this->assertEquals(10, count($linkSet));
-        $this->assertEquals(4, count($natural->getExtension()->getSitelinks()));
+        $this->assertEquals(4, count($naturals->offsetGet(0)->getExtension()->getSitelinks()));
 
         // test index
         $keys = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
@@ -61,12 +60,11 @@ class WebLinksTest extends TestCase
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $premiums = $linkSet->getPremiumResults();
-        $premium = $premiums->offsetGet(0);
 
         $this->assertEquals(10, count($linkSet->getNaturalResults()));
         $this->assertEquals(3, count($linkSet->getProductResults()));
         $this->assertEquals(3, count($premiums));
-        $this->assertEquals(3, count($premium->getRichSnippet()->getProducts()));
+        $this->assertEquals(3, count($premiums->offsetGet(0)->getRichSnippet()->getProducts()));
         $this->assertEquals(16, count($linkSet));
     }
 

@@ -6,6 +6,6 @@ class Google implements BuilderInterface
 {
     public function build($keyword, $page, array $options = array())
     {
-        return 'http://www.google.fr/search?q=' . urlencode($keyword) . '&ie=utf-8&oe=utf-8';
+        return 'http://google.fr/search?q=' . urlencode($keyword) . '&ie=utf-8&oe=utf-8';
     }
 }

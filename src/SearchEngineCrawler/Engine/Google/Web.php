@@ -17,7 +17,8 @@ class Web extends AbstractEngine
         $crawler = $this->getCrawler();
 
         $page = 1;
-        $source = $crawler->crawl('google', $keyword, $options);
+        $crawler->crawl('google', $keyword, $options);
+        $source = $crawler->getSource();
 
         // create container
         $linkSet = new LinkSet();
