@@ -56,9 +56,8 @@ abstract class AbstractLink implements LinkInterface, Features\NodeAdProviderInt
 
     /**
      * Method to detect links, initial method
-     * @param string $source html code source
      */
-    public function detect(&$source)
+    public function detect()
     {
         $results = $this->getResults();
         $nodes = $this->getNodeList();

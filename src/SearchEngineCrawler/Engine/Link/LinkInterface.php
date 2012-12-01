@@ -6,9 +6,8 @@ interface LinkInterface
 {
     /**
      * Method to detect links, initial method
-     * @param string $source html code source
      */
-    public function detect(&$source);
+    public function detect();
 
     /**
      * Check if a node is valid, if the node match with the type required
