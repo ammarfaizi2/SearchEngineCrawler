@@ -5,8 +5,7 @@ namespace SearchEngineCrawler\Engine\Link\Google\Web;
 use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\Engine\Link\Features;
 
-class Product extends AbstractLink implements Features\NodeLinkProviderInterface,
-    Features\NodeLinkAnchorProviderInterface
+class Product extends AbstractLink implements Features\NodeLinkAnchorProviderInterface
 {
     /**
      * Result class container

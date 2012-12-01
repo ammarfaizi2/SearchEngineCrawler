@@ -6,8 +6,8 @@ use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\ResultSet\Link\Extension;
 use SearchEngineCrawler\Engine\Link\Features;
 
-class Natural extends AbstractLink implements Features\NodeLinkProviderInterface,
-    Features\NodeLinkAnchorProviderInterface, Features\NodeExtensionProviderInterface
+class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
+    Features\NodeExtensionProviderInterface
 {
     /**
      * Result class container

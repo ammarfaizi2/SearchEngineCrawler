@@ -5,8 +5,8 @@ namespace SearchEngineCrawler\Engine\Link\Google\Web;
 use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\Engine\Link\Features;
 
-class Map extends AbstractLink implements Features\NodeLinkProviderInterface,
-    Features\NodeLinkAnchorProviderInterface, Features\NodeMapProviderInterface
+class Map extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
+    Features\NodeMapProviderInterface
 {
     /**
      * Result class container

@@ -5,8 +5,8 @@ namespace SearchEngineCrawler\Engine\Link\Google\Web;
 use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\Engine\Link\Features;
 
-class Video extends AbstractLink implements Features\NodeLinkProviderInterface,
-    Features\NodeLinkAnchorProviderInterface, Features\NodeImageSourceProviderInterface
+class Video extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
+    Features\NodeImageSourceProviderInterface
 {
     /**
      * Result class container

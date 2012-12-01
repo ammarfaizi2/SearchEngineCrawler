@@ -5,8 +5,7 @@ namespace SearchEngineCrawler\Engine\Link\Google\Web;
 use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\Engine\Link\Features;
 
-class Image extends AbstractLink implements Features\NodeLinkProviderInterface,
-    Features\NodeImageSourceProviderInterface
+class Image extends AbstractLink implements Features\NodeImageSourceProviderInterface
 {
     /**
      * Result class container

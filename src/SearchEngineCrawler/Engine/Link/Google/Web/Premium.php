@@ -6,8 +6,8 @@ use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\ResultSet\Link\RichSnippet;
 use SearchEngineCrawler\Engine\Link\Features;
 
-class Premium extends AbstractLink implements Features\NodeLinkProviderInterface,
-    Features\NodeLinkAnchorProviderInterface, Features\NodeRichSnippetProviderInterface
+class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
+    Features\NodeRichSnippetProviderInterface
 {
     /**
      * Result class container

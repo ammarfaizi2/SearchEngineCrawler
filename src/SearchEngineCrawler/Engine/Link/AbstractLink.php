@@ -69,9 +69,7 @@ abstract class AbstractLink implements LinkInterface, Features\NodeAdProviderInt
             $result = new $this->resultClass;
             $result->position = $this->getNodeLineNumber($node);
             $result->ad = $this->getNodeAd($node);
-            if($this instanceof Features\NodeLinkInterface) {
-                $result->link = $this->getNodeLink($node);
-            }
+            $result->link = $this->getNodeLink($node);
             if($this instanceof Features\NodeLinkAnchorInterface) {
                 $result->anchor = $this->getNodeLinkAnchor($node);
             }
