@@ -8,6 +8,7 @@
 namespace SearchEngineCrawlerTest\Crawler;
 
 use SearchEngineCrawler\Crawler\AbstractCrawler;
+use SearchEngineCrawler\Crawler\Simple;
 
 class CachedCrawler extends AbstractCrawler
 {
@@ -17,8 +18,11 @@ class CachedCrawler extends AbstractCrawler
 
     public function crawl($engine, array $options = array())
     {
+        $linkBuilder = $this->getLinkBuilderManager()->get($engine);
+        $opts = $linkBuilder->getOptions();
+
         if($this->autoFileCached) {
-            $lang = $options['builder']['lang'];
+            $lang = isset($options['builder']['lang']) ? $options['builder']['lang'] : $opts->lang;
             $page = $options['builder']['page'];
             $cache = $lang . '.' . strtr($options['builder']['keyword'], ' ', '.') . ($page > 1 ? '-' . $page : '') . '.html';
             $filename = __DIR__ . '/_files/' . $cache;
@@ -27,7 +31,10 @@ class CachedCrawler extends AbstractCrawler
         }
         if(!file_exists($filename)) {
             $crawler = new Simple();
-            return $crawler->crawl($engine, $options);
+            $crawler->crawl($engine, $options);
+            file_put_contents($filename, $crawler->getSource());
+            $this->setSource($crawler->getSource());
+            return $this;
         }
         $contents = file_get_contents($filename);
 

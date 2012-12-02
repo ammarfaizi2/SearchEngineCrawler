@@ -1,7 +1,7 @@
 ZF2 SearchEngineCrawler module
 ===================
 
-Version 0.0.1 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
+Version 0.2.0 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
 
 Introduction
 ------------
@@ -25,9 +25,42 @@ A simple search on Google Web :
 
 ```php
 $googleWeb = $this->getServiceLocator('crawler_google_web');
+$match = $googleWeb->match('zend framework', 'http://framework.zend.com');
+
+echo sprintf('Link has found in position "%s"', $match->getPosition());
+echo sprintf('Link has found in page "%s"', $match->getPage());
+```
+
+You can specify type of links, lang, match options, etc :
+
+```php
+$googleWeb = $this->getServiceLocator('crawler_google_web');
+$match = $googleWeb->match('zend framework', 'http://framework.zend.com', array(
+    'links' => array('natural', 'image', 'video'),
+    'builder' => array(
+        'lang' => 'fr', // en by default
+        'host' => 'fr', // com by default
+    ),
+    'match' => array(
+        'strictMode' => true, // each uri path must match strictly, true by default
+        'strictDns' => false, // do not check subdomain, true by default
+    ),
+));
+
+echo sprintf('Link has found in position "%s"', $match->getPosition());
+echo sprintf('Link has found in page "%s"', $match->getPage());
+```
+
+A simple crawl on Google Web :
+
+```php
+$googleWeb = $this->getServiceLocator('crawler_google_web');
 $set = $googleWeb->crawl('rooney', array(
     'links' => array('natural', 'image', 'video'),
-    'localisation' => array('lang' => 'fr'),
+    'builder' => array(
+        'lang' => 'fr', // en by default
+        'host' => 'fr', // com by default
+    ),
 ));
 $linkSet = $set->getPage(1)->getLinks();
 
@@ -44,7 +77,7 @@ foreach($linkSet as $position => $result) {
 Features
 ------------
 
-You can crawl :
+You can crawl & match:
 * Google Web (Natural, image, video, product, premium, bottom premium, map & news)
 
 Page informations available :
@@ -68,7 +101,6 @@ Crawl on :
 * Bing Web
 
 Other stuff:
-* Crawler matcher
 * Simple crawler with proxy
 * Mobile crawler
 * Get the rich snippets & extension (rating, phone, author name)

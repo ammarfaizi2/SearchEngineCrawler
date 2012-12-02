@@ -8,10 +8,13 @@
 namespace SearchEngineCrawler\Engine;
 
 use SearchEngineCrawler\Crawler\CrawlerInterface;
+use SearchEngineCrawler\Crawler\Match\MatchInterface;
 use SearchEngineCrawler\Crawler\Simple as SimpleCrawler;
+use SearchEngineCrawler\Crawler\Match\Simple as SimpleMatch;
 use SearchEngineCrawler\Engine\Link\LinkPluginManager;
 use SearchEngineCrawler\Engine\Metadata\MetadataPluginManager;
 use SearchEngineCrawler\ResultSet\ResultSet;
+use SearchEngineCrawler\Result\Match;
 use Zend\Stdlib\Exception\InvalidArgumentException;
 
 abstract class AbstractEngine implements EngineInterface
@@ -19,6 +22,8 @@ abstract class AbstractEngine implements EngineInterface
     protected $maxDepth = 1;
 
     protected $crawler;
+
+    protected $crawlerMatch;
 
     protected $linkPluginManager;
 
@@ -28,6 +33,7 @@ abstract class AbstractEngine implements EngineInterface
      * Crawl list of results
      * @param string $keyword the keyword to parse
      * @param array $options parser & link builder options
+     * @return ResultSet
      */
     public function crawl($keyword = null, array $options = array())
     {
@@ -54,6 +60,51 @@ abstract class AbstractEngine implements EngineInterface
             $set->setPage($page, $pageContainer);
         }
         return $set;
+    }
+
+    /**
+     * Match uri with the list of results
+     * @param string $keyword the keyword to parse
+     * @param string $match uri to parse
+     * @param array $options parser & link builder options
+     * @return Match|null
+     */
+    public function match($keyword = null, $match = null, array $options = array())
+    {
+        if($keyword) {
+            $options = array_replace_recursive($options, array(
+                'builder' => array(
+                    'keyword' => $keyword,
+                ),
+            ));
+        }
+        if($match) {
+            $crawlerMatch = $this->getCrawlerMatch();
+            $crawlerMatch->setMatch($match);
+        }
+        if(isset($options['match'])) {
+            $crawlerMatch = $this->getCrawlerMatch();
+            $opts = $crawlerMatch->getOptions();
+            $opts->setFromArray($options['match']);
+        }
+
+        $page = 1;
+        $maxDepth = $this->getMaxDepth();
+        for($page; $page <= $maxDepth; $page++) {
+            $options = array_replace_recursive($options, array(
+                'builder' => array(
+                    'page' => $page,
+                ),
+            ));
+
+            $pageContainer = $this->crawlPage($page, $options);
+
+            $crawlerMatch = $this->getCrawlerMatch();
+            $match = $crawlerMatch->matchPage($pageContainer);
+            if($match instanceof Match) {
+                return $match;
+            }
+        }
     }
 
     /**
@@ -90,6 +141,29 @@ abstract class AbstractEngine implements EngineInterface
     public function setCrawler(CrawlerInterface $crawler)
     {
         $this->crawler = $crawler;
+        return $this;
+    }
+
+    /**
+     * Get the crawler match
+     * @return MatchInterface
+     */
+    public function getCrawlerMatch()
+    {
+        if(null === $this->crawlerMatch) {
+            $this->setCrawlerMatch(new SimpleMatch());
+        }
+        return $this->crawlerMatch;
+    }
+
+    /**
+     * Set the crawler match
+     * @param MatchInterface $crawlerMatch
+     * @return AbstractEngine
+     */
+    public function setCrawlerMatch(MatchInterface $crawlerMatch)
+    {
+        $this->crawlerMatch = $crawlerMatch;
         return $this;
     }
 

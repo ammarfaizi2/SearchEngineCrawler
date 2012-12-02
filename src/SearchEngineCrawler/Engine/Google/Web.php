@@ -27,18 +27,16 @@ class Web extends AbstractEngine
         // create container
         $linkSet = new LinkSet();
         $metadataSet = new MetadataSet();
-        $pageContainer = new PageContainer();
+        $pageContainer = new PageContainer($page);
 
         // crawl the page
         $crawler = $this->getCrawler();
         $crawler->crawl('google', $options);
         $source = $crawler->getSource();
 
-        // get links
+        // get links, natural only by default
         if(!isset($options['links'])) {
-            throw new Exception\InvalidArgumentException(
-                'Options must be defined list of links with the key "links"'
-            );
+            $options['links'] = array('natural');
         }
         foreach($options['links'] as $link) {
             $link = $this->getLink($link);

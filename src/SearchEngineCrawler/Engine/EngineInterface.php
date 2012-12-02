@@ -15,4 +15,12 @@ interface EngineInterface
      * @param array $options parser & link builder options
      */
     public function crawl($keyword = null, array $options = array());
+
+    /**
+     * Match uri with the list of results
+     * @param string $keyword the keyword to parse
+     * @param string $match uri/array of uri to parse
+     * @param array $options parser & link builder options
+     */
+    public function match($keyword = null, $match = null, array $options = array());
 }

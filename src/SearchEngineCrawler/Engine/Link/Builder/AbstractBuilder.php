@@ -32,8 +32,14 @@ abstract class AbstractBuilder implements BuilderInterface
         return $this->options;
     }
 
-    public function setOptions(Options $options)
+    public function setOptions($options)
     {
+        if(is_array($options)) {
+            $options = new Options($options);
+        }
+        if(!$options instanceof $options) {
+            throw new InvalidArgumentException('Options must be an array or an Options instance');
+        }
         $this->options = $options;
         return $this;
     }
