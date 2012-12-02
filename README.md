@@ -7,7 +7,6 @@ Introduction
 ------------
 
 SearchEngineCrawler is a SEO/SEA crawler.
-Actually, just a draft.
 
 Requirement
 ------------
@@ -46,10 +45,10 @@ Features
 ------------
 
 You can crawl :
-* Google Web (Natural, image, video, product, premium, bottom premium, map & news link)
+* Google Web (Natural, image, video, product, premium, bottom premium, map & news)
 
 Page informations available :
-* Google Web (Results, suggest & word spelling metadata)
+* Google Web (Results, suggest & word spelling)
 
 Link informations :
 * Extension : sitelinks
@@ -69,11 +68,11 @@ Crawl on :
 * Bing Web
 
 Other stuff:
-* Crawler matcher
-* Crawler with proxy
+* Link builder
 * Manage the pagination
+* Crawler matcher
+* Simple crawler with proxy
 * Mobile crawler
 * Get the rich snippets & extension (rating, phone, author name)
-* Link builder
 * Improve workflow
 * Improve unit tests with 50+ use case
