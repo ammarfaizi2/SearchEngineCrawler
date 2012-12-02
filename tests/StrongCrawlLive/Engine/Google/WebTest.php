@@ -11,7 +11,7 @@ class WebTest extends TestCase
     
     protected $keyword;
     
-    protected $links = array('natural', 'image', 'map', 'news', 'premium', 'product', 'video');
+    protected $links = array('natural', 'image', 'map', 'news', 'premium', 'premium_bottom', 'product', 'video');
     
     protected function getKeywordFileCache()
     {
@@ -26,7 +26,7 @@ class WebTest extends TestCase
     public function keywordRegister($keyword)
     {
         $this->keyword = $keyword;
-        $cache = __DIR__ . '/sources/' . $this->getKeywordFileCache() . '.html';
+        $cache = __DIR__ . '/sources/web/' . $this->getKeywordFileCache() . '.html';
         if(!CRAWL_IN_LIVE && file_exists($cache)) {
             $crawler = $this->engine->getCrawler();
             $crawler->setSource(file_get_contents($cache));
@@ -54,14 +54,16 @@ class WebTest extends TestCase
         ));
         $linkSet = $set->getPage(1)->getLinks();
         
-        $this->assertEquals(14, count($linkSet));
+        // tests type of links
         $this->assertEquals(8, count($linkSet->getNaturalResults()));
         $this->assertEquals(4, count($linkSet->getImageResults()));
         $this->assertEquals(0, count($linkSet->getMapResults()));
         $this->assertEquals(0, count($linkSet->getNewsResults()));
         $this->assertEquals(0, count($linkSet->getPremiumResults()));
+        $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
         $this->assertEquals(0, count($linkSet->getProductResults()));
         $this->assertEquals(2, count($linkSet->getVideoResults()));
+        $this->assertEquals(14, count($linkSet));
     }
     
     public function test_RestaurantParis_Case()
@@ -74,14 +76,16 @@ class WebTest extends TestCase
         ));
         $linkSet = $set->getPage(1)->getLinks();
         
-        $this->assertEquals(20, count($linkSet));
+        // tests type of links
         $this->assertEquals(10, count($linkSet->getNaturalResults()));
         $this->assertEquals(0, count($linkSet->getImageResults()));
         $this->assertEquals(7, count($linkSet->getMapResults()));
         $this->assertEquals(0, count($linkSet->getNewsResults()));
         $this->assertEquals(3, count($linkSet->getPremiumResults()));
+        $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
         $this->assertEquals(0, count($linkSet->getProductResults()));
         $this->assertEquals(0, count($linkSet->getVideoResults()));
+        $this->assertEquals(20, count($linkSet));
     }
     
     public function test_BourseParis_Case()
@@ -94,13 +98,15 @@ class WebTest extends TestCase
         ));
         $linkSet = $set->getPage(1)->getLinks();
         
-        $this->assertEquals(16, count($linkSet));
+        // tests type of links
         $this->assertEquals(10, count($linkSet->getNaturalResults()));
         $this->assertEquals(0, count($linkSet->getImageResults()));
         $this->assertEquals(0, count($linkSet->getMapResults()));
         $this->assertEquals(3, count($linkSet->getNewsResults()));
         $this->assertEquals(3, count($linkSet->getPremiumResults()));
+        $this->assertEquals(3, count($linkSet->getPremiumBottomResults()));
         $this->assertEquals(0, count($linkSet->getProductResults()));
         $this->assertEquals(0, count($linkSet->getVideoResults()));
+        $this->assertEquals(19, count($linkSet));
     }
 }

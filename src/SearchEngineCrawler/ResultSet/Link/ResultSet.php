@@ -173,6 +173,35 @@ class ResultSet extends ArrayObject
     }
 
     /**
+     * Check if the resultset have premium bottom result
+     * @return boolean
+     */
+    public function hasPremiumBottomResult()
+    {
+        foreach($this as $result) {
+            if($result instanceof Result\PremiumBottom) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get all the premium bottom result
+     * @return ResultSet
+     */
+    public function getPremiumBottomResults()
+    {
+        $set = new ResultSet();
+        foreach($this as $result) {
+            if($result instanceof Result\PremiumBottom) {
+                $set->append(clone $result);
+            }
+        }
+        return $set;
+    }
+
+    /**
      * Check if the resultset have map result
      * @return boolean
      */
