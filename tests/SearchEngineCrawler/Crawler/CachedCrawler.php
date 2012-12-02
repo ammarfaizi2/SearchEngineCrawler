@@ -11,13 +11,42 @@ use SearchEngineCrawler\Crawler\AbstractCrawler;
 
 class CachedCrawler extends AbstractCrawler
 {
-    public function crawl($engine, $keyword, array $options = array())
+    protected $autoFileCached = false;
+
+    protected $filePattern;
+
+    public function crawl($engine, array $options = array())
     {
-        $lang = $options['location']['lang'];
-        $cache = $lang . '.' . strtr($keyword, ' ', '.') . '.html';
-        $contents = file_get_contents(__DIR__ . '/_files/' . $cache);
+        if($this->autoFileCached) {
+            $lang = $options['builder']['lang'];
+            $page = $options['builder']['page'];
+            $cache = $lang . '.' . strtr($options['builder']['keyword'], ' ', '.') . ($page > 1 ? '-' . $page : '') . '.html';
+            $filename = __DIR__ . '/_files/' . $cache;
+        } else {
+            $filename = sprintf($this->filePattern, strtr($options['builder']['keyword'], ' ', '.'));
+        }
+        if(!file_exists($filename)) {
+            $crawler = new Simple();
+            return $crawler->crawl($engine, $options);
+        }
+        $contents = file_get_contents($filename);
 
         $this->setSource($contents);
+        return $this;
+    }
+
+    protected function crawlUri($uri)
+    {}
+
+    public function setAutoFileCached($autoFileCached)
+    {
+        $this->autoFileCached = $autoFileCached;
+        return $this;
+    }
+
+    public function setFilePattern($filePattern)
+    {
+        $this->filePattern = $filePattern;
         return $this;
     }
 }

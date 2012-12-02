@@ -9,5 +9,5 @@ namespace SearchEngineCrawler\Engine\Link\Builder;
 
 interface BuilderInterface
 {
-    public function build($keyword, $page, array $options = array());
+    public function build(array $options = array());
 }

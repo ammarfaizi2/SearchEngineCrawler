@@ -9,5 +9,5 @@ namespace SearchEngineCrawler\Crawler;
 
 interface CrawlerInterface
 {
-    public function crawl($engine, $keyword, array $options = array());
+    public function crawl($engine, array $options = array());
 }

@@ -44,7 +44,7 @@ class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInt
         }
         // natural have not empty description
         $nodePath = $node->getNodePath();
-        $nodePath .= '/div[@class="vsc"]/div[@class="s"]/span[@class="st"]';
+        $nodePath .= '/div[@class="vsc"]/div[@class="s"]//span[@class="st"]';
         $description = $this->xpath($nodePath)->current();
         if(null === $description || empty($description->textContent)) {
             return null;
@@ -87,7 +87,7 @@ class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInt
         // get sitelinks extension
         $sitelinks = array();
         $nodePath = $node->getNodePath();
-        $nodePath .= '//div/div[@class="osl"]/a';
+        $nodePath .= '//div[@class="osl"]/a';
         $links = $this->xpath($nodePath);
         foreach($links as $link) {
             $sitelinks[] = array(

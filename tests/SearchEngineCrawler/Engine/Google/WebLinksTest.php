@@ -9,6 +9,7 @@ namespace SearchEngineCrawlerTest\Engine\Google;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use SearchEngineCrawler\Engine\Google\Web as GoogleWeb;
+use SearchEngineCrawler\Engine\Link\Builder\Google as GoogleLinkBuilder;
 use SearchEngineCrawlerTest\Crawler\CachedCrawler;
 
 class WebLinksTest extends TestCase
@@ -16,12 +17,16 @@ class WebLinksTest extends TestCase
     public function testCanCrawlNaturalLinks()
     {
         $crawler = new CachedCrawler();
+        $crawler->setAutoFileCached(true);
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);
         $set = $google->crawl('zend framework', array(
             'links' => array('natural'),
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $naturals = $linkSet->getNaturalResults();
@@ -38,12 +43,16 @@ class WebLinksTest extends TestCase
     public function testCanCrawlNaturalImageVideoLinks()
     {
         $crawler = new CachedCrawler();
+        $crawler->setAutoFileCached(true);
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);
         $set = $google->crawl('rooney', array(
             'links' => array('natural', 'image', 'video'),
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
         ));
         $linkSet = $set->getPage(1)->getLinks();
 
@@ -56,12 +65,16 @@ class WebLinksTest extends TestCase
     public function testCanCrawlNaturalProductPremiumLinks()
     {
         $crawler = new CachedCrawler();
+        $crawler->setAutoFileCached(true);
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);
         $set = $google->crawl('table a manger', array(
             'links' => array('natural', 'product', 'premium'),
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $premiums = $linkSet->getPremiumResults();
@@ -76,12 +89,16 @@ class WebLinksTest extends TestCase
     public function testCanCrawlNaturalMapLinks()
     {
         $crawler = new CachedCrawler();
+        $crawler->setAutoFileCached(true);
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);
         $set = $google->crawl('restaurant paris', array(
             'links' => array('natural', 'map'),
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
         ));
         $linkSet = $set->getPage(1)->getLinks();
 
@@ -93,12 +110,16 @@ class WebLinksTest extends TestCase
     public function testCanCrawlNaturalNewsPremiumLinks()
     {
         $crawler = new CachedCrawler();
+        $crawler->setAutoFileCached(true);
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);
         $set = $google->crawl('bourse de paris', array(
             'links' => array('natural', 'news', 'premium'),
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
         ));
         $linkSet = $set->getPage(1)->getLinks();
 

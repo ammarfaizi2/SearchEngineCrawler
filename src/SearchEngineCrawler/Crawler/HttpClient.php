@@ -20,20 +20,11 @@ class HttpClient extends AbstractCrawler
 
     protected $httpClient;
 
-    public function crawl($engine, $keyword, array $options = array())
+    public function crawlUri($uri)
     {
-        if($this->getSource()) {
-            return $this;
-        }
-        $linkBuilder = $this->getLinkBuilderManager()->get($engine);
-        $link = $linkBuilder->build($keyword, 1, $options);
-
         $client = $this->getHttpClient();
-        $client->setUri($link);
-        $content = $client->send();
-
-        $this->setSource($content);
-        return $this;
+        $client->setUri($uri);
+        return $client->send();
     }
 
     /**

@@ -17,6 +17,20 @@ abstract class AbstractCrawler implements CrawlerInterface
 
     protected $linkBuilderManager;
 
+    public function crawl($engine, array $options = array())
+    {
+        $linkBuilder = $this->getLinkBuilderManager()->get($engine);
+        $builderOptions = isset($options['builder']) ? $options['builder'] : array();
+        $link = $linkBuilder->build($builderOptions);
+
+        $content = $this->crawlUri($link);
+
+        $this->setSource($content);
+        return $this;
+    }
+
+    abstract protected function crawlUri($uri);
+
     public function getUserAgent()
     {
         return $this->userAgent;

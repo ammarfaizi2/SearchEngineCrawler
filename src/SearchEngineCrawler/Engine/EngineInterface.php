@@ -9,5 +9,10 @@ namespace SearchEngineCrawler\Engine;
 
 interface EngineInterface
 {
-
+    /**
+     * Crawl list of results
+     * @param string $keyword the keyword to parse
+     * @param array $options parser & link builder options
+     */
+    public function crawl($keyword = null, array $options = array());
 }

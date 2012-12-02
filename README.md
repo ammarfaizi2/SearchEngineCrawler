@@ -68,8 +68,6 @@ Crawl on :
 * Bing Web
 
 Other stuff:
-* Link builder
-* Manage the pagination
 * Crawler matcher
 * Simple crawler with proxy
 * Mobile crawler

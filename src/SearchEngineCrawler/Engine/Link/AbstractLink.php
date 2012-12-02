@@ -35,6 +35,9 @@ abstract class AbstractLink implements LinkInterface, Features\NodeAdProviderInt
      */
     public function source(&$html)
     {
+        // init set results
+        $this->set = null;
+
         $dom = new \DOMDocument();
         $dom->preserveWhiteSpace = false;
         $dom->strictErrorChecking = false;

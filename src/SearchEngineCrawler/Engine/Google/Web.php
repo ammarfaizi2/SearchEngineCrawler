@@ -16,19 +16,23 @@ use Zend\Stdlib\Exception;
 
 class Web extends AbstractEngine
 {
-    public function crawl($keyword, array $options = array())
+    /**
+     * Get links of page results
+     * @param $page number of the page
+     * @param $options
+     * @return PageContainer
+     */
+    protected function crawlPage($page, array $options = array())
     {
-        $set = new ResultSet();
-        $crawler = $this->getCrawler();
-
-        $page = 1;
-        $crawler->crawl('google', $keyword, $options);
-        $source = $crawler->getSource();
-
         // create container
         $linkSet = new LinkSet();
         $metadataSet = new MetadataSet();
         $pageContainer = new PageContainer();
+
+        // crawl the page
+        $crawler = $this->getCrawler();
+        $crawler->crawl('google', $options);
+        $source = $crawler->getSource();
 
         // get links
         if(!isset($options['links'])) {
@@ -54,8 +58,6 @@ class Web extends AbstractEngine
             }
         }
         $pageContainer->setMetadatas($metadataSet);
-
-        $set->setPage($page, $pageContainer);
-        return $set;
+        return $pageContainer;
     }
 }

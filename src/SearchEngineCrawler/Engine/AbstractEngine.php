@@ -11,18 +11,87 @@ use SearchEngineCrawler\Crawler\CrawlerInterface;
 use SearchEngineCrawler\Crawler\Simple as SimpleCrawler;
 use SearchEngineCrawler\Engine\Link\LinkPluginManager;
 use SearchEngineCrawler\Engine\Metadata\MetadataPluginManager;
+use SearchEngineCrawler\ResultSet\ResultSet;
+use Zend\Stdlib\Exception\InvalidArgumentException;
 
 abstract class AbstractEngine implements EngineInterface
 {
-    protected $currentPage = 1;
-
-    protected $maxPage = 1;
+    protected $maxDepth = 1;
 
     protected $crawler;
 
     protected $linkPluginManager;
 
     protected $metadataPluginManager;
+
+    /**
+     * Crawl list of results
+     * @param string $keyword the keyword to parse
+     * @param array $options parser & link builder options
+     */
+    public function crawl($keyword = null, array $options = array())
+    {
+        $set = new ResultSet();
+
+        if($keyword) {
+            $options = array_replace_recursive($options, array(
+                'builder' => array(
+                    'keyword' => $keyword,
+                ),
+            ));
+        }
+
+        $page = 1;
+        $maxDepth = $this->getMaxDepth();
+        for($page; $page <= $maxDepth; $page++) {
+            $options = array_replace_recursive($options, array(
+                'builder' => array(
+                    'page' => $page,
+                ),
+            ));
+
+            $pageContainer = $this->crawlPage($page, $options);
+            $set->setPage($page, $pageContainer);
+        }
+        return $set;
+    }
+
+    /**
+     * Get links of page results
+     * @param $page number of the page
+     * @param $options
+     * @return PageContainer
+     */
+    abstract protected function crawlPage($page, array $options = array());
+
+    public function getMaxDepth()
+    {
+        return $this->maxDepth;
+    }
+
+    public function setMaxDepth($maxDepth)
+    {
+        $maxDepth = (integer)$maxDepth;
+        if($maxDepth <= 1) {
+            throw new InvalidArgumentException('Page must be a positive integer');
+        }
+        $this->maxDepth = $maxDepth;
+        return $this;
+    }
+
+    public function getCrawler()
+    {
+        if(null === $this->crawler) {
+            $this->setCrawler(new SimpleCrawler());
+        }
+        return $this->crawler;
+    }
+
+    public function setCrawler(CrawlerInterface $crawler)
+    {
+        $this->crawler = $crawler;
+        return $this;
+    }
 
     public function getLink($link)
     {
@@ -67,20 +136,6 @@ abstract class AbstractEngine implements EngineInterface
     public function setMetadataPluginManager(MetadataPluginManager $metadataPluginManager)
     {
         $this->metadataPluginManager = $metadataPluginManager;
-        return $this;
-    }
-
-    public function getCrawler()
-    {
-        if(null === $this->crawler) {
-            $this->setCrawler(new SimpleCrawler());
-        }
-        return $this->crawler;
-    }
-
-    public function setCrawler(CrawlerInterface $crawler)
-    {
-        $this->crawler = $crawler;
         return $this;
     }
 }

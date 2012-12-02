@@ -20,23 +20,14 @@ class Simple extends AbstractCrawler
 
     protected $httpClient;
 
-    public function crawl($engine, $keyword, array $options = array())
+    public function crawlUri($uri)
     {
-        if($this->getSource()) {
-            return $this;
-        }
-        $linkBuilder = $this->getLinkBuilderManager()->get($engine);
-        $link = $linkBuilder->build($keyword, 1, $options);
-
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $link);
+        curl_setopt($ch, CURLOPT_URL, $uri);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $content = curl_exec($ch);
-
-        $this->setSource($content);
-        return $this;
+        return curl_exec($ch);
     }
 
     /**

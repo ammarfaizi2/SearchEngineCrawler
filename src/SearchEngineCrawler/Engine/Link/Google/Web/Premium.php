@@ -100,7 +100,7 @@ class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInt
         // get sitelinks extension
         $sitelinks = array();
         $nodePath = $node->getNodePath();
-        $nodePath .= '//div/div[@class="oslk"]/a';
+        $nodePath .= '//div[@class="oslk"]/a';
         $links = $this->xpath($nodePath);
         foreach($links as $link) {
             $sitelinks[] = array(

@@ -9,6 +9,8 @@ namespace StrongCrawlLiveTest\Engine\Google;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use SearchEngineCrawler\Engine\Google\Web as GoogleWeb;
+use SearchEngineCrawler\Engine\Link\Builder\Google as GoogleLinkBuilder;
+use SearchEngineCrawlerTest\Crawler\CachedCrawler;
 
 class WebTest extends TestCase
 {
@@ -27,6 +29,11 @@ class WebTest extends TestCase
     public function setUp()
     {
         $this->engine = new GoogleWeb();
+        if(!CRAWL_IN_LIVE) {
+            $crawler = new CachedCrawler();
+            $crawler->setFilePattern(__DIR__ . '/sources/web/%s.html');
+            $this->engine->setCrawler($crawler);
+        }
     }
     
     public function keywordRegister($keyword)
@@ -50,13 +57,50 @@ class WebTest extends TestCase
         sleep(2);
     }
     
+    public function test_RecetteGateauAuChocolat_Case()
+    {
+        $this->keywordRegister('recette gateau au chocolat');
+        
+        $set = $this->engine->crawl($this->keyword, array(
+            'links' => $this->links,
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
+            'metadatas' => $this->metadats,
+        ));
+        $linkSet = $set->getPage(1)->getLinks();
+        $metadatasSet = $set->getPage(1)->getMetadatas();
+        
+        // tests type of links
+        $this->assertEquals(9, count($linkSet->getNaturalResults()));
+        $this->assertEquals(0, count($linkSet->getImageResults()));
+        $this->assertEquals(0, count($linkSet->getMapResults()));
+        $this->assertEquals(0, count($linkSet->getNewsResults()));
+        $this->assertEquals(0, count($linkSet->getPremiumResults()));
+        $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
+        $this->assertEquals(0, count($linkSet->getProductResults()));
+        $this->assertEquals(1, count($linkSet->getVideoResults()));
+        $this->assertEquals(10, count($linkSet));
+        
+        // tests extension
+        $this->assertEquals(3, count($linkSet->getNaturalResults()->offsetGet(0)->getExtension()->getSitelinks()));
+        
+        // tests metadata
+        $this->assertEquals(8, count($metadatasSet->getSuggest()));
+        $this->assertEquals(null, $metadatasSet->getWordSpelling());
+    }
+    
     public function test_Rooney_Case()
     {
         $this->keywordRegister('rooney');
         
         $set = $this->engine->crawl($this->keyword, array(
             'links' => $this->links,
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
             'metadatas' => $this->metadats,
         ));
         $linkSet = $set->getPage(1)->getLinks();
@@ -87,7 +131,10 @@ class WebTest extends TestCase
         
         $set = $this->engine->crawl($this->keyword, array(
             'links' => $this->links,
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
             'metadatas' => $this->metadats,
         ));
         $linkSet = $set->getPage(1)->getLinks();
@@ -119,7 +166,10 @@ class WebTest extends TestCase
         
         $set = $this->engine->crawl($this->keyword, array(
             'links' => $this->links,
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
             'metadatas' => $this->metadats,
         ));
         $linkSet = $set->getPage(1)->getLinks();
@@ -153,7 +203,10 @@ class WebTest extends TestCase
         
         $set = $this->engine->crawl($this->keyword, array(
             'links' => $this->links,
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
             'metadatas' => $this->metadats,
         ));
         $linkSet = $set->getPage(1)->getLinks();
@@ -181,7 +234,10 @@ class WebTest extends TestCase
         
         $set = $this->engine->crawl($this->keyword, array(
             'links' => $this->links,
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
             'metadatas' => $this->metadats,
         ));
         $linkSet = $set->getPage(1)->getLinks();
@@ -209,7 +265,10 @@ class WebTest extends TestCase
         
         $set = $this->engine->crawl($this->keyword, array(
             'links' => $this->links,
-            'location' => array('lang' => 'fr'),
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
             'metadatas' => $this->metadats,
         ));
         $linkSet = $set->getPage(1)->getLinks();
