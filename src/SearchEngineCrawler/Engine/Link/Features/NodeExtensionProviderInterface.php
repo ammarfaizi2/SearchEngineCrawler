@@ -1,11 +1,16 @@
 <?php
 
+/*
+ * This file is part of the SearchEngineCrawler package.
+ * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
+ */
+
 namespace SearchEngineCrawler\Engine\Link\Features;
 
 interface NodeExtensionProviderInterface
 {
     /**
-     * Get extension from a link
+     * Get extension link
      * @param \DOMElement $node
      * @return Extension
      */

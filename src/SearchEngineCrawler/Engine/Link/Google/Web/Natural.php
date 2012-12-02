@@ -1,10 +1,15 @@
 <?php
 
+/*
+ * This file is part of the SearchEngineCrawler package.
+ * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
+ */
+
 namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
-use SearchEngineCrawler\ResultSet\Link\Extension;
 use SearchEngineCrawler\Engine\Link\Features;
+use SearchEngineCrawler\ResultSet\Link\Extension;
 
 class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
     Features\NodeExtensionProviderInterface
@@ -73,7 +78,7 @@ class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInt
     }
 
     /**
-     * Get extension from a natural link
+     * Get extension link
      * @param \DOMElement $node
      * @return Extension
      */
@@ -82,7 +87,7 @@ class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInt
         // get sitelinks extension
         $sitelinks = array();
         $nodePath = $node->getNodePath();
-        $nodePath .= '/div[@class="vsc"]/div[@class="s"]/div[@class="osl"]/a';
+        $nodePath .= '//div/div[@class="osl"]/a';
         $links = $this->xpath($nodePath);
         foreach($links as $link) {
             $sitelinks[] = array(

@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * This file is part of the SearchEngineCrawler package.
+ * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
+ */
+
 namespace SearchEngineCrawler\ResultSet\Metadata;
 
 use ArrayObject;
@@ -19,12 +24,12 @@ class ResultSet extends ArrayObject
     public function __call($name, $arguments)
     {
         if(!preg_match('#^get#', $name)) {
-            return parent::__call($name, $arguments);
+            return null;
         }
         $name = preg_replace('#^get#', '', $name);
         $name = strtolower($name);
         if(!$this->offsetExists($name)) {
-            return parent::__call($name, $arguments);
+            return null;
         }
         return $this->offsetGet($name);
     }

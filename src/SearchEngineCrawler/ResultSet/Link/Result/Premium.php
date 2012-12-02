@@ -1,13 +1,21 @@
 <?php
 
+/*
+ * This file is part of the SearchEngineCrawler package.
+ * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
+ */
+
 namespace SearchEngineCrawler\ResultSet\Link\Result;
 
+use SearchEngineCrawler\ResultSet\Link\Extension;
 use SearchEngineCrawler\ResultSet\Link\RichSnippet;
 
 class Premium extends AbstractResult
     implements RichSnippetAwareInterface
 {
     protected $anchor;
+
+    protected $extension;
 
     protected $richSnippet;
 
@@ -19,6 +27,20 @@ class Premium extends AbstractResult
     public function setAnchor($anchor)
     {
         $this->anchor = $anchor;
+        return $this;
+    }
+
+    public function getExtension()
+    {
+        if(null === $this->extension) {
+            $this->setExtension(new Extension());
+        }
+        return $this->extension;
+    }
+
+    public function setExtension(Extension $extension)
+    {
+        $this->extension = $extension;
         return $this;
     }
 

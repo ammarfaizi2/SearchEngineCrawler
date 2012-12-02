@@ -46,7 +46,7 @@ Features
 ------------
 
 You can crawl :
-* Google Web (Natural, image, video, product, premium, map & news link)
+* Google Web (Natural, image, video, product, premium, bottom premium, map & news link)
 
 Page informations available :
 * Google Web (Results, suggest & word spelling metadata)

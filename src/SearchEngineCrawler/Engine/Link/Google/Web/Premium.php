@@ -1,13 +1,19 @@
 <?php
 
+/*
+ * This file is part of the SearchEngineCrawler package.
+ * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
+ */
+
 namespace SearchEngineCrawler\Engine\Link\Google\Web;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
-use SearchEngineCrawler\ResultSet\Link\RichSnippet;
 use SearchEngineCrawler\Engine\Link\Features;
+use SearchEngineCrawler\ResultSet\Link\Extension;
+use SearchEngineCrawler\ResultSet\Link\RichSnippet;
 
 class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
-    Features\NodeRichSnippetProviderInterface
+    Features\NodeRichSnippetProviderInterface, Features\NodeExtensionProviderInterface
 {
     /**
      * Result class container
@@ -82,5 +88,27 @@ class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInt
         }
 
         return new RichSnippet(array('products' => $products));
+    }
+
+    /**
+     * Get extension link
+     * @param \DOMElement $node
+     * @return Extension
+     */
+    public function getExtension(\DOMElement $node)
+    {
+        // get sitelinks extension
+        $sitelinks = array();
+        $nodePath = $node->getNodePath();
+        $nodePath .= '//div/div[@class="oslk"]/a';
+        $links = $this->xpath($nodePath);
+        foreach($links as $link) {
+            $sitelinks[] = array(
+                'link' => $link->getAttribute('href'),
+                'content' => $link->textContent,
+            );
+        }
+
+        return new Extension(array('sitelinks' => $sitelinks));
     }
 }
