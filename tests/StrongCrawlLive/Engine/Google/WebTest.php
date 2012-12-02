@@ -11,6 +11,8 @@ class WebTest extends TestCase
     
     protected $keyword;
     
+    protected $links = array('natural', 'image', 'map', 'news', 'premium', 'product', 'video');
+    
     protected function getKeywordFileCache()
     {
         return strtr($this->keyword, ' ', '.');
@@ -47,7 +49,7 @@ class WebTest extends TestCase
         $this->keywordRegister('rooney');
         
         $set = $this->engine->crawl($this->keyword, array(
-            'links' => array('natural', 'image', 'map', 'news', 'premium', 'product', 'video'),
+            'links' => $this->links,
             'location' => array('lang' => 'fr'),
         ));
         $linkSet = $set->getPage(1)->getLinks();
@@ -60,5 +62,45 @@ class WebTest extends TestCase
         $this->assertEquals(0, count($linkSet->getPremiumResults()));
         $this->assertEquals(0, count($linkSet->getProductResults()));
         $this->assertEquals(2, count($linkSet->getVideoResults()));
+    }
+    
+    public function test_RestaurantParis_Case()
+    {
+        $this->keywordRegister('restaurant paris');
+        
+        $set = $this->engine->crawl($this->keyword, array(
+            'links' => $this->links,
+            'location' => array('lang' => 'fr'),
+        ));
+        $linkSet = $set->getPage(1)->getLinks();
+        
+        $this->assertEquals(20, count($linkSet));
+        $this->assertEquals(10, count($linkSet->getNaturalResults()));
+        $this->assertEquals(0, count($linkSet->getImageResults()));
+        $this->assertEquals(7, count($linkSet->getMapResults()));
+        $this->assertEquals(0, count($linkSet->getNewsResults()));
+        $this->assertEquals(3, count($linkSet->getPremiumResults()));
+        $this->assertEquals(0, count($linkSet->getProductResults()));
+        $this->assertEquals(0, count($linkSet->getVideoResults()));
+    }
+    
+    public function test_BourseParis_Case()
+    {
+        $this->keywordRegister('bourse paris');
+        
+        $set = $this->engine->crawl($this->keyword, array(
+            'links' => $this->links,
+            'location' => array('lang' => 'fr'),
+        ));
+        $linkSet = $set->getPage(1)->getLinks();
+        
+        $this->assertEquals(16, count($linkSet));
+        $this->assertEquals(10, count($linkSet->getNaturalResults()));
+        $this->assertEquals(0, count($linkSet->getImageResults()));
+        $this->assertEquals(0, count($linkSet->getMapResults()));
+        $this->assertEquals(3, count($linkSet->getNewsResults()));
+        $this->assertEquals(3, count($linkSet->getPremiumResults()));
+        $this->assertEquals(0, count($linkSet->getProductResults()));
+        $this->assertEquals(0, count($linkSet->getVideoResults()));
     }
 }
