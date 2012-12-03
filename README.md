@@ -1,12 +1,18 @@
 ZF2 SearchEngineCrawler module
 ===================
 
-Version 0.2.0 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
+Version 0.3.0 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
 
 Introduction
 ------------
 
 SearchEngineCrawler is a SEO/SEA crawler.
+
+Licence
+------------
+This program is free software: you can redistribute it and/or modify it under the terms of 
+the GNU General Public License as published by the Free Software Foundation, either version 
+3 of the License, or (at your option) any later version.
 
 Requirement
 ------------
