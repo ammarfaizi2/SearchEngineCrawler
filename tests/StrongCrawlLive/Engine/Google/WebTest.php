@@ -19,7 +19,7 @@ class WebTest extends TestCase
     protected $keyword;
 
     protected $links = array('natural', 'image', 'map', 'news', 'premium', 'premium_bottom', 'product', 'video');
-    protected $metadats = array('suggest', 'word_spelling');
+    protected $metadatas = array('suggest', 'word_spelling');
 
     protected function getKeywordFileCache()
     {
@@ -54,9 +54,45 @@ class WebTest extends TestCase
             $source = $crawler->getSource();
             file_put_contents($cache, $source);
         }
-        sleep(2);
+        if(CRAWL_IN_LIVE) {
+            sleep(2);
+        }
     }
 
+    public function test_ZendFramework_Case()
+    {
+        $this->keywordRegister('zend framework');
+
+        $set = $this->engine->crawl($this->keyword, array(
+            'links' => $this->links,
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
+            'metadatas' => $this->metadatas,
+        ));
+        $linkSet = $set->getPage(1)->getLinks();
+        $metadatasSet = $set->getPage(1)->getMetadatas();
+
+        // tests type of links
+        $this->assertEquals(10, count($linkSet->getNaturalResults()));
+        $this->assertEquals(0, count($linkSet->getImageResults()));
+        $this->assertEquals(0, count($linkSet->getMapResults()));
+        $this->assertEquals(0, count($linkSet->getNewsResults()));
+        $this->assertEquals(0, count($linkSet->getPremiumResults()));
+        $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
+        $this->assertEquals(0, count($linkSet->getProductResults()));
+        $this->assertEquals(0, count($linkSet->getVideoResults()));
+        $this->assertEquals(10, count($linkSet));
+
+        // tests extension
+        $this->assertEquals(4, count($linkSet->getNaturalResults()->offsetGet(0)->getExtension()->getSitelinks()));
+
+        // tests metadata
+        $this->assertEquals(8, count($metadatasSet->getSuggest()));
+        $this->assertEquals(null, $metadatasSet->getWordSpelling());
+    }
+    
     public function test_RecetteGateauAuChocolat_Case()
     {
         $this->keywordRegister('recette gateau au chocolat');
@@ -67,7 +103,7 @@ class WebTest extends TestCase
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
-            'metadatas' => $this->metadats,
+            'metadatas' => $this->metadatas,
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
@@ -101,7 +137,7 @@ class WebTest extends TestCase
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
-            'metadatas' => $this->metadats,
+            'metadatas' => $this->metadatas,
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
@@ -135,7 +171,7 @@ class WebTest extends TestCase
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
-            'metadatas' => $this->metadats,
+            'metadatas' => $this->metadatas,
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
@@ -170,7 +206,7 @@ class WebTest extends TestCase
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
-            'metadatas' => $this->metadats,
+            'metadatas' => $this->metadatas,
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
@@ -207,7 +243,7 @@ class WebTest extends TestCase
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
-            'metadatas' => $this->metadats,
+            'metadatas' => $this->metadatas,
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
@@ -238,7 +274,7 @@ class WebTest extends TestCase
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
-            'metadatas' => $this->metadats,
+            'metadatas' => $this->metadatas,
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
@@ -259,6 +295,40 @@ class WebTest extends TestCase
         $this->assertEquals('lady gaga', strtolower($metadatasSet->getWordSpelling()));
     }
 
+    public function test_TableAManger_Case()
+    {
+        $this->keywordRegister('table a manger');
+
+        $set = $this->engine->crawl($this->keyword, array(
+            'links' => $this->links,
+            'builder' => array(
+                'lang' => GoogleLinkBuilder::LANG_FR,
+                'host' => GoogleLinkBuilder::HOST_FR,
+            ),
+            'metadatas' => $this->metadatas,
+        ));
+        $linkSet = $set->getPage(1)->getLinks();
+        $metadatasSet = $set->getPage(1)->getMetadatas();
+
+        // tests type of links
+        $this->assertEquals(10, count($linkSet->getNaturalResults()));
+        $this->assertEquals(0, count($linkSet->getImageResults()));
+        $this->assertEquals(0, count($linkSet->getMapResults()));
+        $this->assertEquals(0, count($linkSet->getNewsResults()));
+        $this->assertEquals(3, count($linkSet->getPremiumResults()));
+        $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
+        $this->assertEquals(3, count($linkSet->getProductResults()));
+        $this->assertEquals(0, count($linkSet->getVideoResults()));
+        $this->assertEquals(16, count($linkSet));
+
+        // tests extension
+        $this->assertEquals(3, count($linkSet->getPremiumResults()->offsetGet(0)->getRichSnippet()->getProducts()));
+
+        // tests metadata
+        $this->assertEquals(8, count($metadatasSet->getSuggest()));
+        $this->assertEquals(null, $metadatasSet->getWordSpelling());
+    }
+    
     public function test_MobilierDeSalon_Case()
     {
         $this->keywordRegister('mobilier de salon');
@@ -269,7 +339,7 @@ class WebTest extends TestCase
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
-            'metadatas' => $this->metadats,
+            'metadatas' => $this->metadatas,
         ));
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
