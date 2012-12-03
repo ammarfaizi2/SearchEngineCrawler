@@ -263,4 +263,33 @@ class ResultSet extends ArrayObject
         }
         return $set;
     }
+
+    /**
+     * Check if the resultset have book result
+     * @return boolean
+     */
+    public function hasBookResult()
+    {
+        foreach($this as $result) {
+            if($result instanceof Result\Book) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get all the book result
+     * @return ResultSet
+     */
+    public function getBookResults()
+    {
+        $set = new ResultSet();
+        foreach($this as $result) {
+            if($result instanceof Result\Book) {
+                $set->append(clone $result);
+            }
+        }
+        return $set;
+    }
 }

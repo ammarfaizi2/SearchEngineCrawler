@@ -14,7 +14,7 @@ use SearchEngineCrawler\ResultSet\Metadata\ResultSet as MetadataSet;
 use SearchEngineCrawler\ResultSet\Page\Container as PageContainer;
 use Zend\Stdlib\Exception;
 
-class Image extends AbstractEngine
+class Book extends AbstractEngine
 {
     /**
      * Get links of page results
@@ -31,12 +31,12 @@ class Image extends AbstractEngine
 
         // crawl the page
         $crawler = $this->getCrawler();
-        $crawler->crawl('googleimage', $options);
+        $crawler->crawl('googlebook', $options);
         $source = $crawler->getSource();
 
-        // get links, image only by default
+        // get links, book only by default
         if(!isset($options['links'])) {
-            $options['links'] = array('image');
+            $options['links'] = array('book');
         }
         foreach($options['links'] as $link) {
             $link = $this->getLink($link);

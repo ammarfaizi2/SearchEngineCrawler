@@ -14,7 +14,7 @@ abstract class AbstractMetadata implements MetadataInterface
     protected $metadata;
 
     protected $domQuery;
-    
+
     /**
      *
      * @param string $html
@@ -35,7 +35,7 @@ abstract class AbstractMetadata implements MetadataInterface
         $domQuery->setDocumentHtml($html);
         return $this;
     }
-    
+
     /**
      * Perform an XPath query
      *

@@ -5,21 +5,20 @@
  * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
  */
 
-namespace SearchEngineCrawler\Engine\Link\Google\Web;
+namespace SearchEngineCrawler\Engine\Link\Google\Book;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\Engine\Link\Features;
-use SearchEngineCrawler\ResultSet\Link\Extension;
-use SearchEngineCrawler\ResultSet\Link\RichSnippet;
 
-class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
-    Features\NodeRichSnippetProviderInterface, Features\NodeExtensionProviderInterface
+class Book extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
+    Features\NodeImageSourceProviderInterface, Features\NodeAuthorProviderInterface,
+    Features\NodeDateProviderInterface
 {
     /**
      * Result class container
      * @var string
      */
-    protected $resultClass = 'SearchEngineCrawler\ResultSet\Link\Result\Premium';
+    protected $resultClass = 'SearchEngineCrawler\ResultSet\Link\Result\Book';
 
     /**
      * Get the node list, each node contains
@@ -28,7 +27,7 @@ class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInt
      */
     public function getNodeList()
     {
-        return $this->xpath('//div[@id="tads"]/ol/li');
+        return $this->xpath('//ol[@id="rso"]//li[@class="g"]');
     }
 
     /**
@@ -40,7 +39,7 @@ class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInt
     public function validateNode(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '/div/h3/a';
+        $nodePath .= '//h3[@class="r"]/a';
         return $this->xpath($nodePath)->current();
     }
 
@@ -67,48 +66,52 @@ class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInt
     }
 
     /**
-     * Get rich snippets from a natural link
+     * Get the link anchor
      * @param \DOMElement $node
-     * @return Extension
+     * @return integer the line number
      */
-    public function getNodeRichSnippet(\DOMElement $node)
+    public function getNodeImageSource(\DOMElement $node)
     {
-        // get products snippet
-        $products = array();
         $nodePath = $node->getNodePath();
-        $nodePath .= '/div[contains(@class,"vsc")]//table[@class="ts"]//tr';
-        $links = $this->xpath($nodePath);
-        foreach($links as $link) {
-            $childs = $link->childNodes;
-            $products[] = array(
-                'link' => $childs->item(0)->firstChild->getAttribute('href'),
-                'content' => $childs->item(0)->firstChild->textContent,
-                'price' => (float)preg_replace("#[^\d\.\,]#", '', strtr($childs->item(2)->textContent, ',', '.')),
-            );
+        $nodePath .= '//img[starts-with(@id,"bksthumb")]';
+        $img = $this->xpath($nodePath)->current();
+        if(null === $img) {
+            return null;
         }
-
-        return new RichSnippet(array('products' => $products));
+        return $img->getAttribute('src');
     }
 
     /**
-     * Get extension link
+     * Get the author(s)
      * @param \DOMElement $node
-     * @return Extension
+     * @return array list of authors
      */
-    public function getNodeExtension(\DOMElement $node)
+    public function getNodeAuthor(\DOMElement $node)
     {
-        // get sitelinks extension
-        $sitelinks = array();
         $nodePath = $node->getNodePath();
-        $nodePath .= '//div[@class="oslk"]/a';
+        $nodePath .= '//div[@class="f"]/a[contains(@href,"=inauthor:")]';
+        $authors = array();
         $links = $this->xpath($nodePath);
         foreach($links as $link) {
-            $sitelinks[] = array(
-                'link' => $link->getAttribute('href'),
-                'content' => $link->textContent,
-            );
+            $authors[] = $link->textContent;
         }
+        return $authors;
+    }
 
-        return new Extension(array('sitelinks' => $sitelinks));
+    /**
+     * Get date (from book publishing by exemple)
+     * @param \DOMElement $node
+     * @return string a date
+     */
+    public function getNodeDate(\DOMElement $node)
+    {
+        $nodePath = $node->getNodePath();
+        $nodePath .= '//div[@class="f"]';
+        $links = $this->xpath($nodePath)->current();
+        preg_match('# (?P<date>(1|2)\d{3}) #', $links->textContent, $regs);
+        if(!isset($regs['date'])) {
+            return null;
+        }
+        return $regs['date'];
     }
 }

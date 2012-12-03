@@ -82,7 +82,7 @@ class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInt
      * @param \DOMElement $node
      * @return Extension
      */
-    public function getExtension(\DOMElement $node)
+    public function getNodeExtension(\DOMElement $node)
     {
         // get sitelinks extension
         $sitelinks = array();

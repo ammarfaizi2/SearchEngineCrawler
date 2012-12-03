@@ -79,8 +79,9 @@ Features
 
 You can crawl & match:
 * Google Web (natural, image, video, product, premium, bottom premium, map & news)
-* Google Image (image link)
-* Google Video (video & natural link)
+* Google Image (image)
+* Google Video (video & natural)
+* Google Book (book & premium)
 
 Page informations available :
 * Google Web (results, suggest & word spelling)
@@ -100,7 +101,6 @@ ZF2 module :
 Crawl on :
 * Google News
 * Google Shopping
-* Google Book
 * Bing Web
 
 Other stuff:

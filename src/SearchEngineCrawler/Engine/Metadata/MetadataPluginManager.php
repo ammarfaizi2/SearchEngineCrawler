@@ -20,6 +20,8 @@ class MetadataPluginManager extends AbstractPluginManager
         'googleimagesuggest'         => 'SearchEngineCrawler\Engine\Metadata\Google\Image\Suggest',
         // gogle video
         'googlevideoresults'         => 'SearchEngineCrawler\Engine\Metadata\Google\Video\Results',
+        // gogle book
+        'googlebookresults'         => 'SearchEngineCrawler\Engine\Metadata\Google\Book\Results',
     );
 
     public function validatePlugin($plugin)

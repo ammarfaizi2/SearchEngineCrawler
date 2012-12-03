@@ -28,7 +28,7 @@ class Video extends AbstractLink implements Features\NodeLinkAnchorProviderInter
     {
         return $this->xpath('//div[@id="ires"]//li[contains(@class, "videobox")]');
     }
-    
+
     /**
      * Check if a node is valid, if the node match with the type required
      * If node is valid, return the node

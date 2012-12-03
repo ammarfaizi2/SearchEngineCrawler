@@ -34,7 +34,7 @@ class Video extends AbstractEngine
         $crawler->crawl('googlevideo', $options);
         $source = $crawler->getSource();
 
-        // get links, natural only by default
+        // get links, video only by default
         if(!isset($options['links'])) {
             $options['links'] = array('video');
         }

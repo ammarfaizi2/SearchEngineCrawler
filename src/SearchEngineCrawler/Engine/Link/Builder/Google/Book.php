@@ -7,7 +7,7 @@
 
 namespace SearchEngineCrawler\Engine\Link\Builder\Google;
 
-class Image extends AbstractGoogle
+class Book extends AbstractGoogle
 {
     protected function buildLinkWithOptions()
     {
@@ -25,7 +25,7 @@ class Image extends AbstractGoogle
 
         $keyword = urlencode(htmlspecialchars_decode(stripslashes($options->getKeyword())));
         $uri = sprintf(
-            'http://%s/search?tbm=isch&q=%s&ie=utf-8&oe=utf-8&pws=0&biw=1680&bih=865%s',
+            'http://%s/search?tbm=bks&q=%s&ie=utf-8&oe=utf-8&pws=0%s',
             $options->getHost(), $keyword, $params
         );
 

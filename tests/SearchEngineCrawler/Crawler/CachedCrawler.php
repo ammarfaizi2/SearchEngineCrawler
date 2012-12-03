@@ -13,11 +13,11 @@ use SearchEngineCrawler\Crawler\Simple;
 class CachedCrawler extends AbstractCrawler
 {
     protected $identifier = '';
-    
+
     protected $autoFileCached = false;
-    
+
     protected $filePattern;
-    
+
     public function crawl($engine, array $options = array())
     {
         $linkBuilder = $this->getLinkBuilderManager()->get($engine);

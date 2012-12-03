@@ -14,5 +14,5 @@ interface NodeRichSnippetProviderInterface
      * @param \DOMElement $node
      * @return Extension
      */
-    public function getRichSnippet(\DOMElement $node);
+    public function getNodeRichSnippet(\DOMElement $node);
 }

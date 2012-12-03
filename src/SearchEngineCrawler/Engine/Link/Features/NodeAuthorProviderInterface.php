@@ -7,12 +7,12 @@
 
 namespace SearchEngineCrawler\Engine\Link\Features;
 
-interface NodeExtensionProviderInterface
+interface NodeAuthorProviderInterface
 {
     /**
-     * Get extension link
+     * Get the author(s)
      * @param \DOMElement $node
-     * @return Extension
+     * @return array list of authors
      */
-    public function getNodeExtension(\DOMElement $node);
+    public function getNodeAuthor(\DOMElement $node);
 }

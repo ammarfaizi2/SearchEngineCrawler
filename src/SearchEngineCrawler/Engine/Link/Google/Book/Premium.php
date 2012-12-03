@@ -5,20 +5,20 @@
  * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
  */
 
-namespace SearchEngineCrawler\Engine\Link\Google\Video;
+namespace SearchEngineCrawler\Engine\Link\Google\Book;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\Engine\Link\Features;
 use SearchEngineCrawler\ResultSet\Link\Extension;
+use SearchEngineCrawler\ResultSet\Link\RichSnippet;
 
-class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
-    Features\NodeExtensionProviderInterface
+class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInterface
 {
     /**
      * Result class container
      * @var string
      */
-    protected $resultClass = 'SearchEngineCrawler\ResultSet\Link\Result\Natural';
+    protected $resultClass = 'SearchEngineCrawler\ResultSet\Link\Result\Premium';
 
     /**
      * Get the node list, each node contains
@@ -27,7 +27,7 @@ class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInt
      */
     public function getNodeList()
     {
-        return $this->xpath('//div[@id="ires"]//li[@class="g"]');
+        return $this->xpath('//div[@id="tads"]/ol/li');
     }
 
     /**
@@ -38,20 +38,8 @@ class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInt
      */
     public function validateNode(\DOMElement $node)
     {
-        // natural have never style
-        if($node->hasAttribute('style')) {
-            return null;
-        }
-        // natural have not empty description
         $nodePath = $node->getNodePath();
-        $nodePath .= '//span[@class="st"]';
-        $description = $this->xpath($nodePath)->current();
-        if(null === $description || empty($description->textContent)) {
-            return null;
-        }
-        // natural must be have link
-        $nodePath = $node->getNodePath();
-        $nodePath .= '//h3[@class="r"]/a[@class="l"]';
+        $nodePath .= '/h3/a';
         return $this->xpath($nodePath)->current();
     }
 
@@ -75,27 +63,5 @@ class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInt
     {
         $node = $this->validateNode($node);
         return $node->textContent;
-    }
-
-    /**
-     * Get extension link
-     * @param \DOMElement $node
-     * @return Extension
-     */
-    public function getNodeExtension(\DOMElement $node)
-    {
-        // get sitelinks extension
-        $sitelinks = array();
-        $nodePath = $node->getNodePath();
-        $nodePath .= '//div[@class="osl"]/a';
-        $links = $this->xpath($nodePath);
-        foreach($links as $link) {
-            $sitelinks[] = array(
-                'link' => $link->getAttribute('href'),
-                'content' => $link->textContent,
-            );
-        }
-
-        return new Extension(array('sitelinks' => $sitelinks));
     }
 }

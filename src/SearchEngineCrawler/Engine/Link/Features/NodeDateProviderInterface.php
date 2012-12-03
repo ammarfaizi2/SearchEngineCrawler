@@ -7,12 +7,12 @@
 
 namespace SearchEngineCrawler\Engine\Link\Features;
 
-interface NodeExtensionProviderInterface
+interface NodeDateProviderInterface
 {
     /**
-     * Get extension link
+     * Get date (from book publishing by exemple)
      * @param \DOMElement $node
-     * @return Extension
+     * @return string a date
      */
-    public function getNodeExtension(\DOMElement $node);
+    public function getNodeDate(\DOMElement $node);
 }

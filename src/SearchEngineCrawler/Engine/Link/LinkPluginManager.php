@@ -26,6 +26,9 @@ class LinkPluginManager extends AbstractPluginManager
         // google video
         'googlevideonatural'        => 'SearchEngineCrawler\Engine\Link\Google\Video\Natural',
         'googlevideovideo'          => 'SearchEngineCrawler\Engine\Link\Google\Video\Video',
+        // google book
+        'googlebookbook'            => 'SearchEngineCrawler\Engine\Link\Google\Book\Book',
+        'googlebookpremium'         => 'SearchEngineCrawler\Engine\Link\Google\Book\Premium',
     );
 
     public function validatePlugin($plugin)
