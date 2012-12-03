@@ -82,6 +82,7 @@ You can crawl & match:
 * Google Image (image)
 * Google Video (video & natural)
 * Google Book (book & premium)
+* Google News (news, image & natural)
 
 Page informations available :
 * Google Web (results, suggest & word spelling)
@@ -99,7 +100,6 @@ ZF2 module :
 * view helper to render set of result
 
 Crawl on :
-* Google News
 * Google Shopping
 * Bing Web
 

@@ -84,8 +84,14 @@ abstract class AbstractLink implements LinkInterface, Features\NodeAdProviderInt
                 $result->map = $this->getNodeMapLink($node);
                 $this->address = $this->getNodeAddress($node);
             }
+            if($this instanceof Features\NodeImageSourceProviderInterface) {
+                $result->image = $this->getNodeImageSource($node);
+            }
             if($this instanceof Features\NodeAuthorProviderInterface) {
                 $result->author = $this->getNodeAuthor($node);
+            }
+            if($this instanceof Features\NodeSourceProviderInterface) {
+                $result->source = $this->getNodeSource($node);
             }
             if($this instanceof Features\NodeDateProviderInterface) {
                 $result->date = $this->getNodeDate($node);

@@ -29,6 +29,10 @@ class LinkPluginManager extends AbstractPluginManager
         // google book
         'googlebookbook'            => 'SearchEngineCrawler\Engine\Link\Google\Book\Book',
         'googlebookpremium'         => 'SearchEngineCrawler\Engine\Link\Google\Book\Premium',
+        // google news
+        'googlenewsnews'            => 'SearchEngineCrawler\Engine\Link\Google\News\News',
+        'googlenewsimage'           => 'SearchEngineCrawler\Engine\Link\Google\News\Image',
+        'googlenewsnatural'         => 'SearchEngineCrawler\Engine\Link\Google\News\Natural',
     );
 
     public function validatePlugin($plugin)

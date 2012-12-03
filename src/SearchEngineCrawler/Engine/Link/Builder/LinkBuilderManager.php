@@ -18,6 +18,7 @@ class LinkBuilderManager extends AbstractPluginManager
         'googleimage'   => 'SearchEngineCrawler\Engine\Link\Builder\Google\Image',
         'googlevideo'   => 'SearchEngineCrawler\Engine\Link\Builder\Google\Video',
         'googlebook'    => 'SearchEngineCrawler\Engine\Link\Builder\Google\Book',
+        'googlenews'    => 'SearchEngineCrawler\Engine\Link\Builder\Google\News',
     );
 
     public function validatePlugin($plugin)
