@@ -5,7 +5,7 @@
  * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
  */
 
-namespace SearchEngineCrawler\Engine\Metadata\Google\Web;
+namespace SearchEngineCrawler\Engine\Metadata\Google\Video;
 
 use SearchEngineCrawler\Engine\Metadata\AbstractMetadata;
 

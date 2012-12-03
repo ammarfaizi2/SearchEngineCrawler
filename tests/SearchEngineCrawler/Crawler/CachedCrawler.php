@@ -12,10 +12,12 @@ use SearchEngineCrawler\Crawler\Simple;
 
 class CachedCrawler extends AbstractCrawler
 {
+    protected $identifier = '';
+    
     protected $autoFileCached = false;
-
+    
     protected $filePattern;
-
+    
     public function crawl($engine, array $options = array())
     {
         $linkBuilder = $this->getLinkBuilderManager()->get($engine);
@@ -25,7 +27,7 @@ class CachedCrawler extends AbstractCrawler
             $lang = isset($options['builder']['lang']) ? $options['builder']['lang'] : $opts->lang;
             $page = $options['builder']['page'];
             $cache = $lang . '.' . strtr($options['builder']['keyword'], ' ', '.') . ($page > 1 ? '-' . $page : '') . '.html';
-            $filename = __DIR__ . '/_files/' . $cache;
+            $filename = __DIR__ . '/_files/' . $this->identifier . '/' . $cache;
         } else {
             $filename = sprintf($this->filePattern, strtr($options['builder']['keyword'], ' ', '.'));
         }
@@ -49,6 +51,11 @@ class CachedCrawler extends AbstractCrawler
     {
         $this->autoFileCached = $autoFileCached;
         return $this;
+    }
+
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
     }
 
     public function setFilePattern($filePattern)

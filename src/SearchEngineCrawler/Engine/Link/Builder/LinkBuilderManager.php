@@ -14,7 +14,9 @@ use Zend\Stdlib\Exception\LogicException;
 class LinkBuilderManager extends AbstractPluginManager
 {
     protected $invokableClasses = array(
-        'google'    => 'SearchEngineCrawler\Engine\Link\Builder\Google',
+        'googleweb'    => 'SearchEngineCrawler\Engine\Link\Builder\Google\Web',
+        'googleimage'    => 'SearchEngineCrawler\Engine\Link\Builder\Google\Image',
+        'googlevideo'    => 'SearchEngineCrawler\Engine\Link\Builder\Google\Video',
     );
 
     public function validatePlugin($plugin)

@@ -9,7 +9,7 @@ namespace SearchEngineCrawler\Engine\Metadata;
 
 interface MetadataInterface
 {
-    public function find(&$source);
+    public function find();
 
     public function getMetadata();
 }

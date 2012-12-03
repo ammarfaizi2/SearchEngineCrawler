@@ -78,10 +78,12 @@ Features
 ------------
 
 You can crawl & match:
-* Google Web (Natural, image, video, product, premium, bottom premium, map & news)
+* Google Web (natural, image, video, product, premium, bottom premium, map & news)
+* Google Image (image link)
+* Google Video (video & natural link)
 
 Page informations available :
-* Google Web (Results, suggest & word spelling)
+* Google Web (results, suggest & word spelling)
 
 Link informations :
 * Extension : sitelinks
@@ -92,12 +94,13 @@ Todo
 ------------
 
 ZF2 module :
-* view helper to render set of result
 * action helper to crawl/search
+* view helper to render set of result
 
 Crawl on :
-* Google Images
-* Google Video
+* Google News
+* Google Shopping
+* Google Book
 * Bing Web
 
 Other stuff:

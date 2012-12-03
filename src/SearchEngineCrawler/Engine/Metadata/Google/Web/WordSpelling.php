@@ -11,11 +11,9 @@ use SearchEngineCrawler\Engine\Metadata\AbstractMetadata;
 
 class WordSpelling extends AbstractMetadata
 {
-    public function find(&$source)
+    public function find()
     {
-        $domQuery = $this->getDomQuery();
-        $domQuery->setDocumentHtml($source);
-        $node = $domQuery->queryXpath('//a[@class="spell"]')->current();
+        $node = $this->xpath('//a[@class="spell"]')->current();
         if(null === $node) {
             return;
         }

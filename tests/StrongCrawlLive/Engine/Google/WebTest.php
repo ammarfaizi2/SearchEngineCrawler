@@ -9,7 +9,7 @@ namespace StrongCrawlLiveTest\Engine\Google;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use SearchEngineCrawler\Engine\Google\Web as GoogleWeb;
-use SearchEngineCrawler\Engine\Link\Builder\Google as GoogleLinkBuilder;
+use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
 use SearchEngineCrawlerTest\Crawler\CachedCrawler;
 
 class WebTest extends TestCase

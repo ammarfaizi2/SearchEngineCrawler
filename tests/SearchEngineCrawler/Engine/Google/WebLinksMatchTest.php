@@ -9,16 +9,19 @@ namespace SearchEngineCrawlerTest\Engine\Google;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use SearchEngineCrawler\Engine\Google\Web as GoogleWeb;
-use SearchEngineCrawler\Engine\Link\Builder\Google as GoogleLinkBuilder;
+use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
 use SearchEngineCrawlerTest\Crawler\CachedCrawler;
 use SearchEngineCrawler\Result\Match;
 
 class WebLinksMatchTest extends TestCase
 {
+    protected $identifier = 'google.web';
+
     public function testCanMatch_StrictDns_StrictUri()
     {
         $crawler = new CachedCrawler();
         $crawler->setAutoFileCached(true);
+        $crawler->setIdentifier($this->identifier);
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);
@@ -37,6 +40,7 @@ class WebLinksMatchTest extends TestCase
     {
         $crawler = new CachedCrawler();
         $crawler->setAutoFileCached(true);
+        $crawler->setIdentifier($this->identifier);
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);
@@ -61,6 +65,7 @@ class WebLinksMatchTest extends TestCase
     {
         $crawler = new CachedCrawler();
         $crawler->setAutoFileCached(true);
+        $crawler->setIdentifier($this->identifier);
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);
@@ -85,6 +90,7 @@ class WebLinksMatchTest extends TestCase
     {
         $crawler = new CachedCrawler();
         $crawler->setAutoFileCached(true);
+        $crawler->setIdentifier($this->identifier);
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);
@@ -109,6 +115,7 @@ class WebLinksMatchTest extends TestCase
     {
         $crawler = new CachedCrawler();
         $crawler->setAutoFileCached(true);
+        $crawler->setIdentifier($this->identifier);
 
         $google = new GoogleWeb();
         $google->setCrawler($crawler);

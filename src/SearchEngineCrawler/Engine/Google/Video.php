@@ -14,7 +14,7 @@ use SearchEngineCrawler\ResultSet\Metadata\ResultSet as MetadataSet;
 use SearchEngineCrawler\ResultSet\Page\Container as PageContainer;
 use Zend\Stdlib\Exception;
 
-class Web extends AbstractEngine
+class Video extends AbstractEngine
 {
     /**
      * Get links of page results
@@ -31,12 +31,12 @@ class Web extends AbstractEngine
 
         // crawl the page
         $crawler = $this->getCrawler();
-        $crawler->crawl('googleweb', $options);
+        $crawler->crawl('googlevideo', $options);
         $source = $crawler->getSource();
 
         // get links, natural only by default
         if(!isset($options['links'])) {
-            $options['links'] = array('natural');
+            $options['links'] = array('video');
         }
         foreach($options['links'] as $link) {
             $link = $this->getLink($link);

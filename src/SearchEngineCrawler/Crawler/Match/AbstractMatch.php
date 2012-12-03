@@ -20,13 +20,6 @@ abstract class AbstractMatch implements MatchInterface
     protected $options;
 
     /**
-     * Match a link
-     * @param string $link
-     * @return MatchResult|null
-     */
-    abstract public function match($link);
-
-    /**
      * Match a link result
      * @param ResultInterface $result
      * @param integer|null $page

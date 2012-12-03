@@ -12,9 +12,14 @@ use Zend\ServiceManager\AbstractPluginManager;
 class MetadataPluginManager extends AbstractPluginManager
 {
     protected $invokableClasses = array(
+        // google web
         'googlewebresults'         => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Results',
         'googlewebwordspelling'    => 'SearchEngineCrawler\Engine\Metadata\Google\Web\WordSpelling',
         'googlewebsuggest'         => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Suggest',
+        // gogle image
+        'googleimagesuggest'         => 'SearchEngineCrawler\Engine\Metadata\Google\Image\Suggest',
+        // gogle video
+        'googlevideoresults'         => 'SearchEngineCrawler\Engine\Metadata\Google\Video\Results',
     );
 
     public function validatePlugin($plugin)

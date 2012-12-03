@@ -12,6 +12,7 @@ use Zend\ServiceManager\AbstractPluginManager;
 class LinkPluginManager extends AbstractPluginManager
 {
     protected $invokableClasses = array(
+        // google web
         'googlewebnatural'          => 'SearchEngineCrawler\Engine\Link\Google\Web\Natural',
         'googlewebimage'            => 'SearchEngineCrawler\Engine\Link\Google\Web\Image',
         'googlewebvideo'            => 'SearchEngineCrawler\Engine\Link\Google\Web\Video',
@@ -20,6 +21,11 @@ class LinkPluginManager extends AbstractPluginManager
         'googlewebpremiumbottom'    => 'SearchEngineCrawler\Engine\Link\Google\Web\PremiumBottom',
         'googlewebmap'              => 'SearchEngineCrawler\Engine\Link\Google\Web\Map',
         'googlewebnews'             => 'SearchEngineCrawler\Engine\Link\Google\Web\News',
+        // google image
+        'googleimageimage'          => 'SearchEngineCrawler\Engine\Link\Google\Image\Image',
+        // google video
+        'googlevideonatural'        => 'SearchEngineCrawler\Engine\Link\Google\Video\Natural',
+        'googlevideovideo'          => 'SearchEngineCrawler\Engine\Link\Google\Video\Video',
     );
 
     public function validatePlugin($plugin)

@@ -9,13 +9,16 @@ namespace SearchEngineCrawlerTest\Engine\Google;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use SearchEngineCrawler\Engine\Google\Web as GoogleWeb;
-use SearchEngineCrawler\Engine\Link\Builder\Google as GoogleLinkBuilder;
+use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
 use SearchEngineCrawlerTest\Crawler\CachedCrawler;
 
 class WebLinksPaginatedTest extends TestCase
 {
     public function testCanCrawlNaturalLinks()
     {
+        if(!extension_loaded('curl')) {
+            $this->markTestSkipped("cURL is not loaded");
+        }
         $google = new GoogleWeb();
         $google->setMaxDepth(3);
         $set = $google->crawl('zend framework', array(
