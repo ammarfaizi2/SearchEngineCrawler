@@ -5,33 +5,34 @@
  * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
  */
 
-namespace SearchEngineCrawlerTest\Engine\Google;
+namespace SearchEngineCrawlerTest\Engine\Google\Match;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use SearchEngineCrawler\Engine\Google\Book as GoogleBook;
 use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
-use SearchEngineCrawlerTest\Crawler\CachedCrawler;
 use SearchEngineCrawler\Result\Match;
+use SearchEngineCrawlerTest\Engine\AbstractTest;
 
-class BookLinksMatchTest extends TestCase
+class BookTest extends AbstractTest
 {
-    protected $identifier = 'google.book';
+    protected $links = array('book', 'premium');
 
-    public function testCanMatchBookLinks()
+    public function setUp()
     {
-        $crawler = new CachedCrawler();
-        $crawler->setAutoFileCached(true);
-        $crawler->setIdentifier($this->identifier);
+        $this->cachePattern = __DIR__ . '/../sources/book/%s.html';
+        $this->engine = new GoogleBook();
+        parent::setUp();
+    }
 
-        $google = new GoogleBook();
-        $google->setCrawler($crawler);
-        $crawlerMatch = $google->getCrawlerMatch();
+    public function test_ZendFramework_Case()
+    {
+        $this->keywordRegister('zend framework');
+
+        $crawlerMatch = $this->engine->getCrawlerMatch();
         $crawlerMatch->setOptions(array(
             'strictMode' => false,
             'strictDns' => false,
         ));
-        $match = $google->match('zend framework', 'http://books.google.fr/', array(
-            'links' => array('book'),
+        $match = $this->engine->match($this->keyword, 'http://books.google.fr/', array(
             'builder' => array(
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,

@@ -14,6 +14,11 @@ include __DIR__ . '/_autoload.php';
 define('CRAWL_IN_LIVE', false);
 
 /**
+ * Define if you want crawl paginator, have no cache
+ */
+define('CRAWL_PAGINATOR', false);
+
+/**
  * Define if you want update the file tests if you crawl in live
  */
 define('CRAWL_UPDATE_CACHE', false);

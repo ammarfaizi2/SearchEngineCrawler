@@ -5,19 +5,19 @@
  * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
  */
 
-namespace SearchEngineCrawlerTest\Engine\Google;
+namespace SearchEngineCrawlerTest\Engine\Google\Paginator;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use SearchEngineCrawler\Engine\Google\Web as GoogleWeb;
 use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
 use SearchEngineCrawlerTest\Crawler\CachedCrawler;
 
-class WebLinksPaginatedTest extends TestCase
+class WebTest extends TestCase
 {
     public function testCanCrawlNaturalLinks()
     {
-        if(!extension_loaded('curl')) {
-            $this->markTestSkipped("cURL is not loaded");
+        if(!CRAWL_PAGINATOR) {
+            return;
         }
         $google = new GoogleWeb();
         $google->setMaxDepth(3);

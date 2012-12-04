@@ -20,17 +20,7 @@ class CachedCrawler extends AbstractCrawler
 
     public function crawl($engine, array $options = array())
     {
-        $linkBuilder = $this->getLinkBuilderManager()->get($engine);
-        $opts = $linkBuilder->getOptions();
-
-        if($this->autoFileCached) {
-            $lang = isset($options['builder']['lang']) ? $options['builder']['lang'] : $opts->lang;
-            $page = $options['builder']['page'];
-            $cache = $lang . '.' . strtr($options['builder']['keyword'], ' ', '.') . ($page > 1 ? '-' . $page : '') . '.html';
-            $filename = __DIR__ . '/_files/' . $this->identifier . '/' . $cache;
-        } else {
-            $filename = sprintf($this->filePattern, strtr($options['builder']['keyword'], ' ', '.'));
-        }
+        $filename = sprintf($this->filePattern, strtr($options['builder']['keyword'], ' ', '.'));
         if(!file_exists($filename)) {
             $crawler = new Simple();
             $crawler->crawl($engine, $options);

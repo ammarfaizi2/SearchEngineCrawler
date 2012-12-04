@@ -5,33 +5,34 @@
  * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
  */
 
-namespace SearchEngineCrawlerTest\Engine\Google;
+namespace SearchEngineCrawlerTest\Engine\Google\Match;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use SearchEngineCrawler\Engine\Google\News as GoogleNews;
 use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
-use SearchEngineCrawlerTest\Crawler\CachedCrawler;
 use SearchEngineCrawler\Result\Match;
+use SearchEngineCrawlerTest\Engine\AbstractTest;
 
-class NewsLinksMatchTest extends TestCase
+class NewsTest extends AbstractTest
 {
-    protected $identifier = 'google.news';
+    protected $links = array('news', 'image', 'natural');
 
-    public function testCanCrawlNewsLinks()
+    public function setUp()
     {
-        $crawler = new CachedCrawler();
-        $crawler->setAutoFileCached(true);
-        $crawler->setIdentifier($this->identifier);
+        $this->cachePattern = __DIR__ . '/../sources/news/%s.html';
+        $this->engine = new GoogleNews();
+        parent::setUp();
+    }
 
-        $google = new GoogleNews();
-        $google->setCrawler($crawler);
-        $crawlerMatch = $google->getCrawlerMatch();
+    public function test_Rooney_Case()
+    {
+        $this->keywordRegister('rooney');
+
+        $crawlerMatch = $this->engine->getCrawlerMatch();
         $crawlerMatch->setOptions(array(
             'strictMode' => false,
             'strictDns' => false,
         ));
-        $match = $google->match('rooney', 'http://www.directmatin.fr/', array(
-            'links' => array('news', 'image'),
+        $match = $this->engine->match($this->keyword, 'http://www.directmatin.fr/', array(
             'builder' => array(
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,

@@ -5,58 +5,22 @@
  * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
  */
 
-namespace StrongCrawlLiveTest\Engine\Google;
+namespace SearchEngineCrawlerTest\Engine\Google;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use SearchEngineCrawler\Engine\Google\Web as GoogleWeb;
 use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
-use SearchEngineCrawlerTest\Crawler\CachedCrawler;
+use SearchEngineCrawlerTest\Engine\AbstractTest;
 
-class WebTest extends TestCase
+class WebTest extends AbstractTest
 {
-    protected $engine;
-
-    protected $keyword;
-
     protected $links = array('natural', 'image', 'map', 'news', 'premium', 'premium_bottom', 'product', 'video');
     protected $metadatas = array('suggest', 'word_spelling');
 
-    protected function getKeywordFileCache()
-    {
-        return strtr($this->keyword, ' ', '.');
-    }
-
     public function setUp()
     {
+        $this->cachePattern = __DIR__ . '/sources/web/%s.html';
         $this->engine = new GoogleWeb();
-        if(!CRAWL_IN_LIVE) {
-            $crawler = new CachedCrawler();
-            $crawler->setFilePattern(__DIR__ . '/sources/web/%s.html');
-            $this->engine->setCrawler($crawler);
-        }
-    }
-
-    public function keywordRegister($keyword)
-    {
-        $this->keyword = $keyword;
-        $cache = __DIR__ . '/sources/web/' . $this->getKeywordFileCache() . '.html';
-        if(!CRAWL_IN_LIVE && file_exists($cache)) {
-            $crawler = $this->engine->getCrawler();
-            $crawler->setSource(file_get_contents($cache));
-        }
-    }
-
-    public function tearDown()
-    {
-        $cache = __DIR__ . '/sources/web/' . $this->getKeywordFileCache() . '.html';
-        if(CRAWL_UPDATE_CACHE || !file_exists($cache)) {
-            $crawler = $this->engine->getCrawler();
-            $source = $crawler->getSource();
-            file_put_contents($cache, $source);
-        }
-        if(CRAWL_IN_LIVE) {
-            sleep(2);
-        }
+        parent::setUp();
     }
 
     public function test_ZendFramework_Case()
@@ -92,7 +56,7 @@ class WebTest extends TestCase
         $this->assertEquals(8, count($metadatasSet->getSuggest()));
         $this->assertEquals(null, $metadatasSet->getWordSpelling());
     }
-    
+
     public function test_RecetteGateauAuChocolat_Case()
     {
         $this->keywordRegister('recette gateau au chocolat');
@@ -328,7 +292,7 @@ class WebTest extends TestCase
         $this->assertEquals(8, count($metadatasSet->getSuggest()));
         $this->assertEquals(null, $metadatasSet->getWordSpelling());
     }
-    
+
     public function test_MobilierDeSalon_Case()
     {
         $this->keywordRegister('mobilier de salon');

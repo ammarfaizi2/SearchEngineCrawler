@@ -37,7 +37,7 @@ class Image extends AbstractLink implements Features\NodeImageSourceProviderInte
     public function validateNode(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '/a/img';
+        $nodePath .= '/a/img[starts-with(@id,"imgthumb")]';
         return $this->xpath($nodePath)->current();
     }
 
@@ -48,8 +48,12 @@ class Image extends AbstractLink implements Features\NodeImageSourceProviderInte
      */
     public function getNodeLink(\DOMElement $node)
     {
-        $node = $this->validateNode($node);
-        return $node->parentNode->getAttribute('href');
+        $link = $this->validateNode($node);
+        $href = $link->parentNode->getAttribute('href');
+        if(preg_match('#&imgrefurl=(?P<domain>.*)&h=\d+&w=\d+&#', $href, $regs)) {
+            $href = $regs['domain'];
+        }
+        return $href;
     }
 
     /**

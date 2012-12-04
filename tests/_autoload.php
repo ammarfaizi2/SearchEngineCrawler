@@ -12,7 +12,6 @@ Zend\Loader\AutoloaderFactory::factory(array(
         'namespaces' => array(
             'SearchEngineCrawler' => __DIR__ . '/../src/SearchEngineCrawler',
             'SearchEngineCrawlerTest' => __DIR__ . '/SearchEngineCrawler',
-            'StrongCrawlLiveTest' => __DIR__ . '/StrongCrawlLive',
         ),
     ),
 ));

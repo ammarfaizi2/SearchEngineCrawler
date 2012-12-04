@@ -52,7 +52,7 @@ class Video extends AbstractLink implements Features\NodeLinkAnchorProviderInter
         $nodePath = $node->getNodePath();
         $nodePath .= '/div[@class="vsc"]//h3[@class="r"]/a[@class="l"]';
         $link = $this->xpath($nodePath)->current();
-        return $node->getAttribute('href');
+        return $link->getAttribute('href');
     }
 
     /**

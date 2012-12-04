@@ -5,32 +5,34 @@
  * @copyright Copyright (c) 2012 Blanchon Vincent - France (http://developpeur-zend-framework.fr - blanchon.vincent@gmail.com)
  */
 
-namespace SearchEngineCrawlerTest\Engine\Google;
+namespace SearchEngineCrawlerTest\Engine\Google\Match;
 
-use PHPUnit_Framework_TestCase as TestCase;
 use SearchEngineCrawler\Engine\Google\Image as GoogleImage;
 use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
-use SearchEngineCrawlerTest\Crawler\CachedCrawler;
 use SearchEngineCrawler\Result\Match;
+use SearchEngineCrawlerTest\Engine\AbstractTest;
 
-class ImageLinksMatchTest extends TestCase
+class ImageTest extends AbstractTest
 {
-    protected $identifier = 'google.image';
+    protected $links = array('image');
 
-    public function testCanMatch_StrictDns_StrictUri()
+    public function setUp()
     {
-        $crawler = new CachedCrawler();
-        $crawler->setAutoFileCached(true);
-        $crawler->setIdentifier($this->identifier);
+        $this->cachePattern = __DIR__ . '/../sources/image/%s.html';
+        $this->engine = new GoogleImage();
+        parent::setUp();
+    }
 
-        $google = new GoogleImage();
-        $google->setCrawler($crawler);
-        $crawlerMatch = $google->getCrawlerMatch();
+    public function test_Rooney_Case()
+    {
+        $this->keywordRegister('rooney');
+
+        $crawlerMatch = $this->engine->getCrawlerMatch();
         $crawlerMatch->setOptions(array(
             'strictMode' => false,
             'strictDns' => false,
         ));
-        $match = $google->match('rooney', 'http://www.lequipe.fr', array(
+        $match = $this->engine->match($this->keyword, 'http://www.lequipe.fr', array(
             'builder' => array(
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
