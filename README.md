@@ -90,7 +90,9 @@ You can crawl & match:
 * Google Shopping (product, premium & bottom premium)
 
 Page informations available :
-* Google Web (results, suggest & word spelling)
+* Number of results
+* Queries suggest
+* Word spelling
 
 Link informations :
 * Extension : sitelinks
@@ -109,6 +111,6 @@ Crawl on :
 
 Other stuff:
 * Mobile crawler
-* Get the rich snippets & extension (rating, phone, author name)
+* Get & improve the rich snippets & extension (rating, phone, author name)
 * Improve workflow
 * Improve unit tests with 50+ use case
