@@ -53,7 +53,11 @@ class Product extends AbstractLink implements Features\NodeLinkAnchorProviderInt
         $nodePath = $node->getNodePath();
         $nodePath .= '//div[@class="pslimain"]/h3/a';
         $link = $this->xpath($nodePath)->current();
-        return $link->getAttribute('href');
+        $href = $link->getAttribute('href');
+        if(preg_match('#^/#', $href)) {
+            $href = 'http://www.google.com' . $href;
+        }
+        return $href;
     }
 
     /**

@@ -1,7 +1,7 @@
 ZF2 SearchEngineCrawler module
 ===================
 
-Version 0.3.0 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
+Version 0.4.0 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
 
 Introduction
 ------------
@@ -87,7 +87,7 @@ You can crawl & match:
 * Google Video (video & natural)
 * Google Book (book & premium)
 * Google News (news, image & natural)
-* Google Shopping (product, premium, bottom premium)
+* Google Shopping (product, premium & bottom premium)
 
 Page informations available :
 * Google Web (results, suggest & word spelling)

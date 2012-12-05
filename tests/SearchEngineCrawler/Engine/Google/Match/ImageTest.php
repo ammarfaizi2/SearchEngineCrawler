@@ -34,6 +34,7 @@ class ImageTest extends AbstractTest
             'strictDns' => false,
         ));
         $match = $this->engine->match($this->keyword, 'http://www.lequipe.fr', array(
+            'links' => $this->links,
             'builder' => array(
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,

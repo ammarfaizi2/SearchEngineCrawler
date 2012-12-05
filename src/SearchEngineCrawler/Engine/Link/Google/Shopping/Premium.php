@@ -41,7 +41,7 @@ class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInt
     public function validateNode(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '/h3/a';
+        $nodePath .= '/h3/a[starts-with(@id,"vpa")]';
         return $this->xpath($nodePath)->current();
     }
 

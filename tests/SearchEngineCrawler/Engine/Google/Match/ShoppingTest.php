@@ -8,32 +8,32 @@
 
 namespace SearchEngineCrawlerTest\Engine\Google\Match;
 
-use SearchEngineCrawler\Engine\Google\Video as GoogleVideo;
+use SearchEngineCrawler\Engine\Google\Shopping as GoogleShopping;
 use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
 use SearchEngineCrawler\Result\Match;
 use SearchEngineCrawlerTest\Engine\AbstractTest;
 
-class VideoTest extends AbstractTest
+class ShoppingTest extends AbstractTest
 {
-    protected $links = array('video', 'natural');
+    protected $links = array('product', 'premium', 'premium_bottom');
 
     public function setUp()
     {
-        $this->cachePattern = __DIR__ . '/../sources/video/%s.html';
-        $this->engine = new GoogleVideo();
+        $this->cachePattern = __DIR__ . '/../sources/shopping/%s.html';
+        $this->engine = new GoogleShopping();
         parent::setUp();
     }
 
-    public function test_Bieber_Case()
+    public function test_TableBasse_Case()
     {
-        $this->keywordRegister('bieber');
+        $this->keywordRegister('table basse');
 
         $crawlerMatch = $this->engine->getCrawlerMatch();
         $crawlerMatch->setOptions(array(
             'strictMode' => false,
             'strictDns' => false,
         ));
-        $match = $this->engine->match($this->keyword, 'http://greatsong.net/', array(
+        $match = $this->engine->match($this->keyword, 'http://bonnesaffaires.prixmoinscher.com/', array(
             'links' => $this->links,
             'builder' => array(
                 'lang' => GoogleLinkBuilder::LANG_FR,
@@ -41,7 +41,7 @@ class VideoTest extends AbstractTest
             ),
         ));
         $this->assertEquals(true, $match instanceof Match);
-        $this->assertEquals($match->getPosition(), 5);
+        $this->assertEquals($match->getPosition(), 2);
         $this->assertEquals($match->getPage(), 1);
     }
 }

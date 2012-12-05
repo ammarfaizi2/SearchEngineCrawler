@@ -34,6 +34,7 @@ class BookTest extends AbstractTest
             'strictDns' => false,
         ));
         $match = $this->engine->match($this->keyword, 'http://books.google.fr/', array(
+            'links' => $this->links,
             'builder' => array(
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
