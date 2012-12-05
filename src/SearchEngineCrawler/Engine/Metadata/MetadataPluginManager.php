@@ -13,18 +13,15 @@ use Zend\ServiceManager\AbstractPluginManager;
 class MetadataPluginManager extends AbstractPluginManager
 {
     protected $invokableClasses = array(
-        // google web
-        'googlewebresults'         => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Results',
-        'googlewebwordspelling'    => 'SearchEngineCrawler\Engine\Metadata\Google\Web\WordSpelling',
-        'googlewebsuggest'         => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Suggest',
-        // gogle image
-        'googleimagesuggest'         => 'SearchEngineCrawler\Engine\Metadata\Google\Image\Suggest',
-        // gogle video
-        'googlevideoresults'         => 'SearchEngineCrawler\Engine\Metadata\Google\Video\Results',
-        // gogle book
+        'googlewebresults'          => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Results',
+        'googlewebwordspelling'     => 'SearchEngineCrawler\Engine\Metadata\Google\Web\WordSpelling',
+        'googlewebsuggest'          => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Suggest',
+        'googleimagesuggest'        => 'SearchEngineCrawler\Engine\Metadata\Google\Image\Suggest',
+        'googlevideoresults'        => 'SearchEngineCrawler\Engine\Metadata\Google\Video\Results',
         'googlebookresults'         => 'SearchEngineCrawler\Engine\Metadata\Google\Book\Results',
-        // gogle news
         'googlenewsresults'         => 'SearchEngineCrawler\Engine\Metadata\Google\News\Results',
+        'googleshoppingresults'     => 'SearchEngineCrawler\Engine\Metadata\Google\Shopping\Results',
+        'googleshoppingsuggest'     => 'SearchEngineCrawler\Engine\Metadata\Google\Shopping\Suggest',
     );
 
     public function validatePlugin($plugin)

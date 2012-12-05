@@ -14,26 +14,25 @@ class LinkPluginManager extends AbstractPluginManager
 {
     protected $invokableClasses = array(
         // google web
-        'googlewebnatural'          => 'SearchEngineCrawler\Engine\Link\Google\Web\Natural',
-        'googlewebimage'            => 'SearchEngineCrawler\Engine\Link\Google\Web\Image',
-        'googlewebvideo'            => 'SearchEngineCrawler\Engine\Link\Google\Web\Video',
-        'googlewebproduct'          => 'SearchEngineCrawler\Engine\Link\Google\Web\Product',
-        'googlewebpremium'          => 'SearchEngineCrawler\Engine\Link\Google\Web\Premium',
-        'googlewebpremiumbottom'    => 'SearchEngineCrawler\Engine\Link\Google\Web\PremiumBottom',
-        'googlewebmap'              => 'SearchEngineCrawler\Engine\Link\Google\Web\Map',
-        'googlewebnews'             => 'SearchEngineCrawler\Engine\Link\Google\Web\News',
-        // google image
-        'googleimageimage'          => 'SearchEngineCrawler\Engine\Link\Google\Image\Image',
-        // google video
-        'googlevideonatural'        => 'SearchEngineCrawler\Engine\Link\Google\Video\Natural',
-        'googlevideovideo'          => 'SearchEngineCrawler\Engine\Link\Google\Video\Video',
-        // google book
-        'googlebookbook'            => 'SearchEngineCrawler\Engine\Link\Google\Book\Book',
-        'googlebookpremium'         => 'SearchEngineCrawler\Engine\Link\Google\Book\Premium',
-        // google news
-        'googlenewsnews'            => 'SearchEngineCrawler\Engine\Link\Google\News\News',
-        'googlenewsimage'           => 'SearchEngineCrawler\Engine\Link\Google\News\Image',
-        'googlenewsnatural'         => 'SearchEngineCrawler\Engine\Link\Google\News\Natural',
+        'googlewebnatural'              => 'SearchEngineCrawler\Engine\Link\Google\Web\Natural',
+        'googlewebimage'                => 'SearchEngineCrawler\Engine\Link\Google\Web\Image',
+        'googlewebvideo'                => 'SearchEngineCrawler\Engine\Link\Google\Web\Video',
+        'googlewebproduct'              => 'SearchEngineCrawler\Engine\Link\Google\Web\Product',
+        'googlewebpremium'              => 'SearchEngineCrawler\Engine\Link\Google\Web\Premium',
+        'googlewebpremiumbottom'        => 'SearchEngineCrawler\Engine\Link\Google\Web\PremiumBottom',
+        'googlewebmap'                  => 'SearchEngineCrawler\Engine\Link\Google\Web\Map',
+        'googlewebnews'                 => 'SearchEngineCrawler\Engine\Link\Google\Web\News',
+        'googleimageimage'              => 'SearchEngineCrawler\Engine\Link\Google\Image\Image',
+        'googlevideonatural'            => 'SearchEngineCrawler\Engine\Link\Google\Video\Natural',
+        'googlevideovideo'              => 'SearchEngineCrawler\Engine\Link\Google\Video\Video',
+        'googlebookbook'                => 'SearchEngineCrawler\Engine\Link\Google\Book\Book',
+        'googlebookpremium'             => 'SearchEngineCrawler\Engine\Link\Google\Book\Premium',
+        'googlenewsnews'                => 'SearchEngineCrawler\Engine\Link\Google\News\News',
+        'googlenewsimage'               => 'SearchEngineCrawler\Engine\Link\Google\News\Image',
+        'googlenewsnatural'             => 'SearchEngineCrawler\Engine\Link\Google\News\Natural',
+        'googleshoppingproduct'         => 'SearchEngineCrawler\Engine\Link\Google\Shopping\Product',
+        'googleshoppingpremium'         => 'SearchEngineCrawler\Engine\Link\Google\Shopping\Premium',
+        'googleshoppingpremiumbottom'   => 'SearchEngineCrawler\Engine\Link\Google\Shopping\PremiumBottom',
     );
 
     public function validatePlugin($plugin)

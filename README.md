@@ -87,6 +87,7 @@ You can crawl & match:
 * Google Video (video & natural)
 * Google Book (book & premium)
 * Google News (news, image & natural)
+* Google Shopping (product, premium, bottom premium)
 
 Page informations available :
 * Google Web (results, suggest & word spelling)
@@ -104,11 +105,9 @@ ZF2 module :
 * view helper to render set of result
 
 Crawl on :
-* Google Shopping
 * Bing Web
 
 Other stuff:
-* Simple crawler with proxy
 * Mobile crawler
 * Get the rich snippets & extension (rating, phone, author name)
 * Improve workflow
