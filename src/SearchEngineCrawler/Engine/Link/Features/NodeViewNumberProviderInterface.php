@@ -6,13 +6,14 @@
  * This work is licensed under a [Creative Commons Attribution-NonCommercial 3.0 Unported License](http://creativecommons.org/licenses/by-nc/3.0/).
  */
 
-namespace SearchEngineCrawler\Engine\Google;
+namespace SearchEngineCrawler\Engine\Link\Features;
 
-use SearchEngineCrawler\Engine\AbstractEngine;
-
-class Shopping extends AbstractEngine
+interface NodeViewNumberProviderInterface
 {
-    protected $builderClass = 'SearchEngineCrawler\Engine\Link\Builder\Google\Shopping';
-
-    protected $defaultLinks = array('product');
+    /**
+     * Get the view number of a result
+     * @param \DOMElement $node
+     * @return string the number
+     */
+    public function getNodeViewNumber(\DOMElement $node);
 }

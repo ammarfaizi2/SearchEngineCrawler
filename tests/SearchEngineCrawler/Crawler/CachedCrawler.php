@@ -19,12 +19,13 @@ class CachedCrawler extends AbstractCrawler
 
     protected $filePattern;
 
-    public function crawl($engine, array $options = array())
+    public function crawl(array $options = array())
     {
         $filename = sprintf($this->filePattern, strtr($options['builder']['keyword'], ' ', '.'));
         if(!file_exists($filename)) {
             $crawler = new Simple();
-            $crawler->crawl($engine, $options);
+            $crawler->setBuilder($this->getBuilder());
+            $crawler->crawl($options);
             file_put_contents($filename, $crawler->getSource());
             $this->setSource($crawler->getSource());
             return $this;

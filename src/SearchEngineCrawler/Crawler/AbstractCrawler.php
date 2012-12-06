@@ -8,6 +8,7 @@
 
 namespace SearchEngineCrawler\Crawler;
 
+use SearchEngineCrawler\Engine\Link\Builder\BuilderInterface;
 use SearchEngineCrawler\Engine\Link\Builder\LinkBuilderManager;
 
 abstract class AbstractCrawler implements CrawlerInterface
@@ -16,11 +17,11 @@ abstract class AbstractCrawler implements CrawlerInterface
 
     protected $source;
 
-    protected $linkBuilderManager;
+    protected $builder;
 
-    public function crawl($engine, array $options = array())
+    public function crawl(array $options = array())
     {
-        $linkBuilder = $this->getLinkBuilderManager()->get($engine);
+        $linkBuilder = $this->getBuilder();
         $builderOptions = isset($options['builder']) ? $options['builder'] : array();
         $link = $linkBuilder->build($builderOptions);
 
@@ -54,17 +55,14 @@ abstract class AbstractCrawler implements CrawlerInterface
         return $this;
     }
 
-    public function getLinkBuilderManager()
+    public function getBuilder()
     {
-        if(null === $this->linkBuilderManager) {
-            $this->setLinkBuilderManager(new LinkBuilderManager());
-        }
-        return $this->linkBuilderManager;
+        return $this->builder;
     }
 
-    public function setLinkBuilderManager(LinkBuilderManager $linkBuilderManager)
+    public function setBuilder(BuilderInterface $builder)
     {
-        $this->linkBuilderManager = $linkBuilderManager;
+        $this->builder = $builder;
         return $this;
     }
 }

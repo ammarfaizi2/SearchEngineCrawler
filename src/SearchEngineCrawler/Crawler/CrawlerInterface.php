@@ -10,5 +10,5 @@ namespace SearchEngineCrawler\Crawler;
 
 interface CrawlerInterface
 {
-    public function crawl($engine, array $options = array());
+    public function crawl(array $options = array());
 }

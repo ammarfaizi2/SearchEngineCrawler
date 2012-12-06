@@ -1,12 +1,12 @@
 ZF2 SearchEngineCrawler module
 ===================
 
-Version 0.4.0 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
+Version 0.4.1 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
 
 Introduction
 ------------
 
-SearchEngineCrawler is a SEO/SEA crawler.
+SearchEngineCrawler is a SEO/SEA/SMO crawler.
 
 Licence
 ------------
@@ -82,12 +82,15 @@ Features
 ------------
 
 You can crawl & match:
+
 * Google Web (natural, image, video, product, premium, bottom premium, map & news)
 * Google Image (image)
 * Google Video (video & natural)
 * Google Book (book & premium)
 * Google News (news, image & natural)
 * Google Shopping (product, premium & bottom premium)
+
+* Youtube (video)
 
 Page informations available :
 * Number of results
@@ -107,7 +110,10 @@ ZF2 module :
 * view helper to render set of result
 
 Crawl on :
-* Bing Web
+* Youtube (premium & bottom premium) + metadatas
+* Dailymotion
+* Google Map
+* Google Address
 
 Other stuff:
 * Mobile crawler

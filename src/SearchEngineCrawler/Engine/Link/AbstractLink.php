@@ -92,7 +92,14 @@ abstract class AbstractLink implements LinkInterface, Features\NodeAdProviderInt
                 $result->price = $this->getNodePrice($node);
             }
             if($this instanceof Features\NodeAuthorProviderInterface) {
-                $result->author = $this->getNodeAuthor($node);
+                $authors = $this->getNodeAuthor($node);
+                if(!is_array($authors)) {
+                    $authors = array($authors);
+                }
+                $result->author = $authors;
+            }
+            if($this instanceof Features\NodeViewNumberProviderInterface) {
+                $result->views = $this->getNodeViewNumber($node);
             }
             if($this instanceof Features\NodeSourceProviderInterface) {
                 $result->source = $this->getNodeSource($node);

@@ -14,8 +14,11 @@ use SearchEngineCrawler\Crawler\Simple as SimpleCrawler;
 use SearchEngineCrawler\Crawler\Match\Simple as SimpleMatch;
 use SearchEngineCrawler\Engine\Link\LinkPluginManager;
 use SearchEngineCrawler\Engine\Metadata\MetadataPluginManager;
-use SearchEngineCrawler\ResultSet\ResultSet;
 use SearchEngineCrawler\Result\Match;
+use SearchEngineCrawler\ResultSet\Link\ResultSet as LinkSet;
+use SearchEngineCrawler\ResultSet\Metadata\ResultSet as MetadataSet;
+use SearchEngineCrawler\ResultSet\Page\Container as PageContainer;
+use SearchEngineCrawler\ResultSet\ResultSet;
 use Zend\Stdlib\Exception\InvalidArgumentException;
 
 abstract class AbstractEngine implements EngineInterface
@@ -26,9 +29,13 @@ abstract class AbstractEngine implements EngineInterface
 
     protected $crawlerMatch;
 
+    protected $builderClass;
+
     protected $linkPluginManager;
 
     protected $metadataPluginManager;
+
+    protected $defaultLinks;
 
     /**
      * Crawl list of results
@@ -114,7 +121,42 @@ abstract class AbstractEngine implements EngineInterface
      * @param $options
      * @return PageContainer
      */
-    abstract protected function crawlPage($page, array $options = array());
+    protected function crawlPage($page, array $options = array())
+    {
+        // create container
+        $linkSet = new LinkSet();
+        $metadataSet = new MetadataSet();
+        $pageContainer = new PageContainer($page);
+
+        // crawl the page
+        $crawler = $this->getCrawler();
+        $crawler->crawl($options);
+        $source = $crawler->getSource();
+
+        // get links, natural only by default
+        if(!isset($options['links'])) {
+            $options['links'] = $this->defaultLinks;
+        }
+        foreach($options['links'] as $link) {
+            $link = $this->getLink($link);
+            $link->source($source)->detect();
+            $result = $link->getResults();
+            $linkSet->merge($result);
+        }
+        $linkSet->sort();
+        $pageContainer->setLinks($linkSet);
+
+        // get metadatas
+        if(isset($options['metadatas'])) {
+            foreach($options['metadatas'] as $metadata) {
+                $metadata = $this->getMetadata($metadata);
+                $metadata->source($source)->find();
+                $metadataSet->addMetadata($metadata);
+            }
+        }
+        $pageContainer->setMetadatas($metadataSet);
+        return $pageContainer;
+    }
 
     public function getMaxDepth()
     {
@@ -141,6 +183,8 @@ abstract class AbstractEngine implements EngineInterface
 
     public function setCrawler(CrawlerInterface $crawler)
     {
+        $builder = new $this->builderClass();
+        $crawler->setBuilder($builder);
         $this->crawler = $crawler;
         return $this;
     }
