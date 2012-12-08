@@ -14,7 +14,7 @@ use SearchEngineCrawlerTest\Engine\AbstractTest;
 
 class YoutubeTest extends AbstractTest
 {
-    protected $links = array('video');
+    protected $links = array('video', 'premium', 'premium_bottom');
     protected $metadatas = array();
 
     public function setUp()
@@ -28,12 +28,15 @@ class YoutubeTest extends AbstractTest
     {
         $this->keywordRegister('lady gaga');
 
+        // test natural
         $match = $this->engine->match($this->keyword, 'http://www.youtube.com/watch?v=niqrrmev4mA', array(
             'links' => $this->links,
             'metadatas' => $this->metadatas,
         ));
         $this->assertEquals(true, $match instanceof Match);
-        $this->assertEquals($match->getPosition(), 3);
+        $this->assertEquals($match->getPosition(), 4);
         $this->assertEquals($match->getPage(), 1);
+        $this->assertEquals($match->getLink()->getAuthor(), array('LadyGagaVEVO'));
+        $this->assertEquals($match->getLink()->getViews(), 180952227);
     }
 }

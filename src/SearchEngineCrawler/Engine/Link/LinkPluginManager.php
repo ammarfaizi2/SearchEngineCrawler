@@ -34,6 +34,8 @@ class LinkPluginManager extends AbstractPluginManager
         'googleshoppingpremium'         => 'SearchEngineCrawler\Engine\Link\Google\Shopping\Premium',
         'googleshoppingpremiumbottom'   => 'SearchEngineCrawler\Engine\Link\Google\Shopping\PremiumBottom',
         'youtubeyoutubevideo'           => 'SearchEngineCrawler\Engine\Link\Youtube\Youtube\Video',
+        'youtubeyoutubepremium'         => 'SearchEngineCrawler\Engine\Link\Youtube\Youtube\Premium',
+        'youtubeyoutubepremiumbottom'   => 'SearchEngineCrawler\Engine\Link\Youtube\Youtube\PremiumBottom',
     );
 
     public function validatePlugin($plugin)

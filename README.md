@@ -1,7 +1,7 @@
 ZF2 SearchEngineCrawler module
 ===================
 
-Version 0.4.1 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
+Version 0.4.2 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
 
 Introduction
 ------------
@@ -118,5 +118,8 @@ Crawl on :
 Other stuff:
 * Mobile crawler
 * Get & improve the rich snippets & extension (rating, phone, author name)
+
+Code :
+* Improve the result link type
 * Improve workflow
 * Improve unit tests with 50+ use case

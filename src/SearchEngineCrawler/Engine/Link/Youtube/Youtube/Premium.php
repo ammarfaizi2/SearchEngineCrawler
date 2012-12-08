@@ -10,8 +10,10 @@ namespace SearchEngineCrawler\Engine\Link\Youtube\Youtube;
 
 use SearchEngineCrawler\Engine\Link\AbstractLink;
 use SearchEngineCrawler\Engine\Link\Features;
+use SearchEngineCrawler\ResultSet\Link\Extension;
+use SearchEngineCrawler\ResultSet\Link\RichSnippet;
 
-class Video extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
+class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInterface,
     Features\NodeImageSourceProviderInterface, Features\NodeAuthorProviderInterface,
     Features\NodeViewNumberProviderInterface
 {
@@ -19,7 +21,7 @@ class Video extends AbstractLink implements Features\NodeLinkAnchorProviderInter
      * Result class container
      * @var string
      */
-    protected $resultClass = 'SearchEngineCrawler\ResultSet\Link\Result\Video\Youtube';
+    protected $resultClass = 'SearchEngineCrawler\ResultSet\Link\Result\Premium\Youtube';
 
     /**
      * Get the node list, each node contains
@@ -28,7 +30,7 @@ class Video extends AbstractLink implements Features\NodeLinkAnchorProviderInter
      */
     public function getNodeList()
     {
-        return $this->xpath('//ol[@id="search-results"]/li');
+        return $this->xpath('//div[contains(@class,"promoted-videos")][1]/ol/li');
     }
 
     /**
@@ -40,7 +42,7 @@ class Video extends AbstractLink implements Features\NodeLinkAnchorProviderInter
     public function validateNode(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '//a[contains(@href,"/watch?v=")]';
+        $nodePath .= '//div/h3/a';
         return $this->xpath($nodePath)->current();
     }
 

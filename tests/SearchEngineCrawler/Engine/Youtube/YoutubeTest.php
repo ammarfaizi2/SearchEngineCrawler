@@ -13,7 +13,7 @@ use SearchEngineCrawlerTest\Engine\AbstractTest;
 
 class YoutubeTest extends AbstractTest
 {
-    protected $links = array('video');
+    protected $links = array('video', 'premium', 'premium_bottom');
     protected $metadatas = array();
 
     public function setUp()
@@ -36,6 +36,8 @@ class YoutubeTest extends AbstractTest
 
         // tests type of links
         $this->assertEquals(20, count($linkSet->getVideoResults()));
-        $this->assertEquals(20, count($linkSet));
+        $this->assertEquals(1, count($linkSet->getPremiumResults()));
+        $this->assertEquals(1, count($linkSet->getPremiumBottomResults()));
+        $this->assertEquals(22, count($linkSet));
     }
 }
