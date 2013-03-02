@@ -8,6 +8,8 @@ Introduction
 
 SearchEngineCrawler is a SEO/SEA/SMO crawler.
 
+**This project need contributors to keep up to date the project & improve the tests to keep project more stable.**
+
 Licence
 ------------
 This work is licensed under a [Creative Commons Attribution-NonCommercial 3.0 Unported License](http://creativecommons.org/licenses/by-nc/3.0/).
