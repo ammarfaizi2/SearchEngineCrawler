@@ -31,7 +31,7 @@ Installation
 curl -sS https://getcomposer.org/installer | php
 ```
 
-Use composer to install the crawler :
+* Use composer to install the crawler :
 ```sh
 php composer.phar require blanchonvincent/search-engine-crawler:dev-master
 ```
@@ -129,8 +129,8 @@ Link informations :
 Todo
 ------------
 
-Dep :
-* improve manager (Link et MetaData) after the SM dep removal
+Code :
+* improve manager (Link et MetaData) after the ZF2 Service Manager dependence removal
 
 Crawl on :
 * Youtube (premium & bottom premium) + metadatas
