@@ -26,7 +26,7 @@ class Image extends AbstractLink implements Features\NodeImageSourceProviderInte
      */
     public function getNodeList()
     {
-        return $this->xpath('//div[@id="ires"]//li[@id="imagebox_bigimages"]//ul[@class="rg_ul"]/li');
+        return $this->xpath('//div[@id="ires"]//div[@id="iur"]//ul[@class="rg_ul"]/li');
     }
 
     /**
@@ -38,7 +38,7 @@ class Image extends AbstractLink implements Features\NodeImageSourceProviderInte
     public function validateNode(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '/a/img[starts-with(@id,"imgthumb")]';
+        $nodePath .= '//a/img[starts-with(@name,"imgthumb")]';
         return $this->xpath($nodePath)->current();
     }
 

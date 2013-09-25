@@ -20,6 +20,8 @@ class RichSnippet extends AbstractOptions
 
     protected $products;
 
+    protected $address;
+
     public function getRating()
     {
         return $this->rating;
@@ -41,4 +43,15 @@ class RichSnippet extends AbstractOptions
         $this->products = $products;
         return $this;
     }
+
+	public function getAddress()
+	{
+		return $this->address;
+	}
+
+	public function setAddress(array $address)
+	{
+		$this->address = $address;
+		return $this;
+	}
 }

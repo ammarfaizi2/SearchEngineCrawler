@@ -44,10 +44,7 @@ class VideoTest extends AbstractTest
         $this->assertEquals(1, count($linkSet->getNaturalResults()));
         $this->assertEquals(10, count($linkSet));
 
-        // test extension
-        $this->assertEquals(2, count($linkSet->getNaturalResults()->offsetGet(0)->getExtension()->getSitelinks()));
-
         // test metadatas
-        $this->assertEquals(487000000, (integer)$metadatasSet->getResults());
+        $this->assertEquals(827000000, (integer)$metadatasSet->getResults());
     }
 }

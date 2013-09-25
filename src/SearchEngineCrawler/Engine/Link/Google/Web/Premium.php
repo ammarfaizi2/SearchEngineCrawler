@@ -29,7 +29,7 @@ class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInt
      */
     public function getNodeList()
     {
-        return $this->xpath('//div[@id="tads"]/ol/li');
+        return $this->xpath('//div[@id="tvcap"]//ol/li');
     }
 
     /**
@@ -41,7 +41,7 @@ class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInt
     public function validateNode(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '/div/h3/a';
+        $nodePath .= '/h3/a';
         return $this->xpath($nodePath)->current();
     }
 
@@ -74,21 +74,20 @@ class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInt
      */
     public function getNodeRichSnippet(\DOMElement $node)
     {
-        // get products snippet
-        $products = array();
-        $nodePath = $node->getNodePath();
-        $nodePath .= '/div[contains(@class,"vsc")]//table[@class="ts"]//tr';
-        $links = $this->xpath($nodePath);
-        foreach($links as $link) {
-            $childs = $link->childNodes;
-            $products[] = array(
-                'link' => $childs->item(0)->firstChild->getAttribute('href'),
-                'content' => $childs->item(0)->firstChild->textContent,
-                'price' => (float)preg_replace("#[^\d\.\,]#", '', strtr($childs->item(2)->textContent, ',', '.')),
-            );
-        }
+        // get address snippet
+		$address = array();
 
-        return new RichSnippet(array('products' => $products));
+        $nodePath = $node->getNodePath();
+        $nodePath .= '//a[@class="ads-loc-addrpin-address-text"]';
+        $link = $this->xpath($nodePath)->current();
+		if($link) {
+			$address[] = array(
+				'link' => $link->getAttribute('href'),
+				'content' => $link->textContent,
+			);
+		}
+
+		return new RichSnippet(array('address' => $address));
     }
 
     /**
@@ -101,7 +100,7 @@ class Premium extends AbstractLink implements Features\NodeLinkAnchorProviderInt
         // get sitelinks extension
         $sitelinks = array();
         $nodePath = $node->getNodePath();
-        $nodePath .= '//div[@class="oslk"]/a';
+        $nodePath .= '//div[@class="ads-slk-oneline"]/a';
         $links = $this->xpath($nodePath);
         foreach($links as $link) {
             $sitelinks[] = array(

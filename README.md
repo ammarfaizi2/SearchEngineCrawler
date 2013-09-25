@@ -20,7 +20,7 @@ Requirement
 * libxml2 >= 2.7.8, see your version with
 
 ```sh
-php -r "phpinfo();" | grep "libxml2"
+php -i | grep "libxml2"
 ```
 
 Installation

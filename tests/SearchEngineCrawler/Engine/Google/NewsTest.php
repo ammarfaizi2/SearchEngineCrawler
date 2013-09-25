@@ -40,20 +40,20 @@ class NewsTest extends AbstractTest
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
-        $this->assertEquals(0, $newsResults = count($linkSet->getNewsResults()));
-        $this->assertEquals(10, $imageResults = count($linkSet->getImageResults()));
+        $this->assertEquals(10, $newsResults = count($linkSet->getNewsResults()));
+        $this->assertEquals(7, $imageResults = count($linkSet->getImageResults()));
         $this->assertEquals(0, $naturalResults = count($linkSet->getNaturalResults()));
         $this->assertEquals($newsResults+$imageResults+$naturalResults, count($linkSet));
 
         // tests details
-        $this->assertEquals('France Football', $linkSet->getNewsResults()->offsetGet(0)->getSource());
-        $this->assertEquals('DirectMatin.fr', $linkSet->getNewsResults()->offsetGet(1)->getSource());
-        $this->assertEquals('Le Point', $linkSet->getNewsResults()->offsetGet(2)->getSource());
-        $this->assertEquals('Pure People', $linkSet->getNewsResults()->offsetGet(3)->getSource());
-        $this->assertEquals('29 nov. 2012', $linkSet->getNewsResults()->offsetGet(3)->getDate());
-        $this->assertEquals('http://news.google.fr/news/tbn/Bu0RfPKGOoUJ/6.jpg', $linkSet->getNewsResults()->offsetGet(3)->getImage());
+        $this->assertEquals('Le 10 sport', $linkSet->getNewsResults()->offsetGet(0)->getSource());
+        $this->assertEquals('Maxifoot', $linkSet->getNewsResults()->offsetGet(1)->getSource());
+        $this->assertEquals('metronews', $linkSet->getNewsResults()->offsetGet(2)->getSource());
+        $this->assertEquals('Manchester Devils', $linkSet->getNewsResults()->offsetGet(3)->getSource());
+        $this->assertEquals('23 sept. 2013', $linkSet->getNewsResults()->offsetGet(4)->getDate());
+        $this->assertTrue(strpos($linkSet->getNewsResults()->offsetGet(3)->getImage(), 'https://encrypted-tbn0.gstatic.com/images#') == 0);
 
         // tests metadatas
-        $this->assertEquals(70100, (integer)$metadatasSet->getResults());
+        $this->assertEquals(1520000, (integer)$metadatasSet->getResults());
     }
 }

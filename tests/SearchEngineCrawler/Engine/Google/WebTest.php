@@ -36,6 +36,7 @@ class WebTest extends AbstractTest
             ),
             'metadatas' => $this->metadatas,
         ));
+		/** @var \SearchEngineCrawler\ResultSet\Link\ResultSet $linkSet */
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
@@ -70,22 +71,20 @@ class WebTest extends AbstractTest
             ),
             'metadatas' => $this->metadatas,
         ));
+		/** @var \SearchEngineCrawler\ResultSet\Link\ResultSet $linkSet */
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
-        $this->assertEquals(9, count($linkSet->getNaturalResults()));
+        $this->assertEquals(8, count($linkSet->getNaturalResults()));
         $this->assertEquals(0, count($linkSet->getImageResults()));
         $this->assertEquals(0, count($linkSet->getMapResults()));
         $this->assertEquals(0, count($linkSet->getNewsResults()));
         $this->assertEquals(0, count($linkSet->getPremiumResults()));
         $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
         $this->assertEquals(0, count($linkSet->getProductResults()));
-        $this->assertEquals(1, count($linkSet->getVideoResults()));
+        $this->assertEquals(2, count($linkSet->getVideoResults()));
         $this->assertEquals(10, count($linkSet));
-
-        // tests extension
-        $this->assertEquals(3, count($linkSet->getNaturalResults()->offsetGet(0)->getExtension()->getSitelinks()));
 
         // tests metadata
         $this->assertEquals(8, count($metadatasSet->getSuggest()));
@@ -104,19 +103,20 @@ class WebTest extends AbstractTest
             ),
             'metadatas' => $this->metadatas,
         ));
+		/** @var \SearchEngineCrawler\ResultSet\Link\ResultSet $linkSet */
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
-        $this->assertEquals(8, count($linkSet->getNaturalResults()));
-        $this->assertEquals(4, count($linkSet->getImageResults()));
-        $this->assertEquals(0, count($linkSet->getMapResults()));
-        $this->assertEquals(0, count($linkSet->getNewsResults()));
-        $this->assertEquals(0, count($linkSet->getPremiumResults()));
-        $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
-        $this->assertEquals(0, count($linkSet->getProductResults()));
-        $this->assertEquals(2, count($linkSet->getVideoResults()));
-        $this->assertEquals(14, count($linkSet));
+        $this->assertEquals(9, $p1= count($linkSet->getNaturalResults()));
+        $this->assertEquals(0, $p2= count($linkSet->getImageResults()));
+        $this->assertEquals(0, $p3= count($linkSet->getMapResults()));
+        $this->assertEquals(3, $p4= count($linkSet->getNewsResults()));
+        $this->assertEquals(0, $p5= count($linkSet->getPremiumResults()));
+        $this->assertEquals(0, $p6= count($linkSet->getPremiumBottomResults()));
+        $this->assertEquals(0, $p7= count($linkSet->getProductResults()));
+        $this->assertEquals(1, $p8= count($linkSet->getVideoResults()));
+        $this->assertEquals($p1+$p2+$p3+$p4+$p5+$p6+$p7+$p8, count($linkSet));
 
         // tests extension
         $this->assertEquals(4, count($linkSet->getNaturalResults()->offsetGet(0)->getExtension()->getSitelinks()));
@@ -138,6 +138,7 @@ class WebTest extends AbstractTest
             ),
             'metadatas' => $this->metadatas,
         ));
+		/** @var \SearchEngineCrawler\ResultSet\Link\ResultSet $linkSet */
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
@@ -151,10 +152,6 @@ class WebTest extends AbstractTest
         $this->assertEquals(0, count($linkSet->getProductResults()));
         $this->assertEquals(0, count($linkSet->getVideoResults()));
         $this->assertEquals(20, count($linkSet));
-
-        // tests extension
-        $this->assertEquals(2, count($linkSet->getPremiumResults()->offsetGet(1)->getExtension()->getSitelinks()));
-        // premium 3 has rating
 
         // tests metadata
         $this->assertEquals(8, count($metadatasSet->getSuggest()));
@@ -173,6 +170,7 @@ class WebTest extends AbstractTest
             ),
             'metadatas' => $this->metadatas,
         ));
+		/** @var \SearchEngineCrawler\ResultSet\Link\ResultSet $linkSet */
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
@@ -182,16 +180,15 @@ class WebTest extends AbstractTest
         $this->assertEquals(0, count($linkSet->getMapResults()));
         $this->assertEquals(3, count($linkSet->getNewsResults()));
         $this->assertEquals(3, count($linkSet->getPremiumResults()));
-        $this->assertEquals(3, count($linkSet->getPremiumBottomResults()));
+        $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
         $this->assertEquals(0, count($linkSet->getProductResults()));
         $this->assertEquals(0, count($linkSet->getVideoResults()));
-        $this->assertEquals(19, count($linkSet));
+        $this->assertEquals(16, count($linkSet));
 
         // tests extension
-        $this->assertEquals(4, count($linkSet->getNaturalResults()->offsetGet(1)->getExtension()->getSitelinks()));
-        $this->assertEquals(2, count($linkSet->getNaturalResults()->offsetGet(2)->getExtension()->getSitelinks()));
-        $this->assertEquals(4, count($linkSet->getNaturalResults()->offsetGet(3)->getExtension()->getSitelinks()));
-        $this->assertEquals(2, count($linkSet->getPremiumBottomResults()->offsetGet(1)->getExtension()->getSitelinks()));
+        $this->assertEquals(4, count($linkSet->getNaturalResults()->offsetGet(0)->getExtension()->getSitelinks()));
+        $this->assertEquals(0, count($linkSet->getNaturalResults()->offsetGet(1)->getExtension()->getSitelinks()));
+        $this->assertEquals(4, count($linkSet->getPremiumResults()->offsetGet(0)->getExtension()->getSitelinks()));
 
         // tests metadata
         $this->assertEquals(8, count($metadatasSet->getSuggest()));
@@ -210,19 +207,20 @@ class WebTest extends AbstractTest
             ),
             'metadatas' => $this->metadatas,
         ));
+		/** @var \SearchEngineCrawler\ResultSet\Link\ResultSet $linkSet */
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
-        $this->assertEquals(7, count($linkSet->getNaturalResults()));
-        $this->assertEquals(5, count($linkSet->getImageResults()));
+        $this->assertEquals(9, count($linkSet->getNaturalResults()));
+        $this->assertEquals(0, count($linkSet->getImageResults()));
         $this->assertEquals(0, count($linkSet->getMapResults()));
         $this->assertEquals(3, count($linkSet->getNewsResults()));
         $this->assertEquals(0, count($linkSet->getPremiumResults()));
         $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
         $this->assertEquals(0, count($linkSet->getProductResults()));
-        $this->assertEquals(3, count($linkSet->getVideoResults()));
-        $this->assertEquals(18, count($linkSet));
+        $this->assertEquals(1, count($linkSet->getVideoResults()));
+        $this->assertEquals(13, count($linkSet));
 
         // tests metadata
         $this->assertEquals(8, count($metadatasSet->getSuggest()));
@@ -241,18 +239,19 @@ class WebTest extends AbstractTest
             ),
             'metadatas' => $this->metadatas,
         ));
+		/** @var \SearchEngineCrawler\ResultSet\Link\ResultSet $linkSet */
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
-        $this->assertEquals(7, count($linkSet->getNaturalResults()));
+        $this->assertEquals(9, count($linkSet->getNaturalResults()));
         $this->assertEquals(0, count($linkSet->getImageResults()));
         $this->assertEquals(0, count($linkSet->getMapResults()));
         $this->assertEquals(3, count($linkSet->getNewsResults()));
         $this->assertEquals(0, count($linkSet->getPremiumResults()));
         $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
         $this->assertEquals(0, count($linkSet->getProductResults()));
-        $this->assertEquals(3, count($linkSet->getVideoResults()));
+        $this->assertEquals(1, count($linkSet->getVideoResults()));
         $this->assertEquals(13, count($linkSet));
 
         // tests metadata
@@ -272,22 +271,24 @@ class WebTest extends AbstractTest
             ),
             'metadatas' => $this->metadatas,
         ));
+		/** @var \SearchEngineCrawler\ResultSet\Link\ResultSet $linkSet */
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
         $this->assertEquals(10, count($linkSet->getNaturalResults()));
-        $this->assertEquals(0, count($linkSet->getImageResults()));
+        $this->assertEquals(4, count($linkSet->getImageResults()));
         $this->assertEquals(0, count($linkSet->getMapResults()));
         $this->assertEquals(0, count($linkSet->getNewsResults()));
         $this->assertEquals(3, count($linkSet->getPremiumResults()));
         $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
-        $this->assertEquals(3, count($linkSet->getProductResults()));
+        $this->assertEquals(0, count($linkSet->getProductResults()));
         $this->assertEquals(0, count($linkSet->getVideoResults()));
-        $this->assertEquals(16, count($linkSet));
+        $this->assertEquals(17, count($linkSet));
 
         // tests extension
-        $this->assertEquals(3, count($linkSet->getPremiumResults()->offsetGet(0)->getRichSnippet()->getProducts()));
+        $this->assertEquals(4, count($linkSet->getPremiumResults()->offsetGet(0)->getExtension()->getSitelinks()));
+        $this->assertEquals(1, count($linkSet->getPremiumResults()->offsetGet(0)->getRichSnippet()->getAddress()));
 
         // tests metadata
         $this->assertEquals(8, count($metadatasSet->getSuggest()));
@@ -306,22 +307,23 @@ class WebTest extends AbstractTest
             ),
             'metadatas' => $this->metadatas,
         ));
+		/** @var \SearchEngineCrawler\ResultSet\Link\ResultSet $linkSet */
         $linkSet = $set->getPage(1)->getLinks();
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
-        $this->assertEquals(9, count($linkSet->getNaturalResults()));
+        $this->assertEquals(10, count($linkSet->getNaturalResults()));
         $this->assertEquals(4, count($linkSet->getImageResults()));
-        $this->assertEquals(4, count($linkSet->getMapResults()));
+        $this->assertEquals(7, count($linkSet->getMapResults()));
         $this->assertEquals(0, count($linkSet->getNewsResults()));
         $this->assertEquals(3, count($linkSet->getPremiumResults()));
         $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
-        $this->assertEquals(3, count($linkSet->getProductResults()));
+        $this->assertEquals(0, count($linkSet->getProductResults()));
         $this->assertEquals(0, count($linkSet->getVideoResults()));
-        $this->assertEquals(23, count($linkSet));
+        $this->assertEquals(24, count($linkSet));
 
         // tests extension
-        $this->assertEquals(4, count($linkSet->getPremiumResults()->offsetGet(0)->getExtension()->getSitelinks()));
+        $this->assertEquals(4, count($linkSet->getPremiumResults()->offsetGet(1)->getExtension()->getSitelinks()));
         // premium 1 & 3 has rating
 
         // tests metadata
