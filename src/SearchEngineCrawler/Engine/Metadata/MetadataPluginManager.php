@@ -8,9 +8,7 @@
 
 namespace SearchEngineCrawler\Engine\Metadata;
 
-use Zend\ServiceManager\AbstractPluginManager;
-
-class MetadataPluginManager extends AbstractPluginManager
+class MetadataPluginManager
 {
     protected $invokableClasses = array(
         'googlewebresults'          => 'SearchEngineCrawler\Engine\Metadata\Google\Web\Results',
@@ -23,6 +21,20 @@ class MetadataPluginManager extends AbstractPluginManager
         'googleshoppingresults'     => 'SearchEngineCrawler\Engine\Metadata\Google\Shopping\Results',
         'googleshoppingsuggest'     => 'SearchEngineCrawler\Engine\Metadata\Google\Shopping\Suggest',
     );
+
+	protected $instances = array();
+
+	public function get($name)
+	{
+		if(isset($this->instances[$name])) {
+			return $this->instances[$name];
+		}
+		$service = $this->invokableClasses[$name];
+		$service = new $service();
+		$this->validatePlugin($service);
+		$this->instances[$name] = $service;
+		return $service;
+	}
 
     public function validatePlugin($plugin)
     {

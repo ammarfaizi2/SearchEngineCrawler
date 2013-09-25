@@ -1,12 +1,12 @@
-ZF2 SearchEngineCrawler module
+Google Search Engine Crawler
 ===================
 
-Version 0.4.2 Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
+Version 0.4.X Created by [Vincent Blanchon](http://developpeur-zend-framework.fr/)
 
 Introduction
 ------------
 
-SearchEngineCrawler is a SEO/SEA/SMO crawler.
+SearchEngineCrawler is a SEO/SEA/SMO crawler. The crawler use native PHP and the two packages from Zend Framework 2.
 
 **This project need contributors to keep up to date the project & improve the tests to keep project more stable.**
 
@@ -17,20 +17,34 @@ This work is licensed under a [Creative Commons Attribution-NonCommercial 3.0 Un
 Requirement
 ------------
 * PHP 5.3.3
-* ZF2.0.0
 * libxml2 >= 2.7.8, see your version with
 
 ```php
 php -r "phpinfo();" | grep "libxml2"
 ```
 
-Usage
+Installation
+------------
+
+* Install composer :
+```php
+curl -sS https://getcomposer.org/installer | php
+```
+
+Use composer to install the crawler :
+```php
+php composer.phar require blanchonvincent/search-engine-crawler:dev-master
+```
+
+Usage in native PHP
 ------------
 
 A simple search on Google Web :
 
 ```php
-$googleWeb = $this->getServiceLocator('crawler_google_web');
+require_once __DIR__ . '/vendor/autoload.php';
+
+$googleWeb = new \SearchEngineCrawler\Engine\Google\Web();
 $match = $googleWeb->match('zend framework', 'http://framework.zend.com');
 
 echo sprintf('Link has found in position "%s"', $match->getPosition());
@@ -40,12 +54,16 @@ echo sprintf('Link has found in page "%s"', $match->getPage());
 You can specify type of links, lang, match options, etc :
 
 ```php
-$googleWeb = $this->getServiceLocator('crawler_google_web');
+require_once __DIR__ . '/vendor/autoload.php';
+
+use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
+
+$googleWeb = new \SearchEngineCrawler\Engine\Google\Web();
 $match = $googleWeb->match('zend framework', 'http://framework.zend.com', array(
     'links' => array('natural', 'image', 'video'),
     'builder' => array(
-        'lang' => 'fr', // en by default
-        'host' => 'fr', // com by default
+        'lang' => GoogleLinkBuilder::LANG_FR, // en by default
+        'host' => GoogleLinkBuilder::HOST_FR, // com by default
     ),
     'match' => array(
         'strictMode' => true, // each uri path must match strictly, true by default
@@ -60,12 +78,16 @@ echo sprintf('Link has found in page "%s"', $match->getPage());
 A simple crawl on Google Web :
 
 ```php
-$googleWeb = $this->getServiceLocator('crawler_google_web');
+require_once __DIR__ . '/vendor/autoload.php';
+
+use SearchEngineCrawler\Engine\Link\Builder\Google\AbstractGoogle as GoogleLinkBuilder;
+
+$googleWeb = new \SearchEngineCrawler\Engine\Google\Web();
 $set = $googleWeb->crawl('rooney', array(
     'links' => array('natural', 'image', 'video'),
     'builder' => array(
-        'lang' => 'fr', // en by default
-        'host' => 'fr', // com by default
+        'lang' => GoogleLinkBuilder::LANG_FR, // en by default
+        'host' => GoogleLinkBuilder::HOST_FR, // com by default
     ),
 ));
 $linkSet = $set->getPage(1)->getLinks();
@@ -107,9 +129,8 @@ Link informations :
 Todo
 ------------
 
-ZF2 module :
-* action helper to crawl/search
-* view helper to render set of result
+Dep :
+* improve manager (Link et MetaData) after the SM dep removal
 
 Crawl on :
 * Youtube (premium & bottom premium) + metadatas

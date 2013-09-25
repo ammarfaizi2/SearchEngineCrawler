@@ -6,7 +6,8 @@
  * This work is licensed under a [Creative Commons Attribution-NonCommercial 3.0 Unported License](http://creativecommons.org/licenses/by-nc/3.0/).
  */
 
-require_once __DIR__ . '/../../zf2/library/Zend/Loader/AutoloaderFactory.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
 Zend\Loader\AutoloaderFactory::factory(array(
     'Zend\Loader\StandardAutoloader' => array(
         'autoregister_zf' => true,

@@ -4,3 +4,7 @@ README.txt
 demos/
 extras/documentation
 nbproject/
+vendor/
+.idea/
+composer.phar
+composer.lock

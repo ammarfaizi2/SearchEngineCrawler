@@ -8,9 +8,7 @@
 
 namespace SearchEngineCrawler\Engine\Link;
 
-use Zend\ServiceManager\AbstractPluginManager;
-
-class LinkPluginManager extends AbstractPluginManager
+class LinkPluginManager
 {
     protected $invokableClasses = array(
         // google web
@@ -37,6 +35,20 @@ class LinkPluginManager extends AbstractPluginManager
         'youtubeyoutubepremium'         => 'SearchEngineCrawler\Engine\Link\Youtube\Youtube\Premium',
         'youtubeyoutubepremiumbottom'   => 'SearchEngineCrawler\Engine\Link\Youtube\Youtube\PremiumBottom',
     );
+
+	protected $instances = array();
+
+	public function get($name)
+	{
+		if(isset($this->instances[$name])) {
+			return $this->instances[$name];
+		}
+		$service = $this->invokableClasses[$name];
+		$service = new $service();
+		$this->validatePlugin($service);
+		$this->instances[$name] = $service;
+		return $service;
+	}
 
     public function validatePlugin($plugin)
     {

@@ -8,7 +8,6 @@
 
 namespace SearchEngineCrawler\Engine\Link\Builder;
 
-use Zend\Validator\Hostname;
 use Zend\Stdlib\Exception\InvalidArgumentException;
 
 abstract class AbstractBuilder implements BuilderInterface
