@@ -14,7 +14,7 @@ class Suggest extends AbstractMetadata
 {
     public function find()
     {
-        $nodes = $this->xpath('//span[@id="prs"]//span[@class="pr"]//a/span');
+        $nodes = $this->xpath('//div[@id="topstuff"]/div[@class="tqref"]//a');
         $suggest = array();
         foreach($nodes as $node) {
             $suggest[] = $node->textContent;

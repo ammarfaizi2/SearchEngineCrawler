@@ -33,7 +33,7 @@ class NewsTest extends AbstractTest
             'strictMode' => false,
             'strictDns' => false,
         ));
-        $match = $this->engine->match($this->keyword, 'http://www.directmatin.fr/', array(
+        $match = $this->engine->match($this->keyword, 'http://www.maxifoot.fr//', array(
             'links' => $this->links,
             'builder' => array(
                 'lang' => GoogleLinkBuilder::LANG_FR,
@@ -41,7 +41,7 @@ class NewsTest extends AbstractTest
             ),
         ));
         $this->assertEquals(true, $match instanceof Match);
-        $this->assertEquals($match->getPosition(), 3);
+        $this->assertEquals($match->getPosition(), 2);
         $this->assertEquals($match->getPage(), 1);
     }
 }

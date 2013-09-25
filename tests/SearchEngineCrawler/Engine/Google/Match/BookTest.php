@@ -40,7 +40,7 @@ class BookTest extends AbstractTest
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
         ));
-        $this->assertEquals(true, $match instanceof Match);
+        $this->assertTrue($match instanceof Match);
         $this->assertEquals($match->getPosition(), 1);
         $this->assertEquals($match->getPage(), 1);
     }

@@ -39,20 +39,23 @@ class Natural extends AbstractLink implements Features\NodeLinkAnchorProviderInt
      */
     public function validateNode(\DOMElement $node)
     {
-        // natural have never style
-        if($node->hasAttribute('style')) {
-            return null;
-        }
+		// test image preview
+		$nodePath = $node->getNodePath();
+		$nodePath .= '//img[starts-with(@id,"vidthumb")]';
+		$image = $this->xpath($nodePath)->current();
+		if($image) {
+			return null;
+		}
         // natural have not empty description
         $nodePath = $node->getNodePath();
-        $nodePath .= '/div[@class="vsc"]/div[@class="s"]//span[@class="st"]';
+        $nodePath .= '/div[@class="rc"]/div[@class="s"]//span[@class="st"]';
         $description = $this->xpath($nodePath)->current();
         if(null === $description || empty($description->textContent)) {
             return null;
         }
         // natural must be have link
         $nodePath = $node->getNodePath();
-        $nodePath .= '/div[@class="vsc"]/h3[@class="r"]/a[@class="l"]';
+        $nodePath .= '/div[@class="rc"]/h3[@class="r"]/a';
         return $this->xpath($nodePath)->current();
     }
 

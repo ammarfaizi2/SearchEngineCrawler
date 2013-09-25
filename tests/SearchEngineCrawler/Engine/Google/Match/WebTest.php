@@ -45,7 +45,7 @@ class WebTest extends AbstractTest
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
         ));
-        $this->assertEquals(true, $match instanceof Match);
+        $this->assertTrue($match instanceof Match);
         $this->assertEquals($match->getPosition(), 1);
         $this->assertEquals($match->getPage(), 1);
     }
@@ -66,8 +66,8 @@ class WebTest extends AbstractTest
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
         ));
-        $this->assertEquals(true, $match instanceof Match);
-        $this->assertEquals($match->getPosition(), 3);
+        $this->assertTrue($match instanceof Match);
+        $this->assertEquals($match->getPosition(), 2);
         $this->assertEquals($match->getPage(), 1);
     }
 
@@ -87,8 +87,8 @@ class WebTest extends AbstractTest
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
         ));
-        $this->assertEquals(true, $match instanceof Match);
-        $this->assertEquals($match->getPosition(), 3);
+        $this->assertTrue($match instanceof Match);
+        $this->assertEquals($match->getPosition(), 2);
         $this->assertEquals($match->getPage(), 1);
     }
 
@@ -108,7 +108,7 @@ class WebTest extends AbstractTest
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
         ));
-        $this->assertEquals(true, $match instanceof Match);
+        $this->assertTrue($match instanceof Match);
         $this->assertEquals($match->getPosition(), 1);
         $this->assertEquals($match->getPage(), 1);
     }
@@ -117,7 +117,6 @@ class WebTest extends AbstractTest
     {
         $this->keywordRegister('zend framework');
 
-        $crawlerMatch = $this->engine->getCrawlerMatch();
         $match = $this->engine->match($this->keyword, 'http://zend.com', array(
             'links' => $this->links,
             'builder' => array(
@@ -129,7 +128,7 @@ class WebTest extends AbstractTest
                 'strictDns' => false,
             ),
         ));
-        $this->assertEquals(true, $match instanceof Match);
+        $this->assertTrue($match instanceof Match);
         $this->assertEquals($match->getPosition(), 1);
         $this->assertEquals($match->getPage(), 1);
     }
@@ -138,7 +137,6 @@ class WebTest extends AbstractTest
     {
         $this->keywordRegister('recette gateau au chocolat');
 
-        $crawlerMatch = $this->engine->getCrawlerMatch();
         $match = $this->engine->match($this->keyword, 'http://gateau.com/gateau-au-chocolat-moelleux.htm', array(
             'links' => $this->links,
             'builder' => array(
@@ -150,8 +148,8 @@ class WebTest extends AbstractTest
                 'strictDns' => true,
             ),
         ));
-        $this->assertEquals(true, $match instanceof Match);
-        $this->assertEquals($match->getPosition(), 4);
+        $this->assertTrue($match instanceof Match);
+        $this->assertEquals($match->getPosition(), 2);
         $this->assertEquals($match->getPage(), 1);
     }
 
@@ -159,8 +157,7 @@ class WebTest extends AbstractTest
     {
         $this->keywordRegister('rooney');
 
-        $crawlerMatch = $this->engine->getCrawlerMatch();
-        $match = $this->engine->match($this->keyword, 'http://www.rooney-band.com/', array(
+        $match = $this->engine->match($this->keyword, 'http://www.eurosport.fr/', array(
             'links' => $this->links,
             'builder' => array(
                 'lang' => GoogleLinkBuilder::LANG_FR,
@@ -171,7 +168,7 @@ class WebTest extends AbstractTest
                 'strictDns' => false,
             ),
         ));
-        $this->assertEquals(true, $match instanceof Match);
+        $this->assertTrue($match instanceof Match);
         $this->assertEquals($match->getPosition(), 8);
         $this->assertEquals($match->getPage(), 1);
     }

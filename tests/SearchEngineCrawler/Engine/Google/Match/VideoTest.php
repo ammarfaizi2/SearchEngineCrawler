@@ -33,14 +33,14 @@ class VideoTest extends AbstractTest
             'strictMode' => false,
             'strictDns' => false,
         ));
-        $match = $this->engine->match($this->keyword, 'http://greatsong.net/', array(
+        $match = $this->engine->match($this->keyword, 'http://www.gentside.com/', array(
             'links' => $this->links,
             'builder' => array(
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
         ));
-        $this->assertEquals(true, $match instanceof Match);
+        $this->assertTrue($match instanceof Match);
         $this->assertEquals($match->getPosition(), 5);
         $this->assertEquals($match->getPage(), 1);
     }

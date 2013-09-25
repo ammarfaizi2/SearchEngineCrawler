@@ -40,12 +40,12 @@ class BookTest extends AbstractTest
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
-        $this->assertEquals(10, count($linkSet->getBookResults()));
-        $this->assertEquals(1, count($linkSet->getPremiumResults()));
-        $this->assertEquals(11, count($linkSet));
+        $this->assertEquals(10, $bookResults = count($linkSet->getBookResults()));
+        $this->assertEquals(2, $premiumReuslts = count($linkSet->getPremiumResults()));
+        $this->assertEquals($bookResults+$premiumReuslts, count($linkSet));
 
         // test metadatas
-        $this->assertEquals(11600, (integer)$metadatasSet->getResults());
+        $this->assertEquals(12600, (integer)$metadatasSet->getResults());
 
         // test details
         $this->assertEquals(
@@ -53,7 +53,7 @@ class BookTest extends AbstractTest
             $linkSet->getBookResults()->offsetGet(2)->getAnchor()
         );
         $this->assertEquals(
-            array('John Coggeshall', 'Morgan Tocker'),
+            array('Rob Allen', 'Nick Lo', 'Steven Brown'),
             $linkSet->getBookResults()->offsetGet(7)->getAuthor()
         );
         $this->assertEquals(

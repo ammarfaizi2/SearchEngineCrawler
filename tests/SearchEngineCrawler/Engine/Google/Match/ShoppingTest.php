@@ -33,15 +33,15 @@ class ShoppingTest extends AbstractTest
             'strictMode' => false,
             'strictDns' => false,
         ));
-        $match = $this->engine->match($this->keyword, 'http://bonnesaffaires.prixmoinscher.com/', array(
+        $match = $this->engine->match($this->keyword, 'http://www.infurn.com/', array(
             'links' => $this->links,
             'builder' => array(
                 'lang' => GoogleLinkBuilder::LANG_FR,
                 'host' => GoogleLinkBuilder::HOST_FR,
             ),
         ));
-        $this->assertEquals(true, $match instanceof Match);
-        $this->assertEquals($match->getPosition(), 2);
+        $this->assertTrue($match instanceof Match);
+        $this->assertEquals($match->getPosition(), 10);
         $this->assertEquals($match->getPage(), 1);
     }
 }

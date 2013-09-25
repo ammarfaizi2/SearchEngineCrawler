@@ -40,16 +40,16 @@ class ShoppingTest extends AbstractTest
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
-        $this->assertEquals(3, count($linkSet->getPremiumResults()));
-        $this->assertEquals(3, count($linkSet->getPremiumBottomResults()));
-        $this->assertEquals(10, count($linkSet->getProductResults()));
-        $this->assertEquals(16, count($linkSet));
+        $this->assertEquals(0, $premiumResults = count($linkSet->getPremiumResults()));
+        $this->assertEquals(3, $premiumBottomResults = count($linkSet->getPremiumBottomResults()));
+        $this->assertEquals(20, $productResults = count($linkSet->getProductResults()));
+        $this->assertEquals($premiumResults+$premiumBottomResults+$productResults, count($linkSet));
 
         // tests details
         $price = $linkSet->getProductResults()->offsetGet(0)->getPrice();
-        $this->assertEquals('239', (integer)$price);
+        $this->assertEquals('110', (integer)$price);
 
         // tests metadatas
-        $this->assertEquals(31300, (integer)$metadatasSet->getResults());
+        $this->assertEquals(34300, (integer)$metadatasSet->getResults());
     }
 }

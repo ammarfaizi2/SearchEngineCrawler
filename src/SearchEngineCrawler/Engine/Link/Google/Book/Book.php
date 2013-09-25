@@ -90,7 +90,7 @@ class Book extends AbstractLink implements Features\NodeLinkAnchorProviderInterf
     public function getNodeAuthor(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '//div[@class="f"]/a[contains(@href,"=inauthor:")]';
+        $nodePath .= '//div[contains(@class,"slp")]/a[contains(@href,"=inauthor:")]';
         $authors = array();
         $links = $this->xpath($nodePath);
         foreach($links as $link) {
@@ -107,9 +107,12 @@ class Book extends AbstractLink implements Features\NodeLinkAnchorProviderInterf
     public function getNodeDate(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '//div[@class="f"]';
-        $links = $this->xpath($nodePath)->current();
-        preg_match('# (?P<date>(1|2)\d{3}) #', $links->textContent, $regs);
+        $nodePath .= '//div[contains(@class,"slp")]';
+        $link = $this->xpath($nodePath)->current();
+		if(!$link) {
+			return null;
+		}
+        preg_match('# (?P<date>(1|2)\d{3}) #', $link->textContent, $regs);
         if(!isset($regs['date'])) {
             return null;
         }

@@ -6,7 +6,7 @@ Version 0.4.X Created by [Vincent Blanchon](http://developpeur-zend-framework.fr
 Introduction
 ------------
 
-SearchEngineCrawler is a SEO/SEA/SMO crawler. The crawler use native PHP and the two packages from Zend Framework 2.
+SearchEngineCrawler is a SEO/SEA/SMO crawler. The crawler use native PHP and several packages from Zend Framework 2.
 
 **This project need contributors to keep up to date the project & improve the tests to keep project more stable.**
 
@@ -125,12 +125,15 @@ Link informations :
 * Extension : sitelinks
 * Rich snippets : products & price
 
+Tests
+------------
+
+* Use ./run.sh to run unit tests
+* Use ./debug.sh to run unit tests with stop on failure
+* Use ./clean.sh to clean pages results (todo)
 
 Todo
 ------------
-
-Code :
-* improve manager (Link et MetaData) after the ZF2 Service Manager dependence removal
 
 Crawl on :
 * Youtube (premium & bottom premium) + metadatas

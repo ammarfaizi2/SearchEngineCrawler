@@ -27,7 +27,7 @@ class Product extends AbstractLink implements Features\NodeLinkAnchorProviderInt
      */
     public function getNodeList()
     {
-        return $this->xpath('//ol[@id="rso"]/li[contains(@class,"psli")]');
+        return $this->xpath('//ol[@id="rso"]/li[contains(@class,"g psgi")]');
     }
 
     /**
@@ -39,7 +39,7 @@ class Product extends AbstractLink implements Features\NodeLinkAnchorProviderInt
     public function validateNode(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '//div[@class="psliprice"]';
+        $nodePath .= '//span[@class="psrp"]';
         return $this->xpath($nodePath)->current();
     }
 
@@ -51,12 +51,14 @@ class Product extends AbstractLink implements Features\NodeLinkAnchorProviderInt
     public function getNodeLink(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '//div[@class="pslimain"]/h3/a';
+        $nodePath .= '//div[@class="psgicont"]/h3[@class="psrt"]/a';
         $link = $this->xpath($nodePath)->current();
         $href = $link->getAttribute('href');
-        if(preg_match('#^/#', $href)) {
-            $href = 'http://www.google.com' . $href;
-        }
+        if(preg_match('#adurl=(?P<domain>.*)$#', $href, $regs)) {
+			$href = $regs['domain'];
+		} else if(preg_match('#^/#', $href)) {
+			$href = 'http://www.google.com' . $href;
+		}
         return $href;
     }
 
@@ -68,7 +70,7 @@ class Product extends AbstractLink implements Features\NodeLinkAnchorProviderInt
     public function getNodeLinkAnchor(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '//div[@class="pslimain"]/h3/a';
+		$nodePath .= '//div[@class="psgicont"]/h3[@class="psrt"]/a';
         $link = $this->xpath($nodePath)->current();
         return $link->textContent;
     }
@@ -81,7 +83,7 @@ class Product extends AbstractLink implements Features\NodeLinkAnchorProviderInt
     public function getNodeImageSource(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '//a[@class="psliimg"]/img';
+        $nodePath .= '//a[@class="psgiimg"]/img';
         $img = $this->xpath($nodePath)->current();
         return $img->getAttribute('src');
     }

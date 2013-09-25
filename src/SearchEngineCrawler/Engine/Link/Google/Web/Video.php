@@ -51,7 +51,7 @@ class Video extends AbstractLink implements Features\NodeLinkAnchorProviderInter
     public function getNodeLink(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '/div[@class="vsc"]//h3[@class="r"]/a[@class="l"]';
+        $nodePath .= '/div[@class="rc"]//h3[@class="r"]/a';
         $link = $this->xpath($nodePath)->current();
         return $link->getAttribute('href');
     }
@@ -64,9 +64,9 @@ class Video extends AbstractLink implements Features\NodeLinkAnchorProviderInter
     public function getNodeLinkAnchor(\DOMElement $node)
     {
         $nodePath = $node->getNodePath();
-        $nodePath .= '/div[@class="vsc"]//h3[@class="r"]/a[@class="l"]';
-        $link = $this->xpath($nodePath)->current();
-        return $node->textContent;
+        $nodePath .= '/div[@class="rc"]//h3[@class="r"]/a';
+		$link = $this->xpath($nodePath)->current();
+        return $link->textContent;
     }
 
     /**
@@ -78,7 +78,7 @@ class Video extends AbstractLink implements Features\NodeLinkAnchorProviderInter
     {
         $nodePath = $node->getNodePath();
         $nodePath .= '//img[starts-with(@id,"vidthumb")]';
-        $link = $this->xpath($nodePath)->current();
-        return $node->getAttribute('src');
+		$link = $this->xpath($nodePath)->current();
+        return $link->getAttribute('src');
     }
 }

@@ -40,10 +40,10 @@ class NewsTest extends AbstractTest
         $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
-        $this->assertEquals(12, count($linkSet->getNewsResults()));
-        $this->assertEquals(7, count($linkSet->getImageResults()));
-        $this->assertEquals(1, count($linkSet->getNaturalResults()));
-        $this->assertEquals(20, count($linkSet));
+        $this->assertEquals(0, $newsResults = count($linkSet->getNewsResults()));
+        $this->assertEquals(10, $imageResults = count($linkSet->getImageResults()));
+        $this->assertEquals(0, $naturalResults = count($linkSet->getNaturalResults()));
+        $this->assertEquals($newsResults+$imageResults+$naturalResults, count($linkSet));
 
         // tests details
         $this->assertEquals('France Football', $linkSet->getNewsResults()->offsetGet(0)->getSource());
