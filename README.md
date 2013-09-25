@@ -19,7 +19,7 @@ Requirement
 * PHP 5.3.3
 * libxml2 >= 2.7.8, see your version with
 
-```php
+```sh
 php -r "phpinfo();" | grep "libxml2"
 ```
 
@@ -27,12 +27,12 @@ Installation
 ------------
 
 * Install composer :
-```php
+```sh
 curl -sS https://getcomposer.org/installer | php
 ```
 
 Use composer to install the crawler :
-```php
+```sh
 php composer.phar require blanchonvincent/search-engine-crawler:dev-master
 ```
 
