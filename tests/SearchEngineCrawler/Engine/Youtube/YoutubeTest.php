@@ -32,12 +32,11 @@ class YoutubeTest extends AbstractTest
             'metadatas' => $this->metadatas,
         ));
         $linkSet = $set->getPage(1)->getLinks();
-        $metadatasSet = $set->getPage(1)->getMetadatas();
 
         // tests type of links
-        $this->assertEquals(20, count($linkSet->getVideoResults()));
-        $this->assertEquals(1, count($linkSet->getPremiumResults()));
-        $this->assertEquals(1, count($linkSet->getPremiumBottomResults()));
-        $this->assertEquals(22, count($linkSet));
+        $this->assertEquals(19, count($linkSet->getVideoResults()));
+        $this->assertEquals(0, count($linkSet->getPremiumResults()));
+        $this->assertEquals(0, count($linkSet->getPremiumBottomResults()));
+        $this->assertEquals(19, count($linkSet));
     }
 }

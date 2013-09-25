@@ -34,9 +34,9 @@ class YoutubeTest extends AbstractTest
             'metadatas' => $this->metadatas,
         ));
         $this->assertEquals(true, $match instanceof Match);
-        $this->assertEquals($match->getPosition(), 4);
+        $this->assertEquals($match->getPosition(), 7);
         $this->assertEquals($match->getPage(), 1);
         $this->assertEquals($match->getLink()->getAuthor(), array('LadyGagaVEVO'));
-        $this->assertEquals($match->getLink()->getViews(), 180952227);
+        $this->assertEquals($match->getLink()->getViews(), 193515253);
     }
 }
